@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Posts on My blog</title>
+    <link>https://ownvoy.github.io/ownogatari/posts/</link>
+    <description>Recent content in Posts on My blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 15 Sep 2023 23:39:07 +0900</lastBuildDate><atom:link href="https://ownvoy.github.io/ownogatari/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Test</title>
+      <link>https://ownvoy.github.io/ownogatari/posts/test/</link>
+      <pubDate>Fri, 15 Sep 2023 23:39:07 +0900</pubDate>
+      
+      <guid>https://ownvoy.github.io/ownogatari/posts/test/</guid>
+      <description>This is a test page! I am going to write dev blog.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -16,5 +16,14 @@
       <description>This is test page! I am going to write dev blog.</description>
     </item>
     
+    <item>
+      <title>Test</title>
+      <link>https://ownvoy.github.io/ownogatari/posts/test/</link>
+      <pubDate>Fri, 15 Sep 2023 23:39:07 +0900</pubDate>
+      
+      <guid>https://ownvoy.github.io/ownogatari/posts/test/</guid>
+      <description>This is a test page! I am going to write dev blog.</description>
+    </item>
+    
   </channel>
 </rss>
