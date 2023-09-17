@@ -13,7 +13,7 @@
       <pubDate>Fri, 15 Sep 2023 23:39:07 +0900</pubDate>
       
       <guid>https://ownogatari.xyz/posts/test/</guid>
-      <description>This is a test page!! I am going to write dev blogs. $1$</description>
+      <description>This is a test page!! $1$ I am going to write dev blogs. $$1$$ \(a \ne b\) 가나요\({^3}\)</description>
     </item>
     
   </channel>
