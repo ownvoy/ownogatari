@@ -6,7 +6,26 @@
     <description>Recent content in Posts on 미래사회와 창의혁신인재</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 15 Sep 2023 23:39:07 +0900</lastBuildDate><atom:link href="https://ownogatari.xyz/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 23 Sep 2023 00:53:01 +0900</lastBuildDate><atom:link href="https://ownogatari.xyz/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Ddpg</title>
+      <link>https://ownogatari.xyz/posts/ddpg/</link>
+      <pubDate>Sat, 23 Sep 2023 00:53:01 +0900</pubDate>
+      
+      <guid>https://ownogatari.xyz/posts/ddpg/</guid>
+      <description>0. BackGround observation: \(x_t\)
+state: \(s_t\)
+state: \(a_t\)
+reward: \(r_t\)
+policy: \(\pi, \ \ S \to P(A)\)
+transition dynamics : \(p(s_{t+1} \mid s_t,a_t)\)
+discounted future reward : \(R_T = \sum_{i=t}^{T}\gamma^{(i-t)}r(s_i,a_i)\)
+objective function: \(E_{r_i,s_i \sim E, a_i \sim \pi}[R_1]\)
+\(Q^{\pi}(s_t,a_t) = E_{r_i\geq t, s_i &amp;gt;t \sim E , a_i &amp;gt; t \sim \pi}[R_t \mid s_t, a_t]\)
+\(Q^{\pi}(s_t,a_t) = E_{r_t,s_{t+1} \sim E} [r(s_t,a_t)+ \gamma E_{a_{t+1} \sim \pi} [Q^{\pi}(s_{t+1}, a_{t+1})]]\)
+\(Q^{\mu}(s_t,a_t) = E_{r_t,s_{t+1} \sim E} [r(s_t,a_t)+ \gamma Q^{\mu}(s_{t+1}, \mu(s_{t+1}))]\)</description>
+    </item>
+    
     <item>
       <title>Test</title>
       <link>https://ownogatari.xyz/posts/test/</link>

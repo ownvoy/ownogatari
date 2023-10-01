@@ -151,6 +151,28 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2>Ddpg
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>0. BackGround observation: \(x_t\)
+state: \(s_t\)
+state: \(a_t\)
+reward: \(r_t\)
+policy: \(\pi, \ \ S \to P(A)\)
+transition dynamics : \(p(s_{t&#43;1} \mid s_t,a_t)\)
+discounted future reward : \(R_T = \sum_{i=t}^{T}\gamma^{(i-t)}r(s_i,a_i)\)
+objective function: \(E_{r_i,s_i \sim E, a_i \sim \pi}[R_1]\)
+\(Q^{\pi}(s_t,a_t) = E_{r_i\geq t, s_i &gt;t \sim E , a_i &gt; t \sim \pi}[R_t \mid s_t, a_t]\)
+\(Q^{\pi}(s_t,a_t) = E_{r_t,s_{t&#43;1} \sim E} [r(s_t,a_t)&#43; \gamma E_{a_{t&#43;1} \sim \pi} [Q^{\pi}(s_{t&#43;1}, a_{t&#43;1})]]\)
+\(Q^{\mu}(s_t,a_t) = E_{r_t,s_{t&#43;1} \sim E} [r(s_t,a_t)&#43; \gamma Q^{\mu}(s_{t&#43;1}, \mu(s_{t&#43;1}))]\)...</p>
+  </div>
+  <footer class="entry-footer"><span title='2023-09-23 00:53:01 +0900 +0900'>September 23, 2023</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;252 words</footer>
+  <a class="entry-link" aria-label="post link to Ddpg" href="https://ownogatari.xyz/posts/ddpg/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2>Test
     </h2>
   </header>
