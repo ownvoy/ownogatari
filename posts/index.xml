@@ -40,14 +40,5 @@ objective function: \(E_{r_i,s_i \sim E, a_i \sim \pi}[R_1]\)
 즉, 논문의 연구 결과는 &amp;lsquo;띡&amp;rsquo;하고 딱 나타난게 아니라, 쌓이고 쌓여서 만들어진거다.</description>
     </item>
     
-    <item>
-      <title>Test</title>
-      <link>https://ownogatari.xyz/posts/test/</link>
-      <pubDate>Fri, 15 Sep 2023 23:39:07 +0900</pubDate>
-      
-      <guid>https://ownogatari.xyz/posts/test/</guid>
-      <description>This is a test page!! $1$ I am going to write dev blogs. $$1$$ \(a \ne b\) 가나요\({^3}\)</description>
-    </item>
-    
   </channel>
 </rss>
