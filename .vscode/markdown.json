@@ -1,0 +1,11 @@
+{
+    "MATH": {
+        "prefix": "math",
+        "body": [
+            "\\(",
+            "$1",
+            "\\)"
+        ],
+        "description": "Math"
+    },
+}

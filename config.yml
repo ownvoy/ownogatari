@@ -1,0 +1,62 @@
+baseURL: "https://ownogatari.xyz/"
+languageCode: en-us
+title: 미래사회와 창의혁신인재
+theme: PaperMod
+
+
+params:
+  ShowReadingTime: true
+  ShowShareButtons: false
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: false
+  ShowWordCount: true
+  ShowRssButtonInSectionTermList: true
+  UseHugoToc: true
+  custom_css: fonts/custom_style.css
+
+  
+  assets:
+    # disableHLJS: true # to disable highlight.js
+    # disableFingerprinting: true
+    favicon: images/favicon/favicon.ico
+    favicon16x16: images/favicon/favicon-16x16.png
+    favicon32x32: images/favicon/favicon-32x32.png
+    apple_touch_icon: images/favicon/apple-touch-icon.png
+    safari_pinned_tab: images/favicon/apple-touch-icon.png
+
+  socialIcons:
+    - name: instagram
+      url: "https://www.instagram.com/ownogatari/"
+    - name: github
+      url: "https://github.com/ownvoy"
+  
+  profileMode:
+    enabled: true # needs to be explicitly set
+    title: Creative and Innovation Talents of the Future Society
+    subtitle: "…"
+
+    imageUrl: images/sky.jpg
+    imageWidth: 120
+    imageHeight: 120
+    imageTitle: my image
+    buttons:
+      - name: Posts
+        url: posts
+      - name: Tags
+        url: tags
+
+  homeInfoParams:
+    Title: "Hi there \U0001F44B"
+    Content: Welcome to my blog
+
+menu:
+  main:
+    - identifier: categories
+      name: categories
+      url: /categories/
+      weight: 10
+    - identifier: tags
+      name: tags
+      url: /tags/
+      weight: 20

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Docs on 미래사회와 창의혁신인재</title>
+    <link>https://ownogatari.xyz/docs/</link>
+    <description>Recent content in Docs on 미래사회와 창의혁신인재</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 15 Sep 2023 23:53:47 +0900</lastBuildDate><atom:link href="https://ownogatari.xyz/docs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Test</title>
+      <link>https://ownogatari.xyz/docs/test/</link>
+      <pubDate>Fri, 15 Sep 2023 23:53:47 +0900</pubDate>
+      
+      <guid>https://ownogatari.xyz/docs/test/</guid>
+      <description>This is a test page!! I am going to write dev blogs.</description>
+    </item>
+    
+  </channel>
+</rss>

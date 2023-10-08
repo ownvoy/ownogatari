@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>[paper review] Won Jun Oh (2023) | 미래사회와 창의혁신인재</title>
+<meta name="keywords" content="">
+<meta name="description" content="1. Introduction 선명한 꿈은 흔들리지 않는 열정을 낳고, 그 열정은 능력을 넘어설 수 있게 한다. 원래였으면 기술블로그답게, 첫 글을 이번주에 발표할 DLRM 논문 리뷰로 시작할려 했다.
+그런데 그전에 오원준 리뷰를 처음이자 마지막으로 해보려고 한다.
+이 이후에는 진짜 paper 리뷰만 할거다.\(^{[1]}\)
+ \(^{[1]}\) 논문의 형식대로 글을 진행할거다.
+ 2. Related Works 보통 Related Work에서는 영감을 받은 선행 연구나 기존 연구의 한계점을 제시한다.
+즉, 논문의 연구 결과는 &lsquo;띡&#39;하고 딱 나타난게 아니라, 쌓이고 쌓여서 만들어진거다.">
+<meta name="author" content="">
+<link rel="canonical" href="https://ownogatari.xyz/posts/start/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.735c14aef5bd53538764fbe842da3b6b2041059e13045d88f457bc438e58e012.css" integrity="sha256-c1wUrvW9U1OHZPvoQto7ayBBBZ4TBF2I9Fe8Q45Y4BI=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://ownogatari.xyz/images/favicon/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://ownogatari.xyz/images/favicon/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://ownogatari.xyz/images/favicon/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://ownogatari.xyz/images/favicon/apple-touch-icon.png">
+<link rel="mask-icon" href="https://ownogatari.xyz/images/favicon/apple-touch-icon.png">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="[paper review] Won Jun Oh (2023)" />
+<meta property="og:description" content="1. Introduction 선명한 꿈은 흔들리지 않는 열정을 낳고, 그 열정은 능력을 넘어설 수 있게 한다. 원래였으면 기술블로그답게, 첫 글을 이번주에 발표할 DLRM 논문 리뷰로 시작할려 했다.
+그런데 그전에 오원준 리뷰를 처음이자 마지막으로 해보려고 한다.
+이 이후에는 진짜 paper 리뷰만 할거다.\(^{[1]}\)
+ \(^{[1]}\) 논문의 형식대로 글을 진행할거다.
+ 2. Related Works 보통 Related Work에서는 영감을 받은 선행 연구나 기존 연구의 한계점을 제시한다.
+즉, 논문의 연구 결과는 &lsquo;띡&#39;하고 딱 나타난게 아니라, 쌓이고 쌓여서 만들어진거다." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ownogatari.xyz/posts/start/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-09-18T02:48:09+09:00" />
+<meta property="article:modified_time" content="2023-09-18T02:48:09+09:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[paper review] Won Jun Oh (2023)"/>
+<meta name="twitter:description" content="1. Introduction 선명한 꿈은 흔들리지 않는 열정을 낳고, 그 열정은 능력을 넘어설 수 있게 한다. 원래였으면 기술블로그답게, 첫 글을 이번주에 발표할 DLRM 논문 리뷰로 시작할려 했다.
+그런데 그전에 오원준 리뷰를 처음이자 마지막으로 해보려고 한다.
+이 이후에는 진짜 paper 리뷰만 할거다.\(^{[1]}\)
+ \(^{[1]}\) 논문의 형식대로 글을 진행할거다.
+ 2. Related Works 보통 Related Work에서는 영감을 받은 선행 연구나 기존 연구의 한계점을 제시한다.
+즉, 논문의 연구 결과는 &lsquo;띡&#39;하고 딱 나타난게 아니라, 쌓이고 쌓여서 만들어진거다."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "[paper review] Won Jun Oh (2023)",
+      "item": "https://ownogatari.xyz/posts/start/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "[paper review] Won Jun Oh (2023)",
+  "name": "[paper review] Won Jun Oh (2023)",
+  "description": "1. Introduction 선명한 꿈은 흔들리지 않는 열정을 낳고, 그 열정은 능력을 넘어설 수 있게 한다. 원래였으면 기술블로그답게, 첫 글을 이번주에 발표할 DLRM 논문 리뷰로 시작할려 했다.\n그런데 그전에 오원준 리뷰를 처음이자 마지막으로 해보려고 한다.\n이 이후에는 진짜 paper 리뷰만 할거다.\\(^{[1]}\\)\n \\(^{[1]}\\) 논문의 형식대로 글을 진행할거다.\n 2. Related Works 보통 Related Work에서는 영감을 받은 선행 연구나 기존 연구의 한계점을 제시한다.\n즉, 논문의 연구 결과는 \u0026lsquo;띡'하고 딱 나타난게 아니라, 쌓이고 쌓여서 만들어진거다.",
+  "keywords": [
+    
+  ],
+  "articleBody": "1. Introduction 선명한 꿈은 흔들리지 않는 열정을 낳고, 그 열정은 능력을 넘어설 수 있게 한다. 원래였으면 기술블로그답게, 첫 글을 이번주에 발표할 DLRM 논문 리뷰로 시작할려 했다.\n그런데 그전에 오원준 리뷰를 처음이자 마지막으로 해보려고 한다.\n이 이후에는 진짜 paper 리뷰만 할거다.\\(^{[1]}\\)\n \\(^{[1]}\\) 논문의 형식대로 글을 진행할거다.\n 2. Related Works 보통 Related Work에서는 영감을 받은 선행 연구나 기존 연구의 한계점을 제시한다.\n즉, 논문의 연구 결과는 ‘띡'하고 딱 나타난게 아니라, 쌓이고 쌓여서 만들어진거다.\n 그러나 논문에 모든 관련 연구를 싣지는 않는다.\n이는 지면상의 한계도 있지만, 무엇보다 그 정도는 이미 알잖아, 이 정도는 알고 있어야지의 이유이다.\nDLRM 논문 리뷰를 하는데, 행렬 곱은 어떻게 하는 거에요?\n이러면, 학생~ 쫌 더 공부하고 오세요~\n이럴거다.\n 그러나 사람에 대해 아는 것은 다른 문제이다.\n정형화된 텍스트북과 강의가 없을 뿐더러, 교수자도 내가 누군지 정확하게 정의 내릴 수 없다.\n그렇다고 나에 대해 16주 동안 블로그를 쓰는 것은 너무나도 시간낭비다.\\(^{[2]}\\)\n \\(^{[2]}\\) 2장에서는 2022년 겨울부터의 related works만을 포함하기로 한다.\n 2.1 미래사회와 창의혁신인재 블로그의 이름, 미래사회와 창의혁신인재(이하 '미창')은 계절학기로 들은 성균관대학교 교양 교과목에서 따왔다.\n항상 내가 핵균으로 추천하는 과목이다.\n근데 내가 아무리 얘기해도, 오 한 번 들어볼게요~ 이런 반응을 못 받았다 ㅠ\n진짜 꿀강인데 ㅠ\n미창은 대략적으로 창융디 3~4학년 버전이라고 생각하면 된다.\\(^{[3]}\\)\n모든 평가는 팀플로 이루어졌으며, 중간기말은 없다!\n \\(^{[3]}\\) 창융디는 성균관대의 필수교과목으로 흔히 망융디라고 알려져 있다.\n 우리 조는 총 6명으로 이루어졌는데,\n신소재공학과, 서피스디자인학과, 글로벌리더학과, 생명공학과, 경제학과\n진짜 평소라면 볼 수 없을 전공의 사람과 같은 조가 되었다.\n백그라운드도 다르고, 도메인도 다르니까, 신기하기도 하면서 사실 더 어색했던 것 같다.\n 원래 팀플은 적당히 자기 할 거 하고, 다 하면 빠지는게 국룰인데,\n이 팀플은 달랐다.\n교수님이 팀플 최종발표에서 1,2등 조는 묻고따지지도 않고 A+를 주신다고 하셔서 그런지. . .\n나빼고 막학기 혹은 4학년들이어서 그런지. . .\n엄청나게 진심이었다.\n 신소재 선배는 매일 발표 브리핑 준비를 하지 않나,,,\n글리 선배는 아침 6시에 지하철에서 시민 인터뷰를 딴다 하지 않나,,,\n디자인 선배는 개쩌는 ppt를 만들어오지 않나,,,\n생명, 경제 선배는 자료조사를 무슨 논문처럼 만들어오지 않나,,,\n 내가 잘하는 거??\n창의적인 아이디어 생성 밖에 없었다.\n 우리 팀의 주제는 지하철 혼잡도를 어떻게 해결할 것인가?였다.\n주제 선정도 잘했다.\n이태원 사건으로 혼잡도와 관련하여 시의성 있는 주제였으며, 많은 사람들이 지하철을 이용하기에 우리의 삶과 밀접한 관련이 있는 주제였다.\n우리 팀이 얼마나 이 주제에 대해 진심이었냐면,\n수업시간이 원래 3시간인데, 우리는 수업 중반부터 거의 매일 2시간씩 추가로 줌미팅을 했다.\n 결과는 당연히 A쁠이었다.\n발표가 끝나고 교수님께서 순위를 안 알려주셨는데,,,\n진짜 너무 궁금해서 대뜸 순위 언제 나오냐고 물었다 zzz\n난 진심으로 우리 팀이 1등 할 거라고 믿었다.\\(^{[4]}\\)\n그런데 아쉽게 2등을 해버렸다 ㅠ 진짜 너무너무 아쉬웠다. 에이쁠이긴한데도 ㅎㅎㅎㅎ\n 이 팀플을 통해 내가 얻은 레슨은\n뛰어난 개인이 모여 팀을 이루면, 내가 혼자서는 이룰 수 없는 성취를 이뤄낸다는 것이다.\n물론 그 팀을 이끌 명확한 동기와 책임감있는 리더가 있어야만 한다.\n 나는 미래 사회를 이끄는 창의혁신인재가 되고 싶었다.\n \\(^{[4]}\\) 총점 621점으로 1등인 조와 9점밖에 차이나지 않는다! 특히 실현가능성 측면에서 높은 점수를 보인다!\n 2.2 상담 그 전부터 세상을 바꾸는 삶을 살고 싶었다.\n그렇게 나의 삶을 포기했었다. 친구들과의 술자리, 만남은 별로 중요한게 아니었다.\n 왜냐면 내가 쓰는 이 시간은 미래의 더 나은 세상을 만들기 위한 시간이기에,\n나의 개인적인 시간은 중요하지 않았다.\n오직 공부만이 정해진 길이었다.\n 그러나, 공부를 하면 할수록 나의 세계는 더욱 좁아졌다.\n그야, 공부는 혼자 하는 거니까 . . .\n그야, 하루 종일 하는 거라곤 코드랑 수식만 보는데 . . .\n 이게 신기한게 공부만 하면 말을 안 하니까, 사람이랑 말 하는 것도 어색해진다.\n또 운동도 안 하고, 바깥에 나가지 않으니까, 사람이 쳐진다.\n 불현듯, 내가 생각하는 미래와 다르게 흘러가는 느낌이 들었다.\n이걸로 니가 원하는 더 나은 세상을 어떻게 만들건데\n 항상 창업이라고 그 답을 간단하게 얼버무렸다.\n나중에 꼭 다시 뵐거다\" / 오래 전부터 창업을 하고 싶기는 했다.\n많은 창업가들이 '더 나은 세상을 만들고 싶었다', '선한 영향력을 일으키고 싶었다.'의 뻔하고 추상적인 말들을 하곤 한다.\n그럼에도, 나는 저런 말을 할 수 있는 창업가가 되고 싶었다.\n그것이 내가 원하는 삶이니까.\n 현실의 나는 말로만 ‘창업창업'하지 ‘창업'을 위한 준비는 아~무것도 하지 않았다.\\(^{[5]}\\)\n \\(^{[5]}\\) 창업 교과목 수업 2개를 듣기는 했다. 그 중 특허와 창업이라는 과목은 정말 추천한다. 현직 변리사가 와서 강의를 한다.\n  말만 하고 실천하지 않는 삶….\n세상을 바꾸는 삶은 나에게 너무 멀고, 거대한 벽처럼 느껴졌다.\n나는 내가 세상을 바꾸기에는 그릇이 작고…능력이 없을 수 있겠구나… 라는 현실을 받아들였던 것 같다.\n적당히 공부하고, 적당한 기업에 취업하고, 적당한 가족을 이루어, 적당히 살다 죽는 것.\n사실 이걸 하는 것도 충분히 행복한 삶이고 감사한 삶이라 할 수 있다.\n 이 때부터, 나는 공부를 쫌 설렁설렁하기 시작했다.\\(^{[6]}\\)\n공부가 재미 없어진 것이다.\n그 전까지는 세상을 바꾸기 위해 공부를 했는데,,,\n취업을 위한 공부는 그렇게 재밌지 않았다.\n \\(^{[6]}\\) 그래도 여느 학생보다는 열심히 했다.\n  이 장의 이름이 상담인 것은 몇 주간의 상담을 바탕으로 방향성을 정리했기 때문이다.\n주요 주제는 ‘일(꿈)‘과 ‘삶'의 밸런스 찾기 였다.\n이 글을 읽는 독자는 꼭 정식 루트를 통해 상담을 받을 것을 추천한다. (요즘 종교단체나 사짜가 너무 많다)\n상담 끝!\n2.3 알바와 봉사 글이 너무 무거웠다.\n2.3장은 슉슉~~~ 가볍게 해야지 ㅎㅎ\n2.3.1 명량회관 공부에 흥미를 잃어버린 오원준은 난생 처음 몸을 쓰는 알바를 하게 됐다.\n평소에 고기 굽는 걸 좋아했고, 마침 내가 젤 좋아하는 고깃집에서 일할 수 있다는 알바몬 글을 보게 되었다.\n그 고깃집은 바로 명량회관 !!!\n거리도 걸어서 20분이고, 민우랑 같이 할 수 있어서 덜컥 지원했다.\n내가 좋아하는 고깃집에서 좋아하는 일을 하는게 행복했다.\n의 생각은 계약서 쓰기 전까지이다.\n막상 고기집은 진짜 정신없다.\n 치우고, 서빙하고, 고기 굽고, 나르고,,,\n치우고, 서빙하고, 고기 굽고, 나르고,,,\n하루에 5시간 근무했는데, 평소 운동하는거랑 비교가 안 되는 강도였다.\n진짜 아무 생각없이 일만 했었다.\n이게 포인트다. 아무 생각없이 일만 했다.\n 얼마 되지 않아, 고깃집을 금방 관두었다.\n아무 생각없이 일하는게, 시간이 너무 아까웠다.\n상당히 mz하게 글을 보냈었다.\n근데 시간 아까운게 사실인데 어떡해…ㅠ\n생각을 고쳐 먹게 되었다.\n나 생각보다 공부하는 거 좋아할지도? ㅋㅋㅋㅋㅋㅋ\n 아쉬운 점은 이제 딩초때부터 다녔던 저 명량회관을 못 간다는 것이다….\n사장님 얼굴 어케 봄…\n저기 목살 비싸긴한데 진짜 맛있어요……\n돈그리아에서는 알바하지 말아야지ㅋㅎㅋㅎㅋㅎ\n 여기서 얻은 레슨은 내가 좋아하는 일을 직업으로 삼는다고, 꼭 행복한 것은 아니다.이다.\n2.3.2 서대문구 가족센터 3. Model Design and Architecture 3.1 돈 되는 일 3.2 잘 하는 일 3.3 좋아하는 일 3.4 세상에 필요한 일 4. Conclusion 난 논문 읽을 때 conclusion은 잘 안 읽는 편이다. 대충 introduction을 복사한다.\n선명한 꿈은 흔들리지 않는 열정을 낳고, 그 열정은 능력을 넘어설 수 있게 한다. 다시 공부해야지. ",
+  "wordCount" : "955",
+  "inLanguage": "en",
+  "datePublished": "2023-09-18T02:48:09+09:00",
+  "dateModified": "2023-09-18T02:48:09+09:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://ownogatari.xyz/posts/start/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "미래사회와 창의혁신인재",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://ownogatari.xyz/images/favicon/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://ownogatari.xyz/" accesskey="h" title="미래사회와 창의혁신인재 (Alt + H)">미래사회와 창의혁신인재</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://ownogatari.xyz/categories/" title="categories">
+                    <span>categories</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ownogatari.xyz/tags/" title="tags">
+                    <span>tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://ownogatari.xyz/">Home</a></div>
+    <h1 class="post-title">
+      [paper review] Won Jun Oh (2023)
+    </h1>
+    <div class="post-meta"><span title='2023-09-18 02:48:09 +0900 KST'>September 18, 2023</span>&nbsp;·&nbsp;5 min&nbsp;·&nbsp;955 words
+
+</div>
+  </header> 
+  <div class="post-content"><h1 id="1-introduction">1. Introduction<a hidden class="anchor" aria-hidden="true" href="#1-introduction">#</a></h1>
+<pre><code>선명한 꿈은 흔들리지 않는 열정을 낳고, 그 열정은 능력을 넘어설 수 있게 한다.
+</code></pre><p>원래였으면 기술블로그답게, 첫 글을 이번주에 발표할 <code>DLRM</code> 논문 리뷰로 시작할려 했다.</p>
+<p>그런데 그전에 <code>오원준</code> 리뷰를 처음이자 마지막으로 해보려고 한다.</p>
+<p>이 이후에는 진짜 paper 리뷰만 할거다.\(^{[1]}\)</p>
+<hr>
+<p>\(^{[1]}\) <del>논문의 형식대로 글을 진행할거다.</del></p>
+<hr>
+<h1 id="2-related-works">2. Related Works<a hidden class="anchor" aria-hidden="true" href="#2-related-works">#</a></h1>
+<p>보통 <code>Related Work</code>에서는 영감을 받은 선행 연구나 기존 연구의 한계점을 제시한다.</p>
+<p>즉, 논문의 연구 결과는 &lsquo;띡'하고 딱 나타난게 아니라, 쌓이고 쌓여서 만들어진거다.</p>
+<p> </p>
+<p>그러나 논문에 모든 관련 연구를 싣지는 않는다.</p>
+<p>이는 지면상의 한계도 있지만, 무엇보다 <code>그 정도는 이미 알잖아</code>,  <code>이 정도는 알고 있어야지</code>의 이유이다.</p>
+<p><code>DLRM</code> 논문 리뷰를 하는데, 행렬 곱은 어떻게 하는 거에요?</p>
+<p>이러면, 학생~ 쫌 더 공부하고 오세요~</p>
+<p>이럴거다.</p>
+<p> </p>
+<p>그러나 사람에 대해 아는 것은 다른 문제이다.</p>
+<p>정형화된 텍스트북과 강의가 없을 뿐더러, 교수자도 내가 누군지 정확하게 정의 내릴 수 없다.</p>
+<p>그렇다고 나에 대해 16주 동안 블로그를 쓰는 것은 너무나도 시간낭비다.\(^{[2]}\)</p>
+<hr>
+<p>\(^{[2]}\) 2장에서는 2022년 겨울부터의 related works만을 포함하기로 한다.</p>
+<hr>
+<h2 id="21-미래사회와-창의혁신인재">2.1 미래사회와 창의혁신인재<a hidden class="anchor" aria-hidden="true" href="#21-미래사회와-창의혁신인재">#</a></h2>
+<p>블로그의 이름, <code>미래사회와 창의혁신인재(이하 '미창')</code>은 계절학기로 들은 성균관대학교 교양 교과목에서 따왔다.</p>
+<p><img loading="lazy" src="https://github.com/ownvoy/ownogatari/assets/96481582/627f2b12-beab-4bd2-8a6d-cd37cb628cb4" alt="image"  />
+</p>
+<p>항상 내가 핵균으로 추천하는 과목이다.</p>
+<p>근데 내가 아무리 얘기해도, <code>오 한 번 들어볼게요~</code> 이런 반응을 못 받았다 ㅠ</p>
+<p>진짜 꿀강인데 ㅠ</p>
+<p>미창은 대략적으로 <code>창융디 3~4학년 버전</code>이라고 생각하면 된다.\(^{[3]}\)</p>
+<p>모든 평가는 팀플로 이루어졌으며, 중간기말은 없다!</p>
+<hr>
+<p>\(^{[3]}\) 창융디는 성균관대의 필수교과목으로 흔히 망융디라고 알려져 있다.</p>
+<hr>
+<p>우리 조는 총 6명으로 이루어졌는데,</p>
+<p>신소재공학과, 서피스디자인학과, 글로벌리더학과, 생명공학과, 경제학과</p>
+<p>진짜 평소라면 볼 수 없을 전공의 사람과 같은 조가 되었다.</p>
+<p>백그라운드도 다르고, 도메인도 다르니까, 신기하기도 하면서 사실 더 어색했던 것 같다.</p>
+<p> </p>
+<p>원래 팀플은 적당히 자기 할 거 하고, 다 하면 빠지는게 국룰인데,</p>
+<p>이 팀플은 달랐다.</p>
+<p>교수님이 팀플 최종발표에서 1,2등 조는 묻고따지지도 않고 <code>A+</code>를 주신다고 하셔서 그런지. . .</p>
+<p>나빼고 막학기 혹은 4학년들이어서 그런지. . .</p>
+<p>엄청나게 진심이었다.</p>
+<p> </p>
+<p>신소재 선배는 매일 발표 브리핑 준비를 하지 않나,,,</p>
+<p>글리 선배는 아침 6시에 지하철에서 시민 인터뷰를 딴다 하지 않나,,,</p>
+<p>디자인 선배는 개쩌는 ppt를 만들어오지 않나,,,</p>
+<p>생명, 경제 선배는 자료조사를 무슨 논문처럼 만들어오지 않나,,,</p>
+<p> </p>
+<p>내가 잘하는 거??</p>
+<p>창의적인 아이디어 생성 밖에 없었다.</p>
+<p> </p>
+<p>우리 팀의 주제는 지하철 혼잡도를 어떻게 해결할 것인가?였다.</p>
+<p>주제 선정도 잘했다.</p>
+<p>이태원 사건으로 혼잡도와 관련하여 시의성 있는 주제였으며, 많은 사람들이 지하철을 이용하기에 우리의 삶과 밀접한 관련이 있는 주제였다.</p>
+<p>우리 팀이 얼마나 이 주제에 대해 진심이었냐면,</p>
+<p>수업시간이 원래 3시간인데, 우리는 수업 중반부터 거의 매일 2시간씩 추가로 줌미팅을 했다.</p>
+<p> </p>
+<p>결과는 당연히 A쁠이었다.</p>
+<p>발표가 끝나고 교수님께서 순위를 안 알려주셨는데,,,</p>
+<p>진짜 너무 궁금해서 대뜸 순위 언제 나오냐고 물었다 zzz</p>
+<p><img loading="lazy" src="https://github.com/ownvoy/ownogatari/assets/96481582/96570840-ff88-4ce9-9fc3-4ab4d6529dff" alt="KakaoTalk_20230918_051759753"  />
+</p>
+<p>난 진심으로 우리 팀이 1등 할 거라고 믿었다.\(^{[4]}\)</p>
+<p>그런데 아쉽게 2등을 해버렸다 ㅠ 진짜 너무너무 아쉬웠다. 에이쁠이긴한데도 ㅎㅎㅎㅎ</p>
+<p> </p>
+<p>이 팀플을 통해 내가 얻은 레슨은</p>
+<p><code>뛰어난 개인이 모여 팀을 이루면, 내가 혼자서는 이룰 수 없는 성취를 이뤄낸다는 것이다.</code></p>
+<p><del>물론 그 팀을 이끌 명확한 동기와 책임감있는 리더가 있어야만 한다.</del></p>
+<p> </p>
+<p><strong>나는 미래 사회를 이끄는 창의혁신인재가 되고 싶었다.</strong></p>
+<hr>
+<p>\(^{[4]}\) 총점 621점으로 1등인 조와 9점밖에 차이나지 않는다! 특히 실현가능성 측면에서 높은 점수를 보인다!</p>
+<hr>
+<h2 id="22-상담">2.2 상담<a hidden class="anchor" aria-hidden="true" href="#22-상담">#</a></h2>
+<p>그 전부터 세상을 바꾸는 삶을 살고 싶었다.</p>
+<p>그렇게 나의 삶을 포기했었다.
+친구들과의 술자리, 만남은 별로 중요한게 아니었다.</p>
+<p> </p>
+<p>왜냐면 내가 쓰는 이 시간은 미래의 더 나은 세상을 만들기 위한 시간이기에,</p>
+<p>나의 개인적인 시간은 중요하지 않았다.</p>
+<p>오직 공부만이 정해진 길이었다.</p>
+<p> </p>
+<p>그러나, 공부를 하면 할수록 나의 세계는 더욱 좁아졌다.</p>
+<p>그야, 공부는 혼자 하는 거니까 . . .</p>
+<p>그야, 하루 종일 하는 거라곤 코드랑 수식만 보는데 . . .</p>
+<p> </p>
+<p>이게 신기한게 공부만 하면 말을 안 하니까, 사람이랑 말 하는 것도 어색해진다.</p>
+<p>또 운동도 안 하고, 바깥에 나가지 않으니까, 사람이 쳐진다.</p>
+<p> </p>
+<p>불현듯, 내가 생각하는 미래와 다르게 흘러가는 느낌이 들었다.</p>
+<p>이걸로 니가 원하는 더 나은 세상을 어떻게 만들건데</p>
+<p> </p>
+<p>항상 창업이라고 그 답을 간단하게 얼버무렸다.</p>
+<p><img loading="lazy" src="https://github.com/ownvoy/ownogatari/assets/96481582/dda67e1d-d820-4ca5-8c4d-62dde814d6e7" alt="창업지원단 김OO 교수님 &lt;del&gt;나중에 꼭 다시 뵐거다&lt;/del&gt;"  />
+</p>
+<p>오래 전부터 창업을 하고 싶기는 했다.</p>
+<p>많은 창업가들이 <code>'더 나은 세상을 만들고 싶었다'</code>, <code>'선한 영향력을 일으키고 싶었다.'</code>의 뻔하고 추상적인 말들을 하곤 한다.</p>
+<p>그럼에도, 나는 저런 말을 할 수 있는 창업가가 되고 싶었다.</p>
+<p>그것이 내가 원하는 삶이니까.</p>
+<p> </p>
+<p>현실의 나는 말로만 &lsquo;창업창업'하지 &lsquo;창업'을 위한 준비는 아~무것도 하지 않았다.\(^{[5]}\)</p>
+<hr>
+<p>\(^{[5]}\) 창업 교과목 수업 2개를 듣기는 했다. 그 중 특허와 창업이라는 과목은 정말 추천한다. 현직 변리사가 와서 강의를 한다.</p>
+<hr>
+<p> </p>
+<p>말만 하고 실천하지 않는 삶&hellip;.</p>
+<p>세상을 바꾸는 삶은 나에게 너무 멀고, 거대한 벽처럼 느껴졌다.</p>
+<p>나는 내가 세상을 바꾸기에는 그릇이 작고&hellip;능력이 없을 수 있겠구나&hellip; 라는 현실을 받아들였던 것 같다.</p>
+<p>적당히 공부하고, 적당한 기업에 취업하고, 적당한 가족을 이루어, 적당히 살다 죽는 것.</p>
+<p>사실 이걸 하는 것도 충분히 행복한 삶이고 감사한 삶이라 할 수 있다.</p>
+<p> </p>
+<p>이 때부터, 나는 공부를 쫌 설렁설렁하기 시작했다.\(^{[6]}\)</p>
+<p>공부가 재미 없어진 것이다.</p>
+<p>그 전까지는 세상을 바꾸기 위해 공부를 했는데,,,</p>
+<p>취업을 위한 공부는 그렇게 재밌지 않았다.</p>
+<hr>
+<p>\(^{[6]}\) 그래도 여느 학생보다는 열심히 했다.</p>
+<hr>
+<p> </p>
+<p>이 장의 이름이 <code>상담</code>인 것은 몇 주간의 상담을 바탕으로 방향성을 정리했기 때문이다.</p>
+<p>주요 주제는 &lsquo;일(꿈)&lsquo;과 &lsquo;삶'의 밸런스 찾기 였다.</p>
+<p>이 글을 읽는 독자는 꼭 정식 루트를 통해 상담을 받을 것을 추천한다. (<del>요즘 종교단체나 사짜가 너무 많다</del>)</p>
+<p>상담 끝!</p>
+<h2 id="23-알바와-봉사">2.3 알바와 봉사<a hidden class="anchor" aria-hidden="true" href="#23-알바와-봉사">#</a></h2>
+<p>글이 너무 무거웠다.</p>
+<p>2.3장은 슉슉~~~ 가볍게 해야지 ㅎㅎ</p>
+<h3 id="231-명량회관">2.3.1 명량회관<a hidden class="anchor" aria-hidden="true" href="#231-명량회관">#</a></h3>
+<p>공부에 흥미를 잃어버린 <code>오원준</code>은 난생 처음 몸을 쓰는 알바를 하게 됐다.</p>
+<p>평소에 고기 굽는 걸 좋아했고, 마침 내가 젤 좋아하는 고깃집에서 일할 수 있다는 알바몬 글을 보게 되었다.</p>
+<p><img loading="lazy" src="https://github.com/ownvoy/ownogatari/assets/96481582/3680062c-f928-4ea6-b98a-4ca214b86917" alt="image"  />
+</p>
+<p>그 고깃집은 바로 명량회관 !!!</p>
+<p>거리도 걸어서 20분이고, 민우랑 같이 할 수 있어서 덜컥 지원했다.</p>
+<p>내가 좋아하는 고깃집에서 좋아하는 일을 하는게 행복했다.</p>
+<p>의 생각은 계약서 쓰기 전까지이다.</p>
+<p>막상 고기집은 진짜 정신없다.</p>
+<p> </p>
+<p>치우고, 서빙하고, 고기 굽고, 나르고,,,</p>
+<p>치우고, 서빙하고, 고기 굽고, 나르고,,,</p>
+<p>하루에 5시간 근무했는데, 평소 운동하는거랑 비교가 안 되는 강도였다.</p>
+<p>진짜 아무 생각없이 일만 했었다.</p>
+<p>이게 포인트다. 아무 생각없이 일만 했다.</p>
+<p> </p>
+<p>얼마 되지 않아, 고깃집을 금방 관두었다.</p>
+<p>아무 생각없이 일하는게, 시간이 너무 아까웠다.</p>
+<p><img loading="lazy" src="https://github.com/ownvoy/ownogatari/assets/96481582/f75d5b8e-7e4c-4c88-b494-4189751d08cf" alt="KakaoTalk_20230922_011108074"  />
+</p>
+<p>상당히 mz하게 글을 보냈었다.</p>
+<p>근데 시간 아까운게 사실인데 어떡해&hellip;ㅠ</p>
+<p>생각을 고쳐 먹게 되었다.</p>
+<p>나 생각보다 공부하는 거 좋아할지도? ㅋㅋㅋㅋㅋㅋ</p>
+<p> </p>
+<p>아쉬운 점은 이제 딩초때부터 다녔던 저 명량회관을 못 간다는 것이다&hellip;.</p>
+<p>사장님 얼굴 어케 봄&hellip;</p>
+<p>저기 목살 비싸긴한데 진짜 맛있어요&hellip;&hellip;</p>
+<p><img loading="lazy" src="https://github.com/ownvoy/ownogatari/assets/96481582/36914df2-6f6d-4fda-b4f7-4f384a739613" alt="image"  />
+</p>
+<p>돈그리아에서는 알바하지 말아야지ㅋㅎㅋㅎㅋㅎ</p>
+<p> </p>
+<p>여기서 얻은 레슨은 <code>내가 좋아하는 일을 직업으로 삼는다고, 꼭 행복한 것은 아니다.</code>이다.</p>
+<h3 id="232-서대문구-가족센터">2.3.2 서대문구 가족센터<a hidden class="anchor" aria-hidden="true" href="#232-서대문구-가족센터">#</a></h3>
+<h1 id="3-model-design-and-architecture">3. Model Design and Architecture<a hidden class="anchor" aria-hidden="true" href="#3-model-design-and-architecture">#</a></h1>
+<h2 id="31-돈-되는-일">3.1 돈 되는 일<a hidden class="anchor" aria-hidden="true" href="#31-돈-되는-일">#</a></h2>
+<h2 id="32-잘-하는-일">3.2 잘 하는 일<a hidden class="anchor" aria-hidden="true" href="#32-잘-하는-일">#</a></h2>
+<h2 id="33-좋아하는-일">3.3 좋아하는 일<a hidden class="anchor" aria-hidden="true" href="#33-좋아하는-일">#</a></h2>
+<h2 id="34-세상에-필요한-일">3.4 세상에 필요한 일<a hidden class="anchor" aria-hidden="true" href="#34-세상에-필요한-일">#</a></h2>
+<h1 id="4-conclusion">4. Conclusion<a hidden class="anchor" aria-hidden="true" href="#4-conclusion">#</a></h1>
+<p>난 논문 읽을 때 conclusion은 잘 안 읽는 편이다. 대충 introduction을 복사한다.</p>
+<pre><code>선명한 꿈은 흔들리지 않는 열정을 낳고, 그 열정은 능력을 넘어설 수 있게 한다.
+</code></pre><p>다시 공부해야지.
+<img loading="lazy" src="https://github.com/ownvoy/ownogatari/assets/96481582/330991aa-1c1d-4632-a9b5-fb00b53972cf" alt="image"  />
+</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+<nav class="paginav">
+  <a class="next" href="https://ownogatari.xyz/posts/test/">
+    <span class="title">Next »</span>
+    <br>
+    <span>Test</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script></body>
+
+</html>
