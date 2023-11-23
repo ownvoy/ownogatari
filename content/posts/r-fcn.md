@@ -147,7 +147,7 @@ summation of the cross-entropy loss and the box regression loss
 
 ### online hard example mining(OHEM)
 
-- N개의 RoI마다 loss를 구함 
+- $N$개의 RoI마다 loss를 구함 
 - loss가 큰 순서로 정렬
 - loss가 크다는 것은 어려운 sample이라는 거임
 - 큰 순서대로 $B$개 뽑아, 학습
