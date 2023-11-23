@@ -1,6 +1,6 @@
 ---
 title: "R-FCN"
-date: 2023-11-23T23:23:46+09:00
+date: 2023-11-23
 draft: false
 katex: true
 mathjax: true
