@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>R-FCN | 미래사회와 창의혁신인재</title>
+<meta name="keywords" content="">
+<meta name="description" content="1. overview 1.1 objective translation invariance 문제를 해결해보자. 모델을 fully convolutional 하게 만들어보자. 1.2 Background translational invariance vs translational variance translational invariance의 정의 positional invariance(translation invariance): 위치가 변하여도 결과가 똑같아야함 = 위치가 영향을 주지 않음 image classification에서의 주요 과제
+cnn은 translational invaraince하다.
+weight sharing convolutiona filter를 활용한 계산은 원래 translational equivariance(translational variance)함. 층이 깊어질 수록 tralational invariance가 됨. 그 이유는 계속 같은 필터를 써서(weight sharing) max pooling max pooling 역시 translational invariance한 연산 cnn은 어떤 위치에 사물이 있어도 잘 classify한다.">
+<meta name="author" content="">
+<link rel="canonical" href="https://ownogatari.xyz/posts/r-fcn/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.5cfc680b1eeaeef9efbced92d46c2a9e876b72ee14fba85846afc4cff9e6e6f8.css" integrity="sha256-XPxoCx7q7vnvvO2S1Gwqnodrcu4U&#43;6hYRq/Ez/nm5vg=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://ownogatari.xyz/images/favicon/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://ownogatari.xyz/images/favicon/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://ownogatari.xyz/images/favicon/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://ownogatari.xyz/images/favicon/apple-touch-icon.png">
+<link rel="mask-icon" href="https://ownogatari.xyz/images/favicon/apple-touch-icon.png">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="R-FCN" />
+<meta property="og:description" content="1. overview 1.1 objective translation invariance 문제를 해결해보자. 모델을 fully convolutional 하게 만들어보자. 1.2 Background translational invariance vs translational variance translational invariance의 정의 positional invariance(translation invariance): 위치가 변하여도 결과가 똑같아야함 = 위치가 영향을 주지 않음 image classification에서의 주요 과제
+cnn은 translational invaraince하다.
+weight sharing convolutiona filter를 활용한 계산은 원래 translational equivariance(translational variance)함. 층이 깊어질 수록 tralational invariance가 됨. 그 이유는 계속 같은 필터를 써서(weight sharing) max pooling max pooling 역시 translational invariance한 연산 cnn은 어떤 위치에 사물이 있어도 잘 classify한다." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ownogatari.xyz/posts/r-fcn/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-11-23T23:23:46+09:00" />
+<meta property="article:modified_time" content="2023-11-23T23:23:46+09:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="R-FCN"/>
+<meta name="twitter:description" content="1. overview 1.1 objective translation invariance 문제를 해결해보자. 모델을 fully convolutional 하게 만들어보자. 1.2 Background translational invariance vs translational variance translational invariance의 정의 positional invariance(translation invariance): 위치가 변하여도 결과가 똑같아야함 = 위치가 영향을 주지 않음 image classification에서의 주요 과제
+cnn은 translational invaraince하다.
+weight sharing convolutiona filter를 활용한 계산은 원래 translational equivariance(translational variance)함. 층이 깊어질 수록 tralational invariance가 됨. 그 이유는 계속 같은 필터를 써서(weight sharing) max pooling max pooling 역시 translational invariance한 연산 cnn은 어떤 위치에 사물이 있어도 잘 classify한다."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://ownogatari.xyz/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "R-FCN",
+      "item": "https://ownogatari.xyz/posts/r-fcn/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "R-FCN",
+  "name": "R-FCN",
+  "description": "1. overview 1.1 objective translation invariance 문제를 해결해보자. 모델을 fully convolutional 하게 만들어보자. 1.2 Background translational invariance vs translational variance translational invariance의 정의 positional invariance(translation invariance): 위치가 변하여도 결과가 똑같아야함 = 위치가 영향을 주지 않음 image classification에서의 주요 과제\ncnn은 translational invaraince하다.\nweight sharing convolutiona filter를 활용한 계산은 원래 translational equivariance(translational variance)함. 층이 깊어질 수록 tralational invariance가 됨. 그 이유는 계속 같은 필터를 써서(weight sharing) max pooling max pooling 역시 translational invariance한 연산 cnn은 어떤 위치에 사물이 있어도 잘 classify한다.",
+  "keywords": [
+    
+  ],
+  "articleBody": "1. overview 1.1 objective translation invariance 문제를 해결해보자. 모델을 fully convolutional 하게 만들어보자. 1.2 Background translational invariance vs translational variance translational invariance의 정의 positional invariance(translation invariance): 위치가 변하여도 결과가 똑같아야함 = 위치가 영향을 주지 않음 image classification에서의 주요 과제\ncnn은 translational invaraince하다.\nweight sharing convolutiona filter를 활용한 계산은 원래 translational equivariance(translational variance)함. 층이 깊어질 수록 tralational invariance가 됨. 그 이유는 계속 같은 필터를 써서(weight sharing) max pooling max pooling 역시 translational invariance한 연산 cnn은 어떤 위치에 사물이 있어도 잘 classify한다. (translational invariance)\nTranslational equivariance(variance) 위치가 변하면 결과가 변함 = 위치에 영향을 받음 object detection에서의 bounding box\nobject detection은 translational invariance와 translational variance의 dielemma를 가지고 있음\n1.2.2 이전 모델의 한계점 R-CNN/ Faster R-CNN R-CNN에서는 AlexNet이나 VGGNet을 갔다 씀 5번째 conv이후로는 fully-connected layer를 썼기에, weight sharing이 끊김. R-CNN | Region Based CNNs - GeeksforGeeks\n층이 깊다는 특징을 가지고 있음=\u003e image classify는 잘하는데 detection은 썩?\nR-CNN: RoI 하나 당 CNN을 돌리니까 101층 모두 RoI-wise\nFaster R-CNN: 마지막에 RoI pooling layer 이후 RoI-wise 계산 R-FCN: 101층 모두 shared, fully convolutional architectures\nFaster R-CNN의 마지막 Fully Connected Layers를 없애 보자.\n2 Main 2.1 Overview 마지막 conv layer를 통과한 결과물: $k^{2}\\times(C+1)$ $k$는 class의 위치 정보를 나타냄. 아래 그림서 $k=3$ $C$: object category 자전거에 대해 보자고 할 때, 그림 중앙에는 몸통이 있고 왼쪽 아래에는 앞바퀴가 있는 것을 알 수 있다.(사진에 대한 대략적인 정보) 카테고리가 $C+1$개($1$개는 background), $k\\times k$개의 bin 각각의 bin들을 위치에 따라서 모아줌. 마지막 conv layer를 지나고 나온 결과물\nposition-sensitive RoI pooling $r_{bike}$이라는 $3\\times3$ table이 있다고 할 때, 그 중 맨 위 왼쪽 칸($i=0,j=0$)을 어떤 식으로 pooling 할까?\nRPN에서 나온 RoI들이 다음과 같다고 할 때,\n$r_{bike}(0,0)$ 은 맨 왼쪽 위 칸에 대한 정보(핸들)를 이용하여 pooling 하고 싶을 것.\n핸들에 대한 정보가 $z_{0,0,bike}$임(마지막 conv layer를 통과한 결과물) $z_{0,0,bike}$와 RoI의 각 bin들과 곱해줘서 average pooling 해줄 거임. $$r_{bike}(0,0) = \\frac{z_{0,0,bike} \\times (x_0,y_0)+z_{0,0,bike}\\times(x_0,y_1)+ \\cdots +z_{0,0,bike}\\times(x_2,y_2)}{9}$$\n결국 $r_{bike(0,0)}$은 $z_{0,0,bike} \\times (z_0,y_0)$ 이 가장 많이 반영 되고, 다른 bin들은 섞여 들어갈 것. (self-attention이랑 비슷하다고 느낌)\n마찬가지로, $r_{bike}(0,1)\\cdots r_{bike}(2,2)$ 모든 셀에 대해 구할 수 있음\n$r_{bike}$는 $r_{bike}(0,1)\\cdots r_{bike}(2,2)$의 sum으로 구함. $$r_{c}= \\sum\\limits_{i,j} r_c(i,j)$$\n이렇게 다 더하는 과정을 vote라고 함.\n마찬가지로 $r_{dog}, r_{backgroud}$ 등을 구할 수 있을 것임. 이 값 을 활용하여 roi가 뭔지 맞출 수 있음(softmax function)\n$$s_{c}=\\frac{e^{r_c}}{\\overset{C}{\\underset{c=0}{\\sum}} e^{r_c}}$$\n이 $s_c$는 뒤에서 cross-entropy loss로 쓰임\n그냥 계산만 한거여서 learnable layer가 아님. =\u003e speed up positional sensitive RoI pooling을 해서 translation invariance 문제 해결 fully connected layer를 없앰 으로써 속도 향상 + end-to-end 학습 bounding box regression 비슷하게 마지막 layer로 $4k^2$-d convolutional layer\n2.2 training loss summation of the cross-entropy loss and the box regression loss\nonline hard example mining(OHEM) N개의 RoI마다 loss를 구함 loss가 큰 순서로 정렬 loss가 크다는 것은 어려운 sample이라는 거임 큰 순서대로 $B$개 뽑아, 학습 RoI 하나당 계산하는 시간이 거의 cost-free 임. 그래서 training time이 많이 늘어나지 않음(Faster R-CNN에서는 2배 증가) 2.3 Results test time이 faster r-cnn에 비해 압도적으로 빠른 것을 알 수 있다.\n",
+  "wordCount" : "465",
+  "inLanguage": "en",
+  "datePublished": "2023-11-23T23:23:46+09:00",
+  "dateModified": "2023-11-23T23:23:46+09:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://ownogatari.xyz/posts/r-fcn/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "미래사회와 창의혁신인재",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://ownogatari.xyz/images/favicon/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://ownogatari.xyz/" accesskey="h" title="미래사회와 창의혁신인재 (Alt + H)">미래사회와 창의혁신인재</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://ownogatari.xyz/categories/" title="categories">
+                    <span>categories</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ownogatari.xyz/tags/" title="tags">
+                    <span>tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://ownogatari.xyz/">Home</a>&nbsp;»&nbsp;<a href="https://ownogatari.xyz/posts/">Posts</a></div>
+    <h1 class="post-title">
+      R-FCN
+    </h1>
+    <div class="post-meta"><span title='2023-11-23 23:23:46 +0900 +0900'>November 23, 2023</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;465 words
+
+</div>
+  </header> 
+  <div class="post-content"><h1 id="1-overview">1. overview<a hidden class="anchor" aria-hidden="true" href="#1-overview">#</a></h1>
+<h2 id="11-objective">1.1 objective<a hidden class="anchor" aria-hidden="true" href="#11-objective">#</a></h2>
+<ol>
+<li>translation invariance 문제를 해결해보자.</li>
+<li>모델을 fully convolutional 하게 만들어보자.</li>
+</ol>
+<h2 id="12-background">1.2 Background<a hidden class="anchor" aria-hidden="true" href="#12-background">#</a></h2>
+<h3 id="translational-invariance-vs-translational-variance">translational invariance vs translational variance<a hidden class="anchor" aria-hidden="true" href="#translational-invariance-vs-translational-variance">#</a></h3>
+<h4 id="translational-invariance의-정의">translational invariance의 정의<a hidden class="anchor" aria-hidden="true" href="#translational-invariance의-정의">#</a></h4>
+<p>positional invariance(translation invariance): 위치가 변하여도 결과가 똑같아야함
+= 위치가 영향을 주지 않음
+<img loading="lazy" src="https://github.com/ownvoy/DeepSync/assets/96481582/ea1a1ece-882c-4156-8e4c-ffb50d2a800b" alt="image"  />
+</p>
+<p>image classification에서의 주요 과제</p>
+<blockquote>
+<p>cnn은 translational invaraince하다.</p>
+</blockquote>
+<h5 id="weight-sharing">weight sharing<a hidden class="anchor" aria-hidden="true" href="#weight-sharing">#</a></h5>
+<ul>
+<li>convolutiona filter를 활용한 계산은  원래 translational equivariance(translational variance)함.</li>
+<li>층이 깊어질 수록 tralational invariance가 됨.</li>
+<li>그 이유는 계속 같은 필터를 써서(weight sharing)
+<img loading="lazy" src="https://github.com/ownvoy/DeepSync/assets/96481582/218e5479-1ad5-4dcf-a9f1-40eacf09da62" alt="image"  />
+</li>
+</ul>
+<h5 id="max-pooling">max pooling<a hidden class="anchor" aria-hidden="true" href="#max-pooling">#</a></h5>
+<ul>
+<li>max pooling 역시 translational invariance한 연산
+<img loading="lazy" src="https://github.com/ownvoy/DeepSync/assets/96481582/474ff53e-ff66-48d0-9007-722c0beeaa70" alt="image"  />
+</li>
+</ul>
+<p><code>cnn</code>은 어떤 위치에 사물이 있어도 잘 classify한다. (translational invariance)</p>
+<h4 id="translational-equivariancevariance">Translational equivariance(variance)<a hidden class="anchor" aria-hidden="true" href="#translational-equivariancevariance">#</a></h4>
+<p>위치가 변하면 결과가 변함
+= 위치에 영향을 받음
+object detection에서의 bounding box</p>
+<blockquote>
+<p>object detection은 translational invariance와 translational variance의 dielemma를 가지고 있음</p>
+</blockquote>
+<h3 id="122-이전-모델의-한계점">1.2.2 이전 모델의 한계점<a hidden class="anchor" aria-hidden="true" href="#122-이전-모델의-한계점">#</a></h3>
+<h4 id="r-cnn-faster-r-cnn">R-CNN/ Faster R-CNN<a hidden class="anchor" aria-hidden="true" href="#r-cnn-faster-r-cnn">#</a></h4>
+<ul>
+<li>R-CNN에서는 AlexNet이나 VGGNet을 갔다 씀</li>
+<li>5번째 conv이후로는 fully-connected layer를 썼기에, weight sharing이 끊김.
+<img loading="lazy" src="https://github.com/ownvoy/DeepSync/assets/96481582/f35d6f12-ab95-468b-a5f0-ea5a17e31da5" alt="image"  />
+</li>
+</ul>
+<p><a href="https://www.geeksforgeeks.org/r-cnn-region-based-cnns/">R-CNN | Region Based CNNs - GeeksforGeeks</a></p>
+<p>층이 깊다는 특징을 가지고 있음=&gt; image classify는 잘하는데 detection은 썩?</p>
+<p><img loading="lazy" src="https://github.com/ownvoy/DeepSync/assets/96481582/6727f93a-00fb-4663-b8dd-da21567b263b" alt="image"  />
+</p>
+<ul>
+<li>
+<p>R-CNN: RoI 하나 당 CNN을 돌리니까 101층 모두 RoI-wise</p>
+</li>
+<li>
+<p>Faster R-CNN: 마지막에 RoI pooling layer 이후 RoI-wise 계산
+<img loading="lazy" src="https://github.com/ownvoy/DeepSync/assets/96481582/79c3b274-263d-40bf-a686-ba8d517868d9" alt="image"  />
+</p>
+</li>
+<li>
+<p>R-FCN: 101층 모두 shared, fully convolutional architectures</p>
+</li>
+</ul>
+<blockquote>
+<p>Faster R-CNN의 마지막 Fully Connected Layers를 없애 보자.</p>
+</blockquote>
+<h1 id="2-main">2 Main<a hidden class="anchor" aria-hidden="true" href="#2-main">#</a></h1>
+<h2 id="21-overview">2.1 Overview<a hidden class="anchor" aria-hidden="true" href="#21-overview">#</a></h2>
+<p><img loading="lazy" src="https://github.com/ownvoy/DeepSync/assets/96481582/86308dbc-8c17-4022-9e59-48f50223648d" alt="image"  />
+</p>
+<ul>
+<li>마지막 conv layer를 통과한 결과물: $k^{2}\times(C+1)$</li>
+<li>$k$는 class의 위치 정보를 나타냄. 아래 그림서 $k=3$</li>
+</ul>
+<!-- raw HTML omitted -->
+<ul>
+<li>$C$: object category</li>
+</ul>
+<p><img loading="lazy" src="https://github.com/ownvoy/DeepSync/assets/96481582/748598ca-764c-417d-993b-433396814f1f" alt="image"  />
+</p>
+<ul>
+<li>자전거에 대해 보자고 할 때, 그림 중앙에는 몸통이 있고 왼쪽 아래에는 앞바퀴가 있는 것을 알 수 있다.(사진에 대한 대략적인 정보)</li>
+</ul>
+<p><img loading="lazy" src="https://github.com/ownvoy/DeepSync/assets/96481582/939a874f-d1e8-4929-a4b1-c536b5e54fc9" alt="image"  />
+</p>
+<ul>
+<li>카테고리가 $C+1$개($1$개는 background), $k\times k$개의 bin</li>
+<li>각각의 bin들을 위치에 따라서 모아줌.</li>
+</ul>
+<p><img loading="lazy" src="https://github.com/ownvoy/DeepSync/assets/96481582/6aea6550-1a71-43c3-bb9b-26f7ccd693f2" alt="image"  />
+</p>
+<blockquote>
+<p><strong>마지막 conv layer를 지나고 나온 결과물</strong></p>
+</blockquote>
+<h3 id="position-sensitive-roi-pooling">position-sensitive RoI pooling<a hidden class="anchor" aria-hidden="true" href="#position-sensitive-roi-pooling">#</a></h3>
+<p>$r_{bike}$이라는 $3\times3$ table이 있다고 할 때, 그 중 맨 위 왼쪽 칸($i=0,j=0$)을 어떤 식으로 pooling 할까?</p>
+<p>RPN에서 나온 RoI들이 다음과 같다고 할 때,</p>
+<p><img loading="lazy" src="https://github.com/ownvoy/DeepSync/assets/96481582/56ea4969-e08a-409e-ba67-a07172c75d05" alt="image"  />
+</p>
+<p>$r_{bike}(0,0)$ 은 맨 왼쪽 위 칸에 대한 정보(핸들)를 이용하여 pooling 하고 싶을 것.</p>
+<p><img loading="lazy" src="https://github.com/ownvoy/DeepSync/assets/96481582/9d5dab84-207b-447a-8f74-4b18e145cb45" alt="image"  />
+</p>
+<p>핸들에 대한 정보가 $z_{0,0,bike}$임(마지막 conv layer를 통과한 결과물)
+$z_{0,0,bike}$와 RoI의 각 bin들과 곱해줘서 average pooling 해줄 거임.
+$$r_{bike}(0,0) = \frac{z_{0,0,bike} \times (x_0,y_0)+z_{0,0,bike}\times(x_0,y_1)+ \cdots +z_{0,0,bike}\times(x_2,y_2)}{9}$$</p>
+<p>결국 $r_{bike(0,0)}$은 $z_{0,0,bike} \times (z_0,y_0)$ 이 가장 많이 반영 되고, 다른 bin들은 섞여 들어갈 것. (self-attention이랑 비슷하다고 느낌)</p>
+<p>마찬가지로, $r_{bike}(0,1)\cdots r_{bike}(2,2)$ 모든 셀에 대해 구할 수 있음</p>
+<p>$r_{bike}$는 $r_{bike}(0,1)\cdots r_{bike}(2,2)$의 sum으로 구함.
+$$r_{c}= \sum\limits_{i,j} r_c(i,j)$$</p>
+<p>이렇게 다 더하는 과정을 vote라고 함.</p>
+<p>마찬가지로 $r_{dog},  r_{backgroud}$ 등을 구할 수 있을 것임.
+이 값 을 활용하여 roi가 뭔지 맞출 수 있음(softmax function)</p>
+<p>$$s_{c}=\frac{e^{r_c}}{\overset{C}{\underset{c=0}{\sum}} e^{r_c}}$$</p>
+<p>이 $s_c$는 뒤에서 cross-entropy loss로 쓰임</p>
+<ul>
+<li>그냥 계산만 한거여서 learnable layer가 아님. =&gt; speed up</li>
+</ul>
+<p><img loading="lazy" src="https://github.com/ownvoy/DeepSync/assets/96481582/f01d3c9c-8791-4c8e-b713-b1f889d07eba" alt="image"  />
+</p>
+<ol>
+<li>positional sensitive RoI pooling을 해서 <strong>translation invariance</strong> 문제 해결</li>
+<li><strong>fully connected layer를 없앰</strong> 으로써 속도 향상 + end-to-end 학습</li>
+</ol>
+<h3 id="bounding-box-regression">bounding box regression<a hidden class="anchor" aria-hidden="true" href="#bounding-box-regression">#</a></h3>
+<p>비슷하게 마지막 layer로 $4k^2$-d convolutional layer</p>
+<h2 id="22-training">2.2 training<a hidden class="anchor" aria-hidden="true" href="#22-training">#</a></h2>
+<h3 id="loss">loss<a hidden class="anchor" aria-hidden="true" href="#loss">#</a></h3>
+<p>summation of the cross-entropy loss and the box regression loss</p>
+<p><img loading="lazy" src="https://github.com/ownvoy/DeepSync/assets/96481582/fc5ea835-8845-417b-8637-5bfa571a54ff" alt="image"  />
+</p>
+<h3 id="online-hard-example-miningohem">online hard example mining(OHEM)<a hidden class="anchor" aria-hidden="true" href="#online-hard-example-miningohem">#</a></h3>
+<ul>
+<li>N개의 RoI마다 loss를 구함</li>
+<li>loss가 큰 순서로 정렬</li>
+<li>loss가 크다는 것은 어려운 sample이라는 거임</li>
+<li>큰 순서대로 $B$개 뽑아, 학습</li>
+</ul>
+<p><img loading="lazy" src="https://github.com/ownvoy/DeepSync/assets/96481582/dd72e7ad-307f-437d-888f-840cec1b7761" alt="image"  />
+</p>
+<ul>
+<li>RoI 하나당 계산하는 시간이 거의 <em>cost-free</em> 임. 그래서 training time이 많이 늘어나지 않음(Faster R-CNN에서는 2배 증가)</li>
+</ul>
+<h2 id="23-results">2.3 Results<a hidden class="anchor" aria-hidden="true" href="#23-results">#</a></h2>
+<p><img loading="lazy" src="https://github.com/ownvoy/DeepSync/assets/96481582/9c8e4df0-92a7-43ef-997d-ea3371d9c6f1" alt="image"  />
+</p>
+<p>test time이 faster r-cnn에 비해 압도적으로 빠른 것을 알 수 있다.</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+<nav class="paginav">
+  <a class="next" href="https://ownogatari.xyz/posts/516/">
+    <span class="title">Next »</span>
+    <br>
+    <span>[paper review] Won Jun Oh (2023)</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    <link rel="stylesheet" href="./zotero.css">
+
+
+
+<footer class="footer">
+    
+</footer>
+</div>
+
+</body>
+
+
+</html></body>
+
+</html>
