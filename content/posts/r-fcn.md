@@ -79,7 +79,8 @@ object detection에서의 bounding box
 
 - $C$: object category
 
-![image](https://github.com/ownvoy/DeepSync/assets/96481582/748598ca-764c-417d-993b-433396814f1f)
+![image](https://github.com/ownvoy/ownogatari/assets/96481582/13676839-9672-4bd6-beed-3d10c6b99f96)
+
 
 - 자전거에 대해 보자고 할 때, 그림 중앙에는 몸통이 있고 왼쪽 아래에는 앞바퀴가 있는 것을 알 수 있다.(사진에 대한 대략적인 정보)
 
@@ -102,7 +103,10 @@ RPN에서 나온 RoI들이 다음과 같다고 할 때,
 
 $r_{bike}(0,0)$ 은 맨 왼쪽 위 칸에 대한 정보(핸들)를 이용하여 pooling 하고 싶을 것.
 
-![image](https://github.com/ownvoy/DeepSync/assets/96481582/9d5dab84-207b-447a-8f74-4b18e145cb45)
+
+  
+<img src="https://github.com/ownvoy/DeepSync/assets/96481582/9d5dab84-207b-447a-8f74-4b18e145cb45" width="200" height="200" />
+
 
 핸들에 대한 정보가 $z_{0,0,bike}$임(마지막 conv layer를 통과한 결과물)
 $z_{0,0,bike}$와 RoI의 각 bin들과 곱해줘서 average pooling 해줄 거임.
