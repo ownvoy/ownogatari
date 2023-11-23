@@ -6,13 +6,48 @@
     <description>Recent content on 미래사회와 창의혁신인재</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 18 Sep 2023 02:48:09 +0900</lastBuildDate><atom:link href="https://ownogatari.xyz/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 23 Nov 2023 23:23:46 +0900</lastBuildDate><atom:link href="https://ownogatari.xyz/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>R-FCN</title>
+      <link>https://ownogatari.xyz/posts/r-fcn/</link>
+      <pubDate>Thu, 23 Nov 2023 23:23:46 +0900</pubDate>
+      
+      <guid>https://ownogatari.xyz/posts/r-fcn/</guid>
+      <description>1. overview 1.1 objective  translation invariance 문제를 해결해보자. 모델을 fully convolutional 하게 만들어보자.  1.2 Background translational invariance vs translational variance translational invariance의 정의 positional invariance(translation invariance): 위치가 변하여도 결과가 똑같아야함 = 위치가 영향을 주지 않음 image classification에서의 주요 과제
+ cnn은 translational invaraince하다.
+ weight sharing  convolutiona filter를 활용한 계산은 원래 translational equivariance(translational variance)함. 층이 깊어질 수록 tralational invariance가 됨. 그 이유는 계속 같은 필터를 써서(weight sharing)   max pooling  max pooling 역시 translational invariance한 연산   cnn은 어떤 위치에 사물이 있어도 잘 classify한다.</description>
+    </item>
+    
+    <item>
+      <title>Example</title>
+      <link>https://ownogatari.xyz/posts/example/</link>
+      <pubDate>Fri, 27 Oct 2023 21:56:50 +0900</pubDate>
+      
+      <guid>https://ownogatari.xyz/posts/example/</guid>
+      <description>Self notes Research
+  Methodology::
+  Key Constructs::
+   - IVs::
+ - DVs::
+ - Moderators::
+ - Others::
+  Key_Findings::
+  Contributions::
+  Limitations::
+  Self Critique
+ Critique   - Pros
+ - Cons
+ How is it relevant to my research?   - Relevant_topic::
+ - Use::
+ [!Cite]   Mildenhall, Ben, Pratul P. Srinivasan, Matthew Tancik, Jonathan T.</description>
+    </item>
+    
     <item>
       <title>[paper review] Won Jun Oh (2023)</title>
-      <link>https://ownogatari.xyz/posts/start/</link>
-      <pubDate>Mon, 18 Sep 2023 02:48:09 +0900</pubDate>
+      <link>https://ownogatari.xyz/posts/516/</link>
+      <pubDate>Fri, 06 Oct 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://ownogatari.xyz/posts/start/</guid>
+      <guid>https://ownogatari.xyz/posts/516/</guid>
       <description>1. Introduction 선명한 꿈은 흔들리지 않는 열정을 낳고, 그 열정은 능력을 넘어설 수 있게 한다. 원래였으면 기술블로그답게, 첫 글을 이번주에 발표할 DLRM 논문 리뷰로 시작할려 했다.
 그런데 그전에 오원준 리뷰를 처음이자 마지막으로 해보려고 한다.
 이 이후에는 진짜 paper 리뷰만 할거다.\(^{[1]}\)
@@ -22,21 +57,31 @@
     </item>
     
     <item>
+      <title>Ddpg</title>
+      <link>https://ownogatari.xyz/posts/ddpg/</link>
+      <pubDate>Sat, 23 Sep 2023 00:53:01 +0900</pubDate>
+      
+      <guid>https://ownogatari.xyz/posts/ddpg/</guid>
+      <description>0. BackGround observation: \(x_t\)
+state: \(s_t\)
+state: \(a_t\)
+reward: \(r_t\)
+policy: \(\pi, \ \ S \to P(A)\)
+ transition dynamics : \(p(s_{t+1} \mid s_t,a_t)\)
+discounted future reward : \(R_T = \sum_{i=t}^{T}\gamma^{(i-t)}r(s_i,a_i)\)
+objective function: \(E_{r_i,s_i \sim E, a_i \sim \pi}[R_1]\)
+ \(Q^{\pi}(s_t,a_t) = E_{r_i\geq t, s_i &amp;gt;t \sim E , a_i &amp;gt; t \sim \pi}[R_t \mid s_t, a_t]\)
+\(Q^{\pi}(s_t,a_t) = E_{r_t,s_{t+1} \sim E} [r(s_t,a_t)+ \gamma E_{a_{t+1} \sim \pi} [Q^{\pi}(s_{t+1}, a_{t+1})]]\)
+\(Q^{\mu}(s_t,a_t) = E_{r_t,s_{t+1} \sim E} [r(s_t,a_t)+ \gamma Q^{\mu}(s_{t+1}, \mu(s_{t+1}))]\)</description>
+    </item>
+    
+    <item>
       <title>Test</title>
       <link>https://ownogatari.xyz/docs/test/</link>
       <pubDate>Fri, 15 Sep 2023 23:53:47 +0900</pubDate>
       
       <guid>https://ownogatari.xyz/docs/test/</guid>
       <description>This is a test page!! I am going to write dev blogs.</description>
-    </item>
-    
-    <item>
-      <title>Test</title>
-      <link>https://ownogatari.xyz/posts/test/</link>
-      <pubDate>Fri, 15 Sep 2023 23:39:07 +0900</pubDate>
-      
-      <guid>https://ownogatari.xyz/posts/test/</guid>
-      <description>This is a test page!! $1$ I am going to write dev blogs. $$1$$ \(a \ne b\) 가나요\({^3}\)</description>
     </item>
     
   </channel>

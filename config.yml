@@ -13,7 +13,9 @@ params:
   ShowWordCount: true
   ShowRssButtonInSectionTermList: true
   UseHugoToc: true
-  custom_css: fonts/custom_style.css
+  custom_css: 
+      - fonts/custom_style.css
+      - zotero.css
 
   
   assets:

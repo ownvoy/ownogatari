@@ -3,18 +3,33 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://ownogatari.xyz/posts/start/</loc>
-    <lastmod>2023-09-18T02:48:09+09:00</lastmod>
+    <loc>https://ownogatari.xyz/posts/</loc>
+    <lastmod>2023-11-23T23:23:46+09:00</lastmod>
   </url>
   
   <url>
-    <loc>https://ownogatari.xyz/posts/</loc>
-    <lastmod>2023-09-18T02:48:09+09:00</lastmod>
+    <loc>https://ownogatari.xyz/posts/r-fcn/</loc>
+    <lastmod>2023-11-23T23:23:46+09:00</lastmod>
   </url>
   
   <url>
     <loc>https://ownogatari.xyz/</loc>
-    <lastmod>2023-09-18T02:48:09+09:00</lastmod>
+    <lastmod>2023-11-23T23:23:46+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ownogatari.xyz/posts/example/</loc>
+    <lastmod>2023-10-27T21:56:50+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ownogatari.xyz/posts/516/</loc>
+    <lastmod>2023-10-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ownogatari.xyz/posts/ddpg/</loc>
+    <lastmod>2023-09-23T00:53:01+09:00</lastmod>
   </url>
   
   <url>
@@ -28,27 +43,11 @@
   </url>
   
   <url>
-    <loc>https://ownogatari.xyz/tags/first/</loc>
-    <lastmod>2023-09-15T23:39:07+09:00</lastmod>
+    <loc>https://ownogatari.xyz/categories/</loc>
   </url>
   
   <url>
     <loc>https://ownogatari.xyz/tags/</loc>
-    <lastmod>2023-09-15T23:39:07+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://ownogatari.xyz/posts/test/</loc>
-    <lastmod>2023-09-15T23:39:07+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://ownogatari.xyz/tags/test/</loc>
-    <lastmod>2023-09-15T23:39:07+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://ownogatari.xyz/categories/</loc>
   </url>
   
 </urlset>
