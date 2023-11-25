@@ -110,21 +110,21 @@ RPN에서 나온 RoI들이 다음과 같다고 할 때,
 
 핸들에 대한 정보가 \\(z_{0,0,bike}\\)임(마지막 conv layer를 통과한 결과물)
 \\(z_{0,0,bike}\\)와 RoI의 각 bin들과 곱해줘서 average pooling 해줄 거임.
-\\(\\)r_{bike}(0,0) = \frac{z_{0,0,bike} \times (x_0,y_0)+z_{0,0,bike}\times(x_0,y_1)+ \cdots +z_{0,0,bike}\times(x_2,y_2)}{9}\\(\\)
+\\(r_{bike}(0,0) = \frac{z_{0,0,bike} \times (x_0,y_0)+z_{0,0,bike}\times(x_0,y_1)+ \cdots +z_{0,0,bike}\times(x_2,y_2)}{9}\\)
 
 결국 \\(r_{bike(0,0)}\\)은 \\(z_{0,0,bike} \times (z_0,y_0)\\) 이 가장 많이 반영 되고, 다른 bin들은 섞여 들어갈 것. (self-attention이랑 비슷하다고 느낌)
 
 마찬가지로, \\(r_{bike}(0,1)\cdots r_{bike}(2,2)\\) 모든 셀에 대해 구할 수 있음
 
 \\(r_{bike}\\)는 \\(r_{bike}(0,1)\cdots r_{bike}(2,2)\\)의 sum으로 구함.
-\\(\\)r_{c}= \sum\limits_{i,j} r_c(i,j)\\(\\)
+\\(r_{c}= \sum\limits_{i,j} r_c(i,j)\\)
 
 이렇게 다 더하는 과정을 vote라고 함.
 
 마찬가지로 \\(r_{dog},  r_{backgroud}\\) 등을 구할 수 있을 것임.
 이 값 을 활용하여 roi가 뭔지 맞출 수 있음(softmax function)
 
-\\(\\)s_{c}=\frac{e^{r_c}}{\overset{C}{\underset{c=0}{\sum}} e^{r_c}}\\(\\)
+\\(s_{c}=\frac{e^{r_c}}{\overset{C}{\underset{c=0}{\sum}} e^{r_c}}\\)
 
 이 \\(s_c\\)는 뒤에서 cross-entropy loss로 쓰임
 
