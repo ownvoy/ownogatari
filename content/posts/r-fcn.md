@@ -2,7 +2,7 @@
 title: "R-FCN"
 date: 2023-11-23
 draft: false
-katex: true
+math: true
 mathjax: true
 ---
 
@@ -72,12 +72,12 @@ object detection에서의 bounding box
 ## 2.1 Overview
 ![image](https://github.com/ownvoy/DeepSync/assets/96481582/86308dbc-8c17-4022-9e59-48f50223648d)
 
-- 마지막 conv layer를 통과한 결과물: $k^{2}\times(C+1)$
-- $k$는 class의 위치 정보를 나타냄. 아래 그림서 $k=3$
+- 마지막 conv layer를 통과한 결과물: \\(\1\\)
+- \\(\1\\)는 class의 위치 정보를 나타냄. 아래 그림서 \\(\1\\)
   
 <img src="https://github.com/ownvoy/DeepSync/assets/96481582/8fb94ff0-cb32-418f-9830-62076db9ac38" width="200" height="200" />
 
-- $C$: object category
+- \\(\1\\): object category
 
 ![image](https://github.com/ownvoy/ownogatari/assets/96481582/13676839-9672-4bd6-beed-3d10c6b99f96)
 
@@ -86,7 +86,7 @@ object detection에서의 bounding box
 
 ![image](https://github.com/ownvoy/DeepSync/assets/96481582/939a874f-d1e8-4929-a4b1-c536b5e54fc9)
 
-- 카테고리가 $C+1$개($1$개는 background), $k\times k$개의 bin
+- 카테고리가 \\(\1\\)개(\\(\1\\)개는 background), \\(\1\\)개의 bin
 - 각각의 bin들을 위치에 따라서 모아줌.
 
 ![image](https://github.com/ownvoy/DeepSync/assets/96481582/6aea6550-1a71-43c3-bb9b-26f7ccd693f2)
@@ -95,38 +95,38 @@ object detection에서의 bounding box
 
 ### position-sensitive RoI pooling
 
-$r_{bike}$이라는 $3\times3$ table이 있다고 할 때, 그 중 맨 위 왼쪽 칸($i=0,j=0$)을 어떤 식으로 pooling 할까?
+\\(\1\\)이라는 \\(\1\\) table이 있다고 할 때, 그 중 맨 위 왼쪽 칸(\\(\1\\))을 어떤 식으로 pooling 할까?
 
 RPN에서 나온 RoI들이 다음과 같다고 할 때,
 
 ![image](https://github.com/ownvoy/DeepSync/assets/96481582/56ea4969-e08a-409e-ba67-a07172c75d05)
 
-$r_{bike}(0,0)$ 은 맨 왼쪽 위 칸에 대한 정보(핸들)를 이용하여 pooling 하고 싶을 것.
+\\(\1\\) 은 맨 왼쪽 위 칸에 대한 정보(핸들)를 이용하여 pooling 하고 싶을 것.
 
 
   
 <img src="https://github.com/ownvoy/DeepSync/assets/96481582/9d5dab84-207b-447a-8f74-4b18e145cb45" width="200" height="200" />
 
 
-핸들에 대한 정보가 $z_{0,0,bike}$임(마지막 conv layer를 통과한 결과물)
-$z_{0,0,bike}$와 RoI의 각 bin들과 곱해줘서 average pooling 해줄 거임.
-$$r_{bike}(0,0) = \frac{z_{0,0,bike} \times (x_0,y_0)+z_{0,0,bike}\times(x_0,y_1)+ \cdots +z_{0,0,bike}\times(x_2,y_2)}{9}$$
+핸들에 대한 정보가 \\(\1\\)임(마지막 conv layer를 통과한 결과물)
+\\(\1\\)와 RoI의 각 bin들과 곱해줘서 average pooling 해줄 거임.
+\\(\1\\)r_{bike}(0,0) = \frac{z_{0,0,bike} \times (x_0,y_0)+z_{0,0,bike}\times(x_0,y_1)+ \cdots +z_{0,0,bike}\times(x_2,y_2)}{9}\\(\1\\)
 
-결국 $r_{bike(0,0)}$은 $z_{0,0,bike} \times (z_0,y_0)$ 이 가장 많이 반영 되고, 다른 bin들은 섞여 들어갈 것. (self-attention이랑 비슷하다고 느낌)
+결국 \\(\1\\)은 \\(\1\\) 이 가장 많이 반영 되고, 다른 bin들은 섞여 들어갈 것. (self-attention이랑 비슷하다고 느낌)
 
-마찬가지로, $r_{bike}(0,1)\cdots r_{bike}(2,2)$ 모든 셀에 대해 구할 수 있음
+마찬가지로, \\(\1\\) 모든 셀에 대해 구할 수 있음
 
-$r_{bike}$는 $r_{bike}(0,1)\cdots r_{bike}(2,2)$의 sum으로 구함.
-$$r_{c}= \sum\limits_{i,j} r_c(i,j)$$
+\\(\1\\)는 \\(\1\\)의 sum으로 구함.
+\\(\1\\)r_{c}= \sum\limits_{i,j} r_c(i,j)\\(\1\\)
 
 이렇게 다 더하는 과정을 vote라고 함.
 
-마찬가지로 $r_{dog},  r_{backgroud}$ 등을 구할 수 있을 것임.
+마찬가지로 \\(\1\\) 등을 구할 수 있을 것임.
 이 값 을 활용하여 roi가 뭔지 맞출 수 있음(softmax function)
 
-$$s_{c}=\frac{e^{r_c}}{\overset{C}{\underset{c=0}{\sum}} e^{r_c}}$$
+\\(\1\\)s_{c}=\frac{e^{r_c}}{\overset{C}{\underset{c=0}{\sum}} e^{r_c}}\\(\1\\)
 
-이 $s_c$는 뒤에서 cross-entropy loss로 쓰임
+이 \\(\1\\)는 뒤에서 cross-entropy loss로 쓰임
 
 - 그냥 계산만 한거여서 learnable layer가 아님. => speed up
 
@@ -138,7 +138,7 @@ $$s_{c}=\frac{e^{r_c}}{\overset{C}{\underset{c=0}{\sum}} e^{r_c}}$$
 
 
 ### bounding box regression 
-비슷하게 마지막 layer로 $4k^2$-d convolutional layer
+비슷하게 마지막 layer로 \\(\1\\)-d convolutional layer
 
 ## 2.2 training
 
@@ -151,10 +151,10 @@ summation of the cross-entropy loss and the box regression loss
 
 ### online hard example mining(OHEM)
 
-- $N$개의 RoI마다 loss를 구함 
+- \\(\1\\)개의 RoI마다 loss를 구함 
 - loss가 큰 순서로 정렬
 - loss가 크다는 것은 어려운 sample이라는 거임
-- 큰 순서대로 $B$개 뽑아, 학습
+- 큰 순서대로 \\(\1\\)개 뽑아, 학습
 
 ![image](https://github.com/ownvoy/DeepSync/assets/96481582/dd72e7ad-307f-437d-888f-840cec1b7761)
 
