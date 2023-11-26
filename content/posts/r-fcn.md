@@ -75,7 +75,7 @@ object detection에서의 bounding box
 - 마지막 conv layer를 통과한 결과물: \\(k^{2}\times(C+1)\\)
 - \\(k\\)는 class의 위치 정보를 나타냄. 아래 그림서 \\(k=3\\)
   
-<img src="https://github.com/ownvoy/DeepSync/assets/96481582/8fb94ff0-cb32-418f-9830-62076db9ac38" width="200" height="200" />
+![image](https://github.com/ownvoy/DeepSync/assets/96481582/8fb94ff0-cb32-418f-9830-62076db9ac38)
 
 - \\(C\\): object category
 
@@ -103,10 +103,7 @@ RPN에서 나온 RoI들이 다음과 같다고 할 때,
 
 \\(r_{bike}(0,0)\\) 은 맨 왼쪽 위 칸에 대한 정보(핸들)를 이용하여 pooling 하고 싶을 것.
 
-
-  
-<img src="https://github.com/ownvoy/DeepSync/assets/96481582/9d5dab84-207b-447a-8f74-4b18e145cb45" width="200" height="200" />
-
+![image](https://github.com/ownvoy/DeepSync/assets/96481582/9d5dab84-207b-447a-8f74-4b18e145cb45)
 
 핸들에 대한 정보가 \\(z_{0,0,bike}\\)임(마지막 conv layer를 통과한 결과물)
 \\(z_{0,0,bike}\\)와 RoI의 각 bin들과 곱해줘서 average pooling 해줄 거임.
