@@ -1,3 +1,10 @@
+---
+title: "SDD"
+date: 2023-12-19
+draft: false
+katex: true
+mathjax: true
+---
 
 # 1. overview
 
