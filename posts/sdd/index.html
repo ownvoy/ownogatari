@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>미래사회와 창의혁신인재</title>
+<meta name="keywords" content="">
+<meta name="description" content="1. overview 1.1 objective multiple scale에 대해 다뤄 보자. (큰 물체, 작은 물체) \(\Rightarrow\) 장점: low resolution에 대한 문제를 해결 \(\Rightarrow\) 방법: 여러 개의 conv layer 도입
+different shape에 대해 다뤄 보자. (박스 형태, 2:1, 1:1) \(\Rightarrow\) 장점: 다양한 형태의 객체 검출 \(\Rightarrow\) 방법: 박스 형태 다양하게
+1.2 background YOLO YOLO 같은 경우 feature map이 \(7\times7\)짜리 1개이다. box개수는 각 cell마다 2개 있어서 총 98개이다.
+2. main 2.1 architecture pretrained model &#43; convolutional layer 논문에서는 VGG를 pretrained model로 사용">
+<meta name="author" content="">
+<link rel="canonical" href="https://ownogatari.xyz/posts/sdd/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.5cfc680b1eeaeef9efbced92d46c2a9e876b72ee14fba85846afc4cff9e6e6f8.css" integrity="sha256-XPxoCx7q7vnvvO2S1Gwqnodrcu4U&#43;6hYRq/Ez/nm5vg=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://ownogatari.xyz/images/favicon/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://ownogatari.xyz/images/favicon/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://ownogatari.xyz/images/favicon/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://ownogatari.xyz/images/favicon/apple-touch-icon.png">
+<link rel="mask-icon" href="https://ownogatari.xyz/images/favicon/apple-touch-icon.png">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="" />
+<meta property="og:description" content="1. overview 1.1 objective multiple scale에 대해 다뤄 보자. (큰 물체, 작은 물체) \(\Rightarrow\) 장점: low resolution에 대한 문제를 해결 \(\Rightarrow\) 방법: 여러 개의 conv layer 도입
+different shape에 대해 다뤄 보자. (박스 형태, 2:1, 1:1) \(\Rightarrow\) 장점: 다양한 형태의 객체 검출 \(\Rightarrow\) 방법: 박스 형태 다양하게
+1.2 background YOLO YOLO 같은 경우 feature map이 \(7\times7\)짜리 1개이다. box개수는 각 cell마다 2개 있어서 총 98개이다.
+2. main 2.1 architecture pretrained model &#43; convolutional layer 논문에서는 VGG를 pretrained model로 사용" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ownogatari.xyz/posts/sdd/" /><meta property="article:section" content="posts" />
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="1. overview 1.1 objective multiple scale에 대해 다뤄 보자. (큰 물체, 작은 물체) \(\Rightarrow\) 장점: low resolution에 대한 문제를 해결 \(\Rightarrow\) 방법: 여러 개의 conv layer 도입
+different shape에 대해 다뤄 보자. (박스 형태, 2:1, 1:1) \(\Rightarrow\) 장점: 다양한 형태의 객체 검출 \(\Rightarrow\) 방법: 박스 형태 다양하게
+1.2 background YOLO YOLO 같은 경우 feature map이 \(7\times7\)짜리 1개이다. box개수는 각 cell마다 2개 있어서 총 98개이다.
+2. main 2.1 architecture pretrained model &#43; convolutional layer 논문에서는 VGG를 pretrained model로 사용"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://ownogatari.xyz/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "",
+      "item": "https://ownogatari.xyz/posts/sdd/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "",
+  "name": "",
+  "description": "1. overview 1.1 objective multiple scale에 대해 다뤄 보자. (큰 물체, 작은 물체) \\(\\Rightarrow\\) 장점: low resolution에 대한 문제를 해결 \\(\\Rightarrow\\) 방법: 여러 개의 conv layer 도입\ndifferent shape에 대해 다뤄 보자. (박스 형태, 2:1, 1:1) \\(\\Rightarrow\\) 장점: 다양한 형태의 객체 검출 \\(\\Rightarrow\\) 방법: 박스 형태 다양하게\n1.2 background YOLO YOLO 같은 경우 feature map이 \\(7\\times7\\)짜리 1개이다. box개수는 각 cell마다 2개 있어서 총 98개이다.\n2. main 2.1 architecture pretrained model + convolutional layer 논문에서는 VGG를 pretrained model로 사용",
+  "keywords": [
+    
+  ],
+  "articleBody": "1. overview 1.1 objective multiple scale에 대해 다뤄 보자. (큰 물체, 작은 물체) \\(\\Rightarrow\\) 장점: low resolution에 대한 문제를 해결 \\(\\Rightarrow\\) 방법: 여러 개의 conv layer 도입\ndifferent shape에 대해 다뤄 보자. (박스 형태, 2:1, 1:1) \\(\\Rightarrow\\) 장점: 다양한 형태의 객체 검출 \\(\\Rightarrow\\) 방법: 박스 형태 다양하게\n1.2 background YOLO YOLO 같은 경우 feature map이 \\(7\\times7\\)짜리 1개이다. box개수는 각 cell마다 2개 있어서 총 98개이다.\n2. main 2.1 architecture pretrained model + convolutional layer 논문에서는 VGG를 pretrained model로 사용\n\\(\\text{Conv}4_{3}\\rightarrow \\text{Conv}6 \\rightarrow \\text{Conv}7 \\rightarrow \\text{Conv}8_{2}\\rightarrow \\text{Conv}9_{2}\\rightarrow\\text{Conv}10_2\\) 라 할 때\nConv feature map size filter size(다음 conv로) number of box output size Conv4 \\(38\\times38\\times 512\\) \\(3\\times 3\\times 1024\\) \\(38 \\times 38 \\times 4\\) \\(38\\times38\\times4\\times(C+4)\\) Conv6 \\(19 \\times19\\times1024\\) \\(1\\times1\\times1024\\) \\(19\\times19\\times6\\) \\(19 \\times 19 \\times 6 \\times (C+4)\\) 각 feature map의 cell 마다 bounding box가 4 or 6개가 있음. \\(\\Rightarrow\\) YOLO보다 압도적으로 많은 bounding box 개수 큰 feature map 더 많은 디테일을 담고 있으므로 작은 물체를, 작은 feature map은 큰 물체를 검출.\n3. other detail 3.1 loss bounding box offset하는 거 4개랑 confidence loss weighted sum해서 Smooth L1 loss 적용 $$L(x,c,l,g)=\\frac{1}{N}(L_{c o n f}(x,c)+\\alpha L_{l o c}(x,l,g))$$\n3.2 Hard Negative Mining negative sample이 압도적으로 많으니까, confidence가 높은 순서로 정렬해서 하나만 사용 \\(\\rightarrow\\) negative:positive = 3:1\n3.3 bounding box 만들기 각각의 bounding box의 크기랑 비율이 상이.\nscale 정하기 앞 단의 feature map(lower layer)은 box scale이 작음. 반면 뒷단의 feautre map(higher layer)은 box scale이 큼. $$s_{k}=s_{{min}}+{\\frac{s_{{max}}-s_{{min}}}{m-1}}(k-1),\\quad k\\in[1,m]$$\n6개의 feature map이 있다고 할 때, lowest layer은 box scale이 \\(s_{min}=0.2\\) 이고 highest layer은 box scale이 \\(s_{max}= 0.9\\) box 형태 정하기 $$a_{r};\\in;{1,2,3,\\frac{1}{2},\\frac{1}{3}}$$ 를 기준으로 \\((w_{k}^{a}=s_{k}\\sqrt{a_{r}});;,(h_{k}^{a}=s_{k}/\\sqrt{a_{r}})\\) 를 총 5개의 박스를 만들어줌.\n\\(a_r=1\\)일때 \\(s_k=\\sqrt{s_ks_{k+1}}\\) 도 추가하여 총 6개의 box 설정\n기본적으로 6개의 box를 사용하였는데, 4개의 box를 쓸 때에는, \\(a_{r};\\in;{1,2,\\frac{1}{2}}\\) 로 설정.\n4. experimental results 성능이 R-CNN 계열 , YOLO보다 좋다~\nInference할 때 정확도도 높으면서 속도도 빠르다~\n",
+  "wordCount" : "295",
+  "inLanguage": "en",
+  "datePublished": "0001-01-01T00:00:00Z",
+  "dateModified": "0001-01-01T00:00:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://ownogatari.xyz/posts/sdd/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "미래사회와 창의혁신인재",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://ownogatari.xyz/images/favicon/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://ownogatari.xyz/" accesskey="h" title="미래사회와 창의혁신인재 (Alt + H)">미래사회와 창의혁신인재</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://ownogatari.xyz/categories/" title="categories">
+                    <span>categories</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ownogatari.xyz/tags/" title="tags">
+                    <span>tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://ownogatari.xyz/">Home</a>&nbsp;»&nbsp;<a href="https://ownogatari.xyz/posts/">Posts</a></div>
+    <h1 class="post-title">
+      
+    </h1>
+    <div class="post-meta">2 min&nbsp;·&nbsp;295 words
+
+</div>
+  </header> 
+  <div class="post-content"><h1 id="1-overview">1. overview<a hidden class="anchor" aria-hidden="true" href="#1-overview">#</a></h1>
+<h2 id="11-objective">1.1 objective<a hidden class="anchor" aria-hidden="true" href="#11-objective">#</a></h2>
+<ol>
+<li>
+<p>multiple scale에 대해 다뤄 보자. (큰 물체, 작은 물체)
+\(\Rightarrow\) 장점: low resolution에 대한 문제를 해결
+\(\Rightarrow\) 방법: 여러 개의 conv layer 도입</p>
+</li>
+<li>
+<p>different shape에 대해 다뤄 보자. (박스 형태, 2:1, 1:1)
+\(\Rightarrow\) 장점: 다양한 형태의 객체 검출
+\(\Rightarrow\) 방법: 박스 형태 다양하게</p>
+</li>
+</ol>
+<h2 id="12-background">1.2 background<a hidden class="anchor" aria-hidden="true" href="#12-background">#</a></h2>
+<h3 id="yolo">YOLO<a hidden class="anchor" aria-hidden="true" href="#yolo">#</a></h3>
+<p>YOLO 같은 경우 feature map이 \(7\times7\)짜리 1개이다. box개수는 각 cell마다 2개 있어서 총 98개이다.</p>
+<p><img loading="lazy" src="https://github.com/ownvoy/ownogatari/assets/96481582/da6b123f-8458-4380-bf54-2d0fde560084" alt="image"  />
+</p>
+<h1 id="2-main">2. main<a hidden class="anchor" aria-hidden="true" href="#2-main">#</a></h1>
+<h2 id="21-architecture">2.1 architecture<a hidden class="anchor" aria-hidden="true" href="#21-architecture">#</a></h2>
+<p>pretrained model + convolutional layer
+논문에서는 VGG를 pretrained model로 사용</p>
+<p>\(\text{Conv}4_{3}\rightarrow \text{Conv}6 \rightarrow \text{Conv}7 \rightarrow \text{Conv}8_{2}\rightarrow \text{Conv}9_{2}\rightarrow\text{Conv}10_2\)
+라 할 때</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Conv</th>
+<th style="text-align:center">feature map size</th>
+<th style="text-align:center">filter size(다음 conv로)</th>
+<th style="text-align:center">number of box</th>
+<th style="text-align:center">output size</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Conv4</td>
+<td style="text-align:center">\(38\times38\times 512\)</td>
+<td style="text-align:center">\(3\times 3\times 1024\)</td>
+<td style="text-align:center">\(38 \times 38 \times 4\)</td>
+<td style="text-align:center">\(38\times38\times4\times(C+4)\)</td>
+</tr>
+<tr>
+<td style="text-align:center">Conv6</td>
+<td style="text-align:center">\(19 \times19\times1024\)</td>
+<td style="text-align:center">\(1\times1\times1024\)</td>
+<td style="text-align:center">\(19\times19\times6\)</td>
+<td style="text-align:center">\(19 \times 19 \times 6 \times (C+4)\)</td>
+</tr>
+</tbody>
+</table>
+<p>각 feature map의 cell 마다 bounding box가 4 or 6개가 있음.
+\(\Rightarrow\) YOLO보다 압도적으로 많은 bounding box 개수
+<img loading="lazy" src="https://github.com/ownvoy/ownogatari/assets/96481582/05f2fc35-e7c8-42a8-a48e-c6776ce45e4b" alt="image"  />
+</p>
+<p>큰 feature map 더 많은 디테일을 담고 있으므로 작은 물체를, 작은 feature map은 큰 물체를 검출.</p>
+<h1 id="3-other-detail">3. other detail<a hidden class="anchor" aria-hidden="true" href="#3-other-detail">#</a></h1>
+<h2 id="31-loss">3.1 loss<a hidden class="anchor" aria-hidden="true" href="#31-loss">#</a></h2>
+<p>bounding box offset하는 거 4개랑 confidence loss weighted sum해서 Smooth L1 loss 적용
+$$L(x,c,l,g)=\frac{1}{N}(L_{c o n f}(x,c)+\alpha L_{l o c}(x,l,g))$$</p>
+<h2 id="32-hard-negative-mining">3.2 Hard Negative Mining<a hidden class="anchor" aria-hidden="true" href="#32-hard-negative-mining">#</a></h2>
+<p>negative sample이 압도적으로 많으니까, confidence가 높은 순서로 정렬해서 하나만 사용
+\(\rightarrow\) negative:positive = 3:1</p>
+<h2 id="33-bounding-box-만들기">3.3 bounding box 만들기<a hidden class="anchor" aria-hidden="true" href="#33-bounding-box-만들기">#</a></h2>
+<p>각각의 bounding box의 크기랑 비율이 상이.</p>
+<h4 id="scale-정하기">scale 정하기<a hidden class="anchor" aria-hidden="true" href="#scale-정하기">#</a></h4>
+<p><img loading="lazy" src="https://github.com/ownvoy/ownogatari/assets/96481582/e2c6a68f-cf96-476e-b96c-a19c15c3b515" alt="image"  />
+</p>
+<p>앞 단의 feature map(lower layer)은 box scale이 작음. 반면 뒷단의 feautre map(higher layer)은 box scale이 큼.
+$$s_{k}=s_{{min}}+{\frac{s_{{max}}-s_{{min}}}{m-1}}(k-1),\quad k\in[1,m]$$</p>
+<ul>
+<li>6개의 feature map이 있다고 할 때, lowest layer은 box scale이 \(s_{min}=0.2\) 이고 highest layer은 box scale이 \(s_{max}= 0.9\)</li>
+</ul>
+<h3 id="box-형태-정하기">box 형태 정하기<a hidden class="anchor" aria-hidden="true" href="#box-형태-정하기">#</a></h3>
+<p>$$a_{r};\in;{1,2,3,\frac{1}{2},\frac{1}{3}}$$
+를 기준으로 \((w_{k}^{a}=s_{k}\sqrt{a_{r}});;,(h_{k}^{a}=s_{k}/\sqrt{a_{r}})\) 를 총 5개의 박스를 만들어줌.</p>
+<p>\(a_r=1\)일때 \(s_k=\sqrt{s_ks_{k+1}}\) 도 추가하여 총 6개의 box 설정</p>
+<p>기본적으로 6개의 box를 사용하였는데, 4개의 box를 쓸 때에는,
+\(a_{r};\in;{1,2,\frac{1}{2}}\) 로 설정.</p>
+<h1 id="4-experimental-results">4. experimental results<a hidden class="anchor" aria-hidden="true" href="#4-experimental-results">#</a></h1>
+<p><img loading="lazy" src="https://github.com/ownvoy/ownogatari/assets/96481582/b67df078-ee95-4065-96a8-ad982613da4a" alt="image"  />
+
+성능이 R-CNN 계열 , YOLO보다 좋다~</p>
+<p><img loading="lazy" src="https://github.com/ownvoy/ownogatari/assets/96481582/f8b7ced1-6b7a-4bdd-9a19-2e733bf00658" alt="image"  />
+
+Inference할 때 정확도도 높으면서 속도도 빠르다~</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://ownogatari.xyz/posts/ddpg/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>Ddpg</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    <link rel="stylesheet" href="./zotero.css">
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<footer class="footer">
+    
+</footer>
+</div>
+
+</body>
+
+
+</html></body>
+
+</html>
