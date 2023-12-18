@@ -1,11 +1,14 @@
 ---
+
 title: "SDD"
 date: 2023-12-19
 draft: false
 katex: true
 mathjax: true
-ShowToc: true
+UseHugoToc: true
+
 ---
+
 
 # 1. overview
 
