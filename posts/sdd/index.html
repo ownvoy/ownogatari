@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>미래사회와 창의혁신인재</title>
+<title>SDD | 미래사회와 창의혁신인재</title>
 <meta name="keywords" content="">
 <meta name="description" content="1. overview 1.1 objective multiple scale에 대해 다뤄 보자. (큰 물체, 작은 물체) \(\Rightarrow\) 장점: low resolution에 대한 문제를 해결 \(\Rightarrow\) 방법: 여러 개의 conv layer 도입
 different shape에 대해 다뤄 보자. (박스 형태, 2:1, 1:1) \(\Rightarrow\) 장점: 다양한 형태의 객체 검출 \(\Rightarrow\) 방법: 박스 형태 다양하게
@@ -59,18 +59,18 @@ different shape에 대해 다뤄 보자. (박스 형태, 2:1, 1:1) \(\Rightarrow
         }
 
     </style>
-</noscript><meta property="og:title" content="" />
+</noscript><meta property="og:title" content="SDD" />
 <meta property="og:description" content="1. overview 1.1 objective multiple scale에 대해 다뤄 보자. (큰 물체, 작은 물체) \(\Rightarrow\) 장점: low resolution에 대한 문제를 해결 \(\Rightarrow\) 방법: 여러 개의 conv layer 도입
 different shape에 대해 다뤄 보자. (박스 형태, 2:1, 1:1) \(\Rightarrow\) 장점: 다양한 형태의 객체 검출 \(\Rightarrow\) 방법: 박스 형태 다양하게
 1.2 background YOLO YOLO 같은 경우 feature map이 \(7\times7\)짜리 1개이다. box개수는 각 cell마다 2개 있어서 총 98개이다.
 2. main 2.1 architecture pretrained model &#43; convolutional layer 논문에서는 VGG를 pretrained model로 사용" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://ownogatari.xyz/posts/sdd/" /><meta property="article:section" content="posts" />
-
-
+<meta property="article:published_time" content="2023-12-19T00:00:00+00:00" />
+<meta property="article:modified_time" content="2023-12-19T00:00:00+00:00" />
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content=""/>
+<meta name="twitter:title" content="SDD"/>
 <meta name="twitter:description" content="1. overview 1.1 objective multiple scale에 대해 다뤄 보자. (큰 물체, 작은 물체) \(\Rightarrow\) 장점: low resolution에 대한 문제를 해결 \(\Rightarrow\) 방법: 여러 개의 conv layer 도입
 different shape에 대해 다뤄 보자. (박스 형태, 2:1, 1:1) \(\Rightarrow\) 장점: 다양한 형태의 객체 검출 \(\Rightarrow\) 방법: 박스 형태 다양하게
 1.2 background YOLO YOLO 같은 경우 feature map이 \(7\times7\)짜리 1개이다. box개수는 각 cell마다 2개 있어서 총 98개이다.
@@ -91,7 +91,7 @@ different shape에 대해 다뤄 보자. (박스 형태, 2:1, 1:1) \(\Rightarrow
     {
       "@type": "ListItem",
       "position":  2 ,
-      "name": "",
+      "name": "SDD",
       "item": "https://ownogatari.xyz/posts/sdd/"
     }
   ]
@@ -101,8 +101,8 @@ different shape에 대해 다뤄 보자. (박스 형태, 2:1, 1:1) \(\Rightarrow
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "",
-  "name": "",
+  "headline": "SDD",
+  "name": "SDD",
   "description": "1. overview 1.1 objective multiple scale에 대해 다뤄 보자. (큰 물체, 작은 물체) \\(\\Rightarrow\\) 장점: low resolution에 대한 문제를 해결 \\(\\Rightarrow\\) 방법: 여러 개의 conv layer 도입\ndifferent shape에 대해 다뤄 보자. (박스 형태, 2:1, 1:1) \\(\\Rightarrow\\) 장점: 다양한 형태의 객체 검출 \\(\\Rightarrow\\) 방법: 박스 형태 다양하게\n1.2 background YOLO YOLO 같은 경우 feature map이 \\(7\\times7\\)짜리 1개이다. box개수는 각 cell마다 2개 있어서 총 98개이다.\n2. main 2.1 architecture pretrained model + convolutional layer 논문에서는 VGG를 pretrained model로 사용",
   "keywords": [
     
@@ -110,8 +110,8 @@ different shape에 대해 다뤄 보자. (박스 형태, 2:1, 1:1) \(\Rightarrow
   "articleBody": "1. overview 1.1 objective multiple scale에 대해 다뤄 보자. (큰 물체, 작은 물체) \\(\\Rightarrow\\) 장점: low resolution에 대한 문제를 해결 \\(\\Rightarrow\\) 방법: 여러 개의 conv layer 도입\ndifferent shape에 대해 다뤄 보자. (박스 형태, 2:1, 1:1) \\(\\Rightarrow\\) 장점: 다양한 형태의 객체 검출 \\(\\Rightarrow\\) 방법: 박스 형태 다양하게\n1.2 background YOLO YOLO 같은 경우 feature map이 \\(7\\times7\\)짜리 1개이다. box개수는 각 cell마다 2개 있어서 총 98개이다.\n2. main 2.1 architecture pretrained model + convolutional layer 논문에서는 VGG를 pretrained model로 사용\n\\(\\text{Conv}4_{3}\\rightarrow \\text{Conv}6 \\rightarrow \\text{Conv}7 \\rightarrow \\text{Conv}8_{2}\\rightarrow \\text{Conv}9_{2}\\rightarrow\\text{Conv}10_2\\) 라 할 때\nConv feature map size filter size(다음 conv로) number of box output size Conv4 \\(38\\times38\\times 512\\) \\(3\\times 3\\times 1024\\) \\(38 \\times 38 \\times 4\\) \\(38\\times38\\times4\\times(C+4)\\) Conv6 \\(19 \\times19\\times1024\\) \\(1\\times1\\times1024\\) \\(19\\times19\\times6\\) \\(19 \\times 19 \\times 6 \\times (C+4)\\) 각 feature map의 cell 마다 bounding box가 4 or 6개가 있음. \\(\\Rightarrow\\) YOLO보다 압도적으로 많은 bounding box 개수 큰 feature map 더 많은 디테일을 담고 있으므로 작은 물체를, 작은 feature map은 큰 물체를 검출.\n3. other detail 3.1 loss bounding box offset하는 거 4개랑 confidence loss weighted sum해서 Smooth L1 loss 적용 $$L(x,c,l,g)=\\frac{1}{N}(L_{c o n f}(x,c)+\\alpha L_{l o c}(x,l,g))$$\n3.2 Hard Negative Mining negative sample이 압도적으로 많으니까, confidence가 높은 순서로 정렬해서 하나만 사용 \\(\\rightarrow\\) negative:positive = 3:1\n3.3 bounding box 만들기 각각의 bounding box의 크기랑 비율이 상이.\nscale 정하기 앞 단의 feature map(lower layer)은 box scale이 작음. 반면 뒷단의 feautre map(higher layer)은 box scale이 큼. $$s_{k}=s_{{min}}+{\\frac{s_{{max}}-s_{{min}}}{m-1}}(k-1),\\quad k\\in[1,m]$$\n6개의 feature map이 있다고 할 때, lowest layer은 box scale이 \\(s_{min}=0.2\\) 이고 highest layer은 box scale이 \\(s_{max}= 0.9\\) box 형태 정하기 $$a_{r};\\in;{1,2,3,\\frac{1}{2},\\frac{1}{3}}$$ 를 기준으로 \\((w_{k}^{a}=s_{k}\\sqrt{a_{r}});;,(h_{k}^{a}=s_{k}/\\sqrt{a_{r}})\\) 를 총 5개의 박스를 만들어줌.\n\\(a_r=1\\)일때 \\(s_k=\\sqrt{s_ks_{k+1}}\\) 도 추가하여 총 6개의 box 설정\n기본적으로 6개의 box를 사용하였는데, 4개의 box를 쓸 때에는, \\(a_{r};\\in;{1,2,\\frac{1}{2}}\\) 로 설정.\n4. experimental results 성능이 R-CNN 계열 , YOLO보다 좋다~\nInference할 때 정확도도 높으면서 속도도 빠르다~\n",
   "wordCount" : "295",
   "inLanguage": "en",
-  "datePublished": "0001-01-01T00:00:00Z",
-  "dateModified": "0001-01-01T00:00:00Z",
+  "datePublished": "2023-12-19T00:00:00Z",
+  "dateModified": "2023-12-19T00:00:00Z",
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": "https://ownogatari.xyz/posts/sdd/"
@@ -187,9 +187,9 @@ different shape에 대해 다뤄 보자. (박스 형태, 2:1, 1:1) \(\Rightarrow
   <header class="post-header">
     <div class="breadcrumbs"><a href="https://ownogatari.xyz/">Home</a>&nbsp;»&nbsp;<a href="https://ownogatari.xyz/posts/">Posts</a></div>
     <h1 class="post-title">
-      
+      SDD
     </h1>
-    <div class="post-meta">2 min&nbsp;·&nbsp;295 words
+    <div class="post-meta"><span title='2023-12-19 00:00:00 +0000 UTC'>December 19, 2023</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;295 words
 
 </div>
   </header> 
@@ -288,10 +288,10 @@ Inference할 때 정확도도 높으면서 속도도 빠르다~</p>
     <ul class="post-tags">
     </ul>
 <nav class="paginav">
-  <a class="prev" href="https://ownogatari.xyz/posts/ddpg/">
-    <span class="title">« Prev</span>
+  <a class="next" href="https://ownogatari.xyz/posts/r-fcn/">
+    <span class="title">Next »</span>
     <br>
-    <span>Ddpg</span>
+    <span>R-FCN</span>
   </a>
 </nav>
 
