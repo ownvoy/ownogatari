@@ -6,7 +6,16 @@
     <description>Recent content on 미래사회와 창의혁신인재</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 19 Dec 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://ownogatari.xyz/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 23 Dec 2023 13:42:52 +0900</lastBuildDate><atom:link href="https://ownogatari.xyz/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mask R-CNN</title>
+      <link>https://ownogatari.xyz/posts/mask_r-cnn/</link>
+      <pubDate>Sat, 23 Dec 2023 13:42:52 +0900</pubDate>
+      
+      <guid>https://ownogatari.xyz/posts/mask_r-cnn/</guid>
+      <description>1. overview 1.1 objective Faster R-CNN 돌리는김에 segmentation 해보자. 1.2 background detection sementic segmentation instance segementation 대상 각각이 어떤 물체인지 각각이 어떤 클래스이고, instance를 구별x 각각이 어떤 클래스이고, instance를 구별 범위 bounding box마다 전체의 pixel마다 bounding box의 pixel마다 대표 모델 Faster R-CNN FCN Mask R-CNN , FCIS Fater R-CNN: sementic segmentation 못함. (RoIPooling이 한 뭉태기로 하니까, pixel에 대한 각각의 정보 소멸) FCN: instance segmentation 못함. (전체 픽셀별로 하니까) 2. main mask R-CNN은 RoI마다 mask(K class에 대해)를 내놓기에, instance segmentation 가능함.</description>
+    </item>
+    
     <item>
       <title>SDD</title>
       <link>https://ownogatari.xyz/posts/sdd/</link>

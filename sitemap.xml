@@ -2,13 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://ownogatari.xyz/posts/</loc>
-    <lastmod>2023-12-19T00:00:00+00:00</lastmod>
+    <loc>https://ownogatari.xyz/posts/mask_r-cnn/</loc>
+    <lastmod>2023-12-23T13:42:52+09:00</lastmod>
   </url><url>
-    <loc>https://ownogatari.xyz/posts/sdd/</loc>
-    <lastmod>2023-12-19T00:00:00+00:00</lastmod>
+    <loc>https://ownogatari.xyz/posts/</loc>
+    <lastmod>2023-12-23T13:42:52+09:00</lastmod>
   </url><url>
     <loc>https://ownogatari.xyz/</loc>
+    <lastmod>2023-12-23T13:42:52+09:00</lastmod>
+  </url><url>
+    <loc>https://ownogatari.xyz/posts/sdd/</loc>
     <lastmod>2023-12-19T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://ownogatari.xyz/posts/r-fcn/</loc>
