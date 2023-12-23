@@ -33,9 +33,9 @@ mask R-CNN은 RoI마다 mask(K class에 대해)를 내놓기에, instance segmen
 ### 2.1.1 mask branch
 ![image](https://github.com/ownvoy/ownogatari/assets/96481582/979027ef-175a-499d-8302-cfa001f3fd00)
 
-- \(14 \times 14\) 에는 \(0,1\)의 값이 들어 있음. 이 부분이 해당 클래스냐 아니냐
+- \\(14 \times 14\\) 에는 \\(0,1\\)의 값이 들어 있음. 이 부분이 해당 클래스냐 아니냐
 - Mask R-CNN은 mask, class, box prediction이 parallel하게 이루어짐.
-- 다른 모델은 보통 mask에 대해 prediction을 내놓음 \(\Rightarrow\) segementation과 detection이 합쳐진 구조.
+- 다른 모델은 보통 mask에 대해 prediction을 내놓음 \\(\Rightarrow\\) segementation과 detection이 합쳐진 구조.
 - classification이  calss를 내놓으면, 해당 class를 mask에서 갖고 오는 방식
 $$L=L_{c l s}+L_{b o x}+L_{m a s k}$$
 ### 2.1.2 RoI pooling
