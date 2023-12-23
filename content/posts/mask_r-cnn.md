@@ -2,6 +2,7 @@
 title: "Mask R-CNN"
 date: 2023-12-23T13:42:52+09:00
 draft: false
+categories: "Object Detection"
 ---
 
 

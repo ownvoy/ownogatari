@@ -6,6 +6,7 @@ draft: false
 katex: true
 mathjax: true
 UseHugoToc: true
+categories: "Object Detection"
 
 ---
 
