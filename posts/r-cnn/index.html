@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>R-CNN | 미래사회와 창의혁신인재</title>
+<meta name="keywords" content="">
+<meta name="description" content="1. overview 1.1 objective CNN을 object detection에 적용해보자.
+1.2 background 1.2.1 object detection object detection은 사물이 뭔지, 어디에 있는지 찾는 것. classification과 localization을 동시에 하는 것. 1.2.2 way to localize object 가장 greedy한 방법: sliding window 이미지 크기: \(H\times W\) 박스 크기: \(h \times w\) 가능한 \(x\) 위치: \(W-w&#43;1\) 가능한 \(y\) 위치: \(H-h &#43;1\) 가능한 박스 위치: \((W-w&#43;1)(H-h&#43;1)\) 가능한 총 경우의 수 $$\sum_{h=1}^{H}\sum_{w=1}^{W}(W-w&#43;1)(H-h&#43;1)$$ is equal to $$\frac{H(H&#43;1)}{2}\frac{W(W&#43;1)}{2}$$ 만약 이미지의 크기가 300*300이라고 하면 81,000,000의 경우의 수가 나옴.">
+<meta name="author" content="">
+<link rel="canonical" href="https://ownogatari.xyz/posts/r-cnn/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.5cfc680b1eeaeef9efbced92d46c2a9e876b72ee14fba85846afc4cff9e6e6f8.css" integrity="sha256-XPxoCx7q7vnvvO2S1Gwqnodrcu4U&#43;6hYRq/Ez/nm5vg=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://ownogatari.xyz/images/favicon/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://ownogatari.xyz/images/favicon/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://ownogatari.xyz/images/favicon/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://ownogatari.xyz/images/favicon/apple-touch-icon.png">
+<link rel="mask-icon" href="https://ownogatari.xyz/images/favicon/apple-touch-icon.png">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="R-CNN" />
+<meta property="og:description" content="1. overview 1.1 objective CNN을 object detection에 적용해보자.
+1.2 background 1.2.1 object detection object detection은 사물이 뭔지, 어디에 있는지 찾는 것. classification과 localization을 동시에 하는 것. 1.2.2 way to localize object 가장 greedy한 방법: sliding window 이미지 크기: \(H\times W\) 박스 크기: \(h \times w\) 가능한 \(x\) 위치: \(W-w&#43;1\) 가능한 \(y\) 위치: \(H-h &#43;1\) 가능한 박스 위치: \((W-w&#43;1)(H-h&#43;1)\) 가능한 총 경우의 수 $$\sum_{h=1}^{H}\sum_{w=1}^{W}(W-w&#43;1)(H-h&#43;1)$$ is equal to $$\frac{H(H&#43;1)}{2}\frac{W(W&#43;1)}{2}$$ 만약 이미지의 크기가 300*300이라고 하면 81,000,000의 경우의 수가 나옴." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ownogatari.xyz/posts/r-cnn/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-11-12T00:00:00+00:00" />
+<meta property="article:modified_time" content="2023-11-12T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="R-CNN"/>
+<meta name="twitter:description" content="1. overview 1.1 objective CNN을 object detection에 적용해보자.
+1.2 background 1.2.1 object detection object detection은 사물이 뭔지, 어디에 있는지 찾는 것. classification과 localization을 동시에 하는 것. 1.2.2 way to localize object 가장 greedy한 방법: sliding window 이미지 크기: \(H\times W\) 박스 크기: \(h \times w\) 가능한 \(x\) 위치: \(W-w&#43;1\) 가능한 \(y\) 위치: \(H-h &#43;1\) 가능한 박스 위치: \((W-w&#43;1)(H-h&#43;1)\) 가능한 총 경우의 수 $$\sum_{h=1}^{H}\sum_{w=1}^{W}(W-w&#43;1)(H-h&#43;1)$$ is equal to $$\frac{H(H&#43;1)}{2}\frac{W(W&#43;1)}{2}$$ 만약 이미지의 크기가 300*300이라고 하면 81,000,000의 경우의 수가 나옴."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://ownogatari.xyz/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "R-CNN",
+      "item": "https://ownogatari.xyz/posts/r-cnn/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "R-CNN",
+  "name": "R-CNN",
+  "description": "1. overview 1.1 objective CNN을 object detection에 적용해보자.\n1.2 background 1.2.1 object detection object detection은 사물이 뭔지, 어디에 있는지 찾는 것. classification과 localization을 동시에 하는 것. 1.2.2 way to localize object 가장 greedy한 방법: sliding window 이미지 크기: \\(H\\times W\\) 박스 크기: \\(h \\times w\\) 가능한 \\(x\\) 위치: \\(W-w+1\\) 가능한 \\(y\\) 위치: \\(H-h +1\\) 가능한 박스 위치: \\((W-w+1)(H-h+1)\\) 가능한 총 경우의 수 $$\\sum_{h=1}^{H}\\sum_{w=1}^{W}(W-w+1)(H-h+1)$$ is equal to $$\\frac{H(H+1)}{2}\\frac{W(W+1)}{2}$$ 만약 이미지의 크기가 300*300이라고 하면 81,000,000의 경우의 수가 나옴.",
+  "keywords": [
+    
+  ],
+  "articleBody": "1. overview 1.1 objective CNN을 object detection에 적용해보자.\n1.2 background 1.2.1 object detection object detection은 사물이 뭔지, 어디에 있는지 찾는 것. classification과 localization을 동시에 하는 것. 1.2.2 way to localize object 가장 greedy한 방법: sliding window 이미지 크기: \\(H\\times W\\) 박스 크기: \\(h \\times w\\) 가능한 \\(x\\) 위치: \\(W-w+1\\) 가능한 \\(y\\) 위치: \\(H-h +1\\) 가능한 박스 위치: \\((W-w+1)(H-h+1)\\) 가능한 총 경우의 수 $$\\sum_{h=1}^{H}\\sum_{w=1}^{W}(W-w+1)(H-h+1)$$ is equal to $$\\frac{H(H+1)}{2}\\frac{W(W+1)}{2}$$ 만약 이미지의 크기가 300*300이라고 하면 81,000,000의 경우의 수가 나옴. \\(\\Rightarrow\\) computation cost가 너무 큼.\nselective search R-CNN에서는 2000개의 bounding box를 뽑음. 이 과정을 region proposal이라고 함.\n1.2.3 object detection의 종류 proposal-based model\nTwo-stage model region proposal을 먼저 뽑고, 그 다음에 classification, localization R-CNN, Fast R-CNN , Faster R-CNN, R-FCN proposal-free model\nSingle-stage model region proposal 없이 바로 classification, localization YOLO, SSD, DETR 1.2.4 IoU (Intersection over Union) ground truth와 prediction이 얼마나 많이 겹치느냐\nthreshold를 0.5라 두면, 0.5 이상이면 positive, 0.5 이하면 negative으로 labeling\nnegative sample이 압도적으로 많기에, positive 위주로 sampling\n1.2.5 NMS(Non-Maximum Suppression) 하나의 object에 대해 여러 개의 bounding box가 나올 수 있음. 이 중에서 가장 좋은 bounding box를 고르는 것.\n1.2.6 Recall and Precision positive(predict) negative(predict) positive(g.t) TP (있는 걸 있다고 함) FN (있는데 없다고 함) negative(g.t) FP (없는데 있다고 함) TN (없는걸 없다고 함) 1,4,5는 TP 3은 FP 가운데 검정 강아지 박스는 FN TN은 object detection에서 고려 x(없는 걸 없다고 판정하는 모델이 아니기에) $$\\text{Precision} : \\frac{TP}{TP+FP}$$ $$\\text{Recall}: \\frac{TP}{TP+FN}$$\n2. main 2.1 architecture region proposal + cnn region proposal된 2000개 각각을 cnn에 넣은 후 SVM을 통해 classify\n2.1.1 region proposal 어떤 알고리즘을 써도 무방. selective search를 사용.\n2.1.2 cnn imagenet 사용\n이미지의 크기를 cnn에 넣기 위해, 227*227로 resize\nbottom은 패딩을 추가한건데 성능이 더 좋음. 2.1.3 bounding box regression bounding box는 \\(x,y,h,w\\)로 구성이 됨.\nproposal로 나온 bounding box를 \\(P_x,P_y,P_w, P_h\\)라 하자.\nground truth로 나온 bounding box를 \\(G_x,G_y,G_w, G_h\\)라 하자.\nP에서 G로 가는 transformation을 알아야 함. $$\\begin{array}{l}{{t_{x}=(G_{x}-P_{x})/P_{w}}}\\ {{t_{y}=(G_{y}-P_{y})/P_{h}}}\\ {{t_{w}=\\log(G_{w}/P_{w})}}\\ {{t_{h}=\\log(G_{h}/P_{h}).}}\\end{array}$$\n\\(\\phi_{5}(P^{i})\\)이 \\(t_x, t_y, t_w,t_h\\)에 대한 linear function이라 할 떄, \\(\\bf w\\)를 배우는 것이 목표. 이 때 \\(\\bf w\\)가 큰 값이 나오지 않도록 regularization을 해줌.\n$${\\bf w}{\\star}=\\mathop{\\mathrm{argmin}}{\\hat{\\bf w}{\\star}}\\sum{i}^{N}(t_{\\star}^{i}-\\hat{\\bf w}{\\star}^{\\mathrm{T}}\\phi{5}(P^{i}))^{2}+\\lambda\\left|\\hat{\\bf w}_{\\star}\\right|^{2}.$$\n3. experiments 3.1 PASCAL VOC 2010 3.2 fine-tuning 없이도 잘 되는가? CNN만으로도 생각보다 잘 됨. 근데 fine-tuning을 하면 더 잘 됨. ILSVRC(pretrain) =\u003e PASCAL(fine-tuning)의 순서로 학습. ",
+  "wordCount" : "361",
+  "inLanguage": "en",
+  "datePublished": "2023-11-12T00:00:00Z",
+  "dateModified": "2023-11-12T00:00:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://ownogatari.xyz/posts/r-cnn/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "미래사회와 창의혁신인재",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://ownogatari.xyz/images/favicon/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://ownogatari.xyz/" accesskey="h" title="미래사회와 창의혁신인재 (Alt + H)">미래사회와 창의혁신인재</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://ownogatari.xyz/categories/" title="categories">
+                    <span>categories</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ownogatari.xyz/tags/" title="tags">
+                    <span>tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://ownogatari.xyz/">Home</a>&nbsp;»&nbsp;<a href="https://ownogatari.xyz/posts/">Posts</a></div>
+    <h1 class="post-title">
+      R-CNN
+    </h1>
+    <div class="post-meta"><span title='2023-11-12 00:00:00 +0000 UTC'>November 12, 2023</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;361 words
+
+</div>
+  </header> 
+  <div class="post-content"><h1 id="1-overview">1. overview<a hidden class="anchor" aria-hidden="true" href="#1-overview">#</a></h1>
+<h2 id="11-objective">1.1 objective<a hidden class="anchor" aria-hidden="true" href="#11-objective">#</a></h2>
+<p>CNN을 object detection에 적용해보자.</p>
+<h2 id="12-background">1.2 background<a hidden class="anchor" aria-hidden="true" href="#12-background">#</a></h2>
+<h3 id="121-object-detection">1.2.1 object detection<a hidden class="anchor" aria-hidden="true" href="#121-object-detection">#</a></h3>
+<ul>
+<li>object detection은 사물이 뭔지, 어디에 있는지 찾는 것.</li>
+<li>classification과 localization을 동시에 하는 것.</li>
+</ul>
+<h3 id="122-way-to-localize-object">1.2.2 way to localize object<a hidden class="anchor" aria-hidden="true" href="#122-way-to-localize-object">#</a></h3>
+<ol>
+<li>가장 greedy한 방법: sliding window
+이미지 크기: \(H\times W\)
+박스 크기: \(h \times w\)
+가능한 \(x\) 위치: \(W-w+1\)
+가능한 \(y\) 위치: \(H-h +1\)
+가능한 박스 위치: \((W-w+1)(H-h+1)\)
+가능한 총 경우의 수
+$$\sum_{h=1}^{H}\sum_{w=1}^{W}(W-w+1)(H-h+1)$$
+is equal to
+$$\frac{H(H+1)}{2}\frac{W(W+1)}{2}$$</li>
+</ol>
+<p>만약 이미지의 크기가 300*300이라고 하면 81,000,000의 경우의 수가 나옴.  \(\Rightarrow\) computation cost가 너무 큼.</p>
+<ol start="2">
+<li>selective search</li>
+</ol>
+<p><img loading="lazy" src="https://github.com/ownvoy/ownogatari/assets/96481582/06f1d1eb-fdea-481c-9b3e-d06f12f4932a" alt="image"  />
+</p>
+<p>R-CNN에서는 2000개의 bounding box를 뽑음. 이 과정을 region proposal이라고 함.</p>
+<h3 id="123-object-detection의-종류">1.2.3 object detection의 종류<a hidden class="anchor" aria-hidden="true" href="#123-object-detection의-종류">#</a></h3>
+<ol>
+<li>
+<p>proposal-based model</p>
+<ul>
+<li>Two-stage model</li>
+<li>region proposal을 먼저 뽑고, 그 다음에 classification, localization</li>
+<li><code>R-CNN</code>, <code>Fast R-CNN</code> , <code>Faster R-CNN</code>, <code>R-FCN</code></li>
+</ul>
+</li>
+<li>
+<p>proposal-free model</p>
+<ul>
+<li>Single-stage model</li>
+<li>region proposal 없이 바로 classification, localization</li>
+<li><code>YOLO</code>, <code>SSD</code>, <code>DETR</code></li>
+</ul>
+</li>
+</ol>
+<h3 id="124-iou-intersection-over-union">1.2.4 IoU (Intersection over Union)<a hidden class="anchor" aria-hidden="true" href="#124-iou-intersection-over-union">#</a></h3>
+<p>ground truth와 prediction이 얼마나 많이 겹치느냐</p>
+<p><img loading="lazy" src="https://github.com/ownvoy/ownogatari/assets/96481582/8bb6dd91-7006-4dd2-abad-cf1c25682e5d" alt="image"  />
+</p>
+<ul>
+<li>
+<p>threshold를 0.5라 두면, 0.5 이상이면 positive, 0.5 이하면 negative으로 labeling</p>
+</li>
+<li>
+<p>negative sample이 압도적으로 많기에, positive 위주로 sampling</p>
+</li>
+</ul>
+<h3 id="125-nmsnon-maximum-suppression">1.2.5 NMS(Non-Maximum Suppression)<a hidden class="anchor" aria-hidden="true" href="#125-nmsnon-maximum-suppression">#</a></h3>
+<p><img loading="lazy" src="https://github.com/ownvoy/ownogatari/assets/96481582/03f17b38-5962-456f-b2bc-49a5d2b7b745" alt="image"  />
+</p>
+<p>하나의 object에 대해 여러 개의 bounding box가 나올 수 있음. 이 중에서 가장 좋은 bounding box를 고르는 것.</p>
+<h3 id="126-recall-and-precision">1.2.6 Recall and Precision<a hidden class="anchor" aria-hidden="true" href="#126-recall-and-precision">#</a></h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>positive(predict)</th>
+<th>negative(predict)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>positive(g.t)</td>
+<td>TP (있는 걸 있다고 함)</td>
+<td>FN (있는데 없다고 함)</td>
+</tr>
+<tr>
+<td>negative(g.t)</td>
+<td>FP (없는데 있다고 함)</td>
+<td>TN (없는걸 없다고 함)</td>
+</tr>
+</tbody>
+</table>
+<p><img loading="lazy" src="https://github.com/ownvoy/ownogatari/assets/96481582/cf9568c9-3e0d-4eea-89c8-569c12ed3947" alt="image"  />
+</p>
+<ul>
+<li>1,4,5는 TP</li>
+<li>3은 FP</li>
+<li>가운데 검정 강아지 박스는 FN</li>
+<li>TN은 object detection에서 고려 x(없는 걸 없다고 판정하는 모델이 아니기에)</li>
+</ul>
+<p>$$\text{Precision} : \frac{TP}{TP+FP}$$
+$$\text{Recall}: \frac{TP}{TP+FN}$$</p>
+<h1 id="2-main">2. main<a hidden class="anchor" aria-hidden="true" href="#2-main">#</a></h1>
+<h2 id="21-architecture">2.1 architecture<a hidden class="anchor" aria-hidden="true" href="#21-architecture">#</a></h2>
+<p>region proposal + cnn
+<img loading="lazy" src="https://github.com/ownvoy/ownogatari/assets/96481582/50c3af46-b485-445c-b5e6-3647f01fd571" alt="image"  />
+</p>
+<p>region proposal된 2000개 각각을 cnn에 넣은 후 SVM을 통해 classify</p>
+<h3 id="211-region-proposal">2.1.1 region proposal<a hidden class="anchor" aria-hidden="true" href="#211-region-proposal">#</a></h3>
+<p>어떤 알고리즘을 써도 무방. <code>selective search</code>를 사용.</p>
+<h3 id="212-cnn">2.1.2 cnn<a hidden class="anchor" aria-hidden="true" href="#212-cnn">#</a></h3>
+<p>imagenet 사용</p>
+<p><img loading="lazy" src="https://github.com/ownvoy/ownogatari/assets/96481582/a09c021b-2ef7-4954-a7b6-c87e12e7dce1" alt="image"  />
+</p>
+<p>이미지의 크기를 cnn에 넣기 위해, 227*227로 resize</p>
+<p><img loading="lazy" src="https://github.com/ownvoy/ownogatari/assets/96481582/722d28d4-5866-4a1b-a244-c30d6872be43" alt="image"  />
+</p>
+<ul>
+<li>bottom은 패딩을 추가한건데 성능이 더 좋음.</li>
+</ul>
+<h3 id="213-bounding-box-regression">2.1.3 bounding box regression<a hidden class="anchor" aria-hidden="true" href="#213-bounding-box-regression">#</a></h3>
+<p><img loading="lazy" src="https://github.com/ownvoy/ownogatari/assets/96481582/e4588995-839d-45dd-83e1-ed3e26a74b8d" alt="image"  />
+</p>
+<p>bounding box는 \(x,y,h,w\)로 구성이 됨.</p>
+<p><img loading="lazy" src="https://github.com/ownvoy/ownogatari/assets/96481582/98abaa2a-cb66-4bc2-a61d-cfcd32e318e7" alt="image"  />
+</p>
+<p>proposal로 나온 bounding box를 \(P_x,P_y,P_w, P_h\)라 하자.</p>
+<p><img loading="lazy" src="https://github.com/ownvoy/ownogatari/assets/96481582/ef1459b6-656a-4ae1-a11e-c607201b5ca1" alt="image"  />
+</p>
+<p>ground truth로 나온 bounding box를 \(G_x,G_y,G_w, G_h\)라 하자.</p>
+<p>P에서 G로 가는 transformation을 알아야 함.
+$$\begin{array}{l}{{t_{x}=(G_{x}-P_{x})/P_{w}}}\ {{t_{y}=(G_{y}-P_{y})/P_{h}}}\ {{t_{w}=\log(G_{w}/P_{w})}}\ {{t_{h}=\log(G_{h}/P_{h}).}}\end{array}$$</p>
+<p>\(\phi_{5}(P^{i})\)이 \(t_x, t_y, t_w,t_h\)에 대한 linear function이라 할 떄, \(\bf w\)를 배우는 것이 목표. 이 때 \(\bf w\)가 큰 값이 나오지 않도록 regularization을 해줌.</p>
+<p>$${\bf w}<em>{\star}=\mathop{\mathrm{argmin}}</em>{\hat{\bf w}<em>{\star}}\sum</em>{i}^{N}(t_{\star}^{i}-\hat{\bf w}<em>{\star}^{\mathrm{T}}\phi</em>{5}(P^{i}))^{2}+\lambda\left|\hat{\bf w}_{\star}\right|^{2}.$$</p>
+<h1 id="3-experiments">3. experiments<a hidden class="anchor" aria-hidden="true" href="#3-experiments">#</a></h1>
+<h2 id="31-pascal-voc-2010">3.1 PASCAL VOC 2010<a hidden class="anchor" aria-hidden="true" href="#31-pascal-voc-2010">#</a></h2>
+<p><img loading="lazy" src="https://github.com/ownvoy/ownogatari/assets/96481582/0fcfe868-106f-4f8d-9808-c296fafbf8da" alt="image"  />
+</p>
+<h2 id="32-fine-tuning-없이도-잘-되는가">3.2 fine-tuning 없이도 잘 되는가?<a hidden class="anchor" aria-hidden="true" href="#32-fine-tuning-없이도-잘-되는가">#</a></h2>
+<p><img loading="lazy" src="https://github.com/ownvoy/ownogatari/assets/96481582/0f9c07e2-1e71-40b4-9f55-1fa68dcbac90" alt="image"  />
+</p>
+<ul>
+<li>CNN만으로도 생각보다 잘 됨. 근데 fine-tuning을 하면 더 잘 됨.</li>
+<li>ILSVRC(pretrain) =&gt; PASCAL(fine-tuning)의 순서로 학습.</li>
+</ul>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://ownogatari.xyz/posts/r-fcn/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>R-FCN</span>
+  </a>
+  <a class="next" href="https://ownogatari.xyz/posts/ddpg/">
+    <span class="title">Next »</span>
+    <br>
+    <span>Ddpg</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    <link rel="stylesheet" href="./zotero.css">
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<footer class="footer">
+    
+</footer>
+</div>
+
+</body>
+
+
+</html></body>
+
+</html>
