@@ -42,6 +42,7 @@ pretrained model + convolutional layer
 | Conv4 | \\(38\times38\times 512\\) | \\(3\times 3\times 1024\\) | \\(38 \times 38 \times 4\\) | \\(38\times38\times4\times(C+4)\\) |
 |  Conv6     |    \\(19 \times19\times1024\\)                    |          \\(1\times1\times1024\\)              |            \\(19\times19\times6\\)             |             \\(19 \times 19 \times 6 \times (C+4)\\)                         |
 
+각 층마다 prediction을 하는 것이 특징임.
 각 feature map의 cell 마다 bounding box가 4 or 6개가 있음.
 \\(\Rightarrow\\) YOLO보다 압도적으로 많은 bounding box 개수
 ![image](https://github.com/ownvoy/ownogatari/assets/96481582/05f2fc35-e7c8-42a8-a48e-c6776ce45e4b)
