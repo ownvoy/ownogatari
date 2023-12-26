@@ -2,10 +2,7 @@
 title: "FPN"
 date: 2023-12-26T06:25:59+09:00
 draft: false
-katex: true
-mathjax: true
 categories: "Object Detection"
-tags: "paper"
 ---
 
 
