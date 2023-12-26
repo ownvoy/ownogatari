@@ -6,7 +6,18 @@
     <description>Recent content on 미래사회와 창의혁신인재</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 23 Dec 2023 13:42:52 +0900</lastBuildDate><atom:link href="https://ownogatari.xyz/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 26 Dec 2023 06:25:59 +0900</lastBuildDate><atom:link href="https://ownogatari.xyz/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>FPN</title>
+      <link>https://ownogatari.xyz/posts/fpn/</link>
+      <pubDate>Tue, 26 Dec 2023 06:25:59 +0900</pubDate>
+      
+      <guid>https://ownogatari.xyz/posts/fpn/</guid>
+      <description>1. overview 1.1 objective resolution과 semantic의 trade-off를 줄여보자. \(\Leftrightarrow\) 모든 resolution(scale)에서 강한 semantic 정보를 얻어보자. 1.2 background 1.2.1 resolution semantic trade-off \(\text{resolution} \downarrow \ \ \Rightarrow \ \ \text{semantic} \uparrow (😀) , \ \ \text{detail} \downarrow (🙁)\) \(\text{resolution} \uparrow \ \ \Rightarrow \ \ \text{semantic} \downarrow (🙁) \ , \text{detail} \uparrow (😀)\)
+아래 table의 각 col들은 같은 의미임.
+higher resolution lower resolution weak semantic strong semantic low level feature high level feature detail abstract lower layer higher layer 1.</description>
+    </item>
+    
     <item>
       <title>Mask R-CNN</title>
       <link>https://ownogatari.xyz/posts/mask_r-cnn/</link>
