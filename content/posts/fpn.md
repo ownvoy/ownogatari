@@ -83,11 +83,12 @@ __\\(\Rightarrow\\)각 층의 feature map은 lower layer의 localized 정보와 
 ### 2.2.1 FPN for RPN
 ![RPN](https://github.com/ownvoy/ownogatari/assets/96481582/415aaa54-dfe9-4264-bc08-1d85ad0f4070)
 
-- 기존의 RPN: 하나의 feature map에 대해 \\(3\times3\\)의 convolution과 \\(1\times1\\)의 convolution을 돌렸음. ([사진](https://herbwood.tistory.com/10))
-- 수정된 RPN: 여러개의 feature map에 대해 \\(3\times3\\)의 convolution과 \\(1\times1\\)의 convolution을 각각 돌리기.
+- 기존의 RPN: 하나의 feature map에 대해 convolution를 돌렸음. ([사진](https://herbwood.tistory.com/10))
+- 수정된 RPN: 여러 개의 feature map에 대해 convolution를 각각 돌리기.
 
 - 기존의 RPN: 하나의 feature map에 대해 여러 scale의 anchor size.
-- 수정된 RPN: 하나의 feature map에 대해 하나의 scale의 anchor size. (\\(\lbrace P_2, P_3, P_4, P_5, P_6\rbrace\\)에 대해 \\(\lbrace32^2, 64^2, 128^2, 256^2, 512^2\rbrace\\) anchor  size 설정)
+- 수정된 RPN: 하나의 feature map에 대해 하나의 scale의 anchor size. 
+    - \\(\lbrace P_2, P_3, P_4, P_5, P_6\rbrace\\)에 대해 \\(\lbrace32^2, 64^2, 128^2, 256^2, 512^2\rbrace\\) anchor  size 설정
 
 
 ### 2.2.2 FPN for RoI pooling
