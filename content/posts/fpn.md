@@ -38,7 +38,7 @@ resolution과 semantic의 trade-off를 줄여보자.
 
 1. __Feautrized image pyramid(a):__ 각각의 scale들마다 feature를 뽑아서 속도가 느림. 
 2. __Single feature map(b):__ 모든 층이 rich semantic하지 않음. 
-3. __Pyramidal feature hierarchy(c):__ 모든 층이 rich semantic하지 않음. (또, low level에 대한 feature x,[SDD](https://ownogatari.xyz/posts/sdd/#2-main): backbone 갖다 붙힘.) 
+3. __Pyramidal feature hierarchy(c):__ 모든 층이 rich semantic하지 않음. (또, low level에 대한 feature x, [SDD](https://ownogatari.xyz/posts/sdd/#2-main): pretrained된 거 뒤에다가 붙임) 
 4.  __Feature Pyramid Network__(d): 모든 층이 rich semantic함. (low level feature + high level feature)
 
 # 2. main
@@ -83,7 +83,7 @@ __\\(\Rightarrow\\)각 층의 feature map은 lower layer의 localized 정보와 
 ### 2.2.1 FPN for RPN
 ![RPN](https://github.com/ownvoy/ownogatari/assets/96481582/415aaa54-dfe9-4264-bc08-1d85ad0f4070)
 
-- 기존의 RPN: 하나의 feature map에 대해 convolution를 돌렸음. ([사진](https://herbwood.tistory.com/10))
+- 기존의 RPN: 하나의 feature map에 대해 convolution를 돌리기. ([사진](https://herbwood.tistory.com/10))
 - 수정된 RPN: 여러 개의 feature map에 대해 convolution를 각각 돌리기.
 
 - 기존의 RPN: 하나의 feature map에 대해 여러 scale의 anchor size.
