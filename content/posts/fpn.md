@@ -11,7 +11,8 @@ categories: "Object Detection"
 
 ## 1.1 objective
 
-- resolution과 semantic의 trade-off를 줄여보자.
+resolution과 semantic의 trade-off를 줄여보자.
+
 \\(\Leftrightarrow\\) 모든 resolution(scale)에서 강한 semantic 정보를 얻어보자.
 
 ## 1.2 background
@@ -37,8 +38,7 @@ categories: "Object Detection"
 
 1. __Feautrized image pyramid(a):__ 각각의 scale들마다 feature를 뽑아서 속도가 느림. 
 2. __Single feature map(b):__ 모든 층이 rich semantic하지 않음. 
-3. __Pyramidal feature hierarchy(c):__ 모든 층이 rich semantic하지 않음. (또, low level에 대한 feature x) 
-ex) [SDD](https://ownogatari.xyz/posts/sdd/#2-main): backbone 갖다 붙힘.  
+3. __Pyramidal feature hierarchy(c):__ 모든 층이 rich semantic하지 않음. (또, low level에 대한 feature x,[SDD](https://ownogatari.xyz/posts/sdd/#2-main): backbone 갖다 붙힘.) 
 4.  __Feature Pyramid Network__(d): 모든 층이 rich semantic함. (low level feature + high level feature)
 
 # 2. main
@@ -46,6 +46,7 @@ ex) [SDD](https://ownogatari.xyz/posts/sdd/#2-main): backbone 갖다 붙힘.
 > Q) 어떻게 하면 모든 층이 rich semantic 할 수 있을까? 
 
 > A) lower 층의 feature map이 rich semantic 하면 됨.
+
 > 방법) lower 층 feature map +=  higher 층 feature map
 
 ## 2.1 architecture
@@ -53,8 +54,8 @@ ex) [SDD](https://ownogatari.xyz/posts/sdd/#2-main): backbone 갖다 붙힘.
 
 Bottom-up pathway + Top-down pathway and lateral connections.
 
-- Bottom-up pathway: 올라가면서 여러가지 층 만들어주는 것.
-- Top-down pathway and lateral connections: higher 층의 feature map을 더해주는 것. ![image](https://github.com/ownvoy/ownogatari/assets/96481582/c010ca75-2d78-40df-bf22-9606422ead9a)
+- __Bottom-up pathway:__ 올라가면서 여러가지 층 만들어주는 것.
+- __Top-down pathway and lateral connections:__ higher 층의 feature map을 더해주는 것. ![image](https://github.com/ownvoy/ownogatari/assets/96481582/c010ca75-2d78-40df-bf22-9606422ead9a)
 
 
 
@@ -67,8 +68,8 @@ conv를 통과하고 나온 output: \\(\{C_{2}, C_{3}, C_{4}, C_{5}\}\\)
 ### 2.1.2 Top-down pathway and lateral connections
 ![image](https://github.com/ownvoy/ownogatari/assets/96481582/a5a6942f-039e-43f1-a696-e8f4e7489e4d)
 
-Top-down pathway: upsampling해서 사이즈를 키움. (방법: nearest neighbor upsampling)
-later connection: \\(1 \times 1\\) conv 돌려서, channel 맞춘다음, Top-down에서 내려오는거랑 더해줌.
+__Top-down pathway:__ upsampling해서 사이즈를 키움. (방법: nearest neighbor upsampling)
+__later connection:__ \\(1 \times 1\\) conv 돌려서, channel 맞춘다음, Top-down에서 내려오는거랑 더해줌.
 
 __\\(\Rightarrow\\)각 층의 feature map은 lower layer의 localized 정보와 higher layer의 semantic을 둘 다 가질 수 있음.__
 
