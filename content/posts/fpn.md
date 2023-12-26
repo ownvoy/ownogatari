@@ -35,17 +35,18 @@ categories: "Object Detection"
 
 ![image](https://github.com/ownvoy/ownogatari/assets/96481582/e6d0a70f-9704-4734-ad15-92b7f1872534)
 
-a. __Feautrized image pyramid:__ 각각의 scale들마다 feature를 뽑아서 속도가 느림. 
-b. __Single feature map:__ 모든 층이 rich semantic하지 않음. 
-c. __Pyramidal feature hierarchy:__ 모든 층이 rich semantic하지 않음. (또, low level에 대한 feature x) 
+1. __Feautrized image pyramid(a):__ 각각의 scale들마다 feature를 뽑아서 속도가 느림. 
+2. __Single feature map(b):__ 모든 층이 rich semantic하지 않음. 
+3. __Pyramidal feature hierarchy(c):__ 모든 층이 rich semantic하지 않음. (또, low level에 대한 feature x) 
 ex) [SDD](https://ownogatari.xyz/posts/sdd/#2-main): backbone 갖다 붙힘.  
-d.  __Feature Pyramid Network__: 모든 층이 rich semantic함. (low level feature + high level feature)
+4.  __Feature Pyramid Network__(d): 모든 층이 rich semantic함. (low level feature + high level feature)
 
 # 2. main
 
-Q) 어떻게 하면 모든 층이 rich semantic 할 수 있을까? 
-A) lower 층의 feature map이 rich semantic 하면 됨.
-방법) lower 층 feature map +=  higher 층 feature map
+> Q) 어떻게 하면 모든 층이 rich semantic 할 수 있을까? 
+
+> A) lower 층의 feature map이 rich semantic 하면 됨.
+> 방법) lower 층 feature map +=  higher 층 feature map
 
 ## 2.1 architecture
 
