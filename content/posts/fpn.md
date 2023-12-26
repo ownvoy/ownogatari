@@ -35,15 +35,15 @@ categories: "Object Detection"
 
 ![image](https://github.com/ownvoy/ownogatari/assets/96481582/e6d0a70f-9704-4734-ad15-92b7f1872534)
 
-a. __Feautrized image pyramid:__ 각각의 scale들마다 feature를 뽑아서 속도가 느림.
-b. __Single feature map:__ 모든 층이 rich semantic하지 않음
-c. __Pyramidal feature hierarchy:__ 모든 층이 rich semantic하지 않음 (또, low level에 대한 feature x)   
-ex) [SDD](https://ownogatari.xyz/posts/sdd/#2-main): backbone 갖다 붙힘 
+a. __Feautrized image pyramid:__ 각각의 scale들마다 feature를 뽑아서 속도가 느림. 
+b. __Single feature map:__ 모든 층이 rich semantic하지 않음. 
+c. __Pyramidal feature hierarchy:__ 모든 층이 rich semantic하지 않음. (또, low level에 대한 feature x) 
+ex) [SDD](https://ownogatari.xyz/posts/sdd/#2-main): backbone 갖다 붙힘.  
 d.  __Feature Pyramid Network__: 모든 층이 rich semantic함. (low level feature + high level feature)
 
 # 2. main
 
-Q) 어떻게 하면 모든 층이 rich semantic 할 수 있을까?
+Q) 어떻게 하면 모든 층이 rich semantic 할 수 있을까? 
 A) lower 층의 feature map이 rich semantic 하면 됨.
 방법) lower 층 feature map +=  higher 층 feature map
 
@@ -53,7 +53,8 @@ A) lower 층의 feature map이 rich semantic 하면 됨.
 Bottom-up pathway + Top-down pathway and lateral connections.
 
 - Bottom-up pathway: 올라가면서 여러가지 층 만들어주는 것.
-- Top-down pathway and lateral connections: higher 층의 feature map을 더해주는 것. ![[Pasted image 20231226072231.png]]
+- Top-down pathway and lateral connections: higher 층의 feature map을 더해주는 것. ![image](https://github.com/ownvoy/ownogatari/assets/96481582/c010ca75-2d78-40df-bf22-9606422ead9a)
+
 
 
 ### 2.1.1 Bottom-up pathway
@@ -70,7 +71,7 @@ later connection: \\(1 \times 1\\) conv 돌려서, channel 맞춘다음, Top-dow
 
 __\\(\Rightarrow\\)각 층의 feature map은 lower layer의 localized 정보와 higher layer의 semantic을 둘 다 가질 수 있음.__
 
-각 층의 final feature map(\\(\{P_{2}, P_{3}, P_{4}, P_{5}\}\\))은 \\(3 \times 3\\)의 convolution을 거친 후 완성.
+각 층의 final feature map(\\(\lbrace P_{2}, P_{3}, P_{4}, P_{5}\rbrace \\))은 \\(3 \times 3\\)의 convolution을 거친 후 완성.
 
 ## 2.2 application
 
@@ -83,8 +84,8 @@ __\\(\Rightarrow\\)각 층의 feature map은 lower layer의 localized 정보와 
 - 기존의 RPN: 하나의 feature map에 대해 \\(3\times3\\)의 convolution과 \\(1\times1\\)의 convolution을 돌렸음. ([사진](https://herbwood.tistory.com/10))
 - 수정된 RPN: 여러개의 feature map에 대해 \\(3\times3\\)의 convolution과 \\(1\times1\\)의 convolution을 각각 돌리기.
 
-- 기존의 RPN: 하나의 feature map에 대해 여러 scale의 anchor size
-- 수정된 RPN: 하나의 feature map에 대해 하나의 scale의 anchor size (\\(\{P_2, P_3, P_4, P_5, P_6\}\\)에 대해 \\(\{32^2, 64^2, 128^2, 256^2, 512^2\}\\) anchor  size 설정)
+- 기존의 RPN: 하나의 feature map에 대해 여러 scale의 anchor size.
+- 수정된 RPN: 하나의 feature map에 대해 하나의 scale의 anchor size. (\\(\lbrace P_2, P_3, P_4, P_5, P_6\rbrace\\)에 대해 \\(\lbrace32^2, 64^2, 128^2, 256^2, 512^2\rbrace\\) anchor  size 설정)
 
 
 ### 2.2.2 FPN for RoI pooling
