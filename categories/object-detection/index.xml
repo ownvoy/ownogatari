@@ -30,11 +30,11 @@ higher resolution lower resolution weak semantic strong semantic low level featu
     </item>
     
     <item>
-      <title>SDD</title>
-      <link>https://ownogatari.xyz/posts/sdd/</link>
+      <title>SSD</title>
+      <link>https://ownogatari.xyz/posts/ssd/</link>
       <pubDate>Tue, 19 Dec 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://ownogatari.xyz/posts/sdd/</guid>
+      <guid>https://ownogatari.xyz/posts/ssd/</guid>
       <description>1. overview 1.1 objective multiple scale에 대해 다뤄 보자. (큰 물체, 작은 물체) \(\Rightarrow\) 장점: low resolution에 대한 문제를 해결 \(\Rightarrow\) 방법: 여러 개의 conv layer 도입
 different shape에 대해 다뤄 보자. (박스 형태, 2:1, 1:1) \(\Rightarrow\) 장점: 다양한 형태의 객체 검출 \(\Rightarrow\) 방법: 박스 형태 다양하게
 1.2 background YOLO YOLO 같은 경우 feature map이 \(7\times7\)짜리 1개이다. box개수는 각 cell마다 2개 있어서 총 98개이다.
