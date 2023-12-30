@@ -59,5 +59,6 @@ $$L=L_{c l s}+L_{b o x}+L_{m a s k}$$
 - object detection 또한 기존의 SOTA보다 좋음.
 
 ![image](https://github.com/ownvoy/ownogatari/assets/96481582/79165c75-45ee-493b-89cf-e6737aa34801)
-- Mask R-CNN은 object가 overlap 됐을 때도 성능이 좋은데, 이는 RoI에 대해서, 하나의 제일 높은 class를 정하는 방식이 아니기 때문인 것 같음.(즉 Mask R-CNN은 segmentation과 classificatioin이 결합된 방식이 아니다.)
-
+- Mask R-CNN은 object가 overlap 됐을 때도 성능이 좋음
+- FCIS는 하나의 제일 높은 class를 정하는 방식이기에, object가 overlap 됐을 때 성능이 떨어짐. (loss: softmax loss)
+- Mask R-CNN은 RoI에 대해, 여러 class를 가질 수 있음. 각각의 class에 대해 mask를 만들어서, 그 중 가장 높은 score를 가진 class를 선택함. (loss: sigmoid loss)

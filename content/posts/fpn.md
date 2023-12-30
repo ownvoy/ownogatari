@@ -97,6 +97,7 @@ __\\(\Rightarrow\\)각 층의 feature map은 lower layer의 localized 정보와 
 
 $$k=[k_{0}+l o g_{2}(\sqrt{w h}/224)]$$
 - RoI의 weight와 height에 따라 \\(k\\) level의 feature map을 정함.
+- \\(w, h\\)가 작다는 것은 감지할 사물이 작다는 것이므로, resolution이 높은 feature map을 쓰는 것이 좋음.
 
 
 # 3. experiments
@@ -110,3 +111,5 @@ RPN 부분에 대한 실험
 
 ![image](https://github.com/ownvoy/ownogatari/assets/96481582/40a6aa4d-786a-485a-ab33-78ce98ddbefe)
 RoI pooling에 대한 실험(only finest level과 비교하면 진짜 별 차이가 없음.)
+
+> large object에 대한 성능이 미미한 것은, 여러가지 scale을 보느라 정보가 섞여서 그런 것 같음.
