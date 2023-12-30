@@ -1,6 +1,6 @@
 ---
 
-title: "SDD"
+title: "SSD"
 date: 2023-12-19
 draft: false
 katex: true

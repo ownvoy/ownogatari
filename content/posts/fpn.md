@@ -38,7 +38,7 @@ resolution과 semantic의 trade-off를 줄여보자.
 
 1. __Feautrized image pyramid(a):__ 각각의 scale들마다 feature를 뽑아서 속도가 느림. 
 2. __Single feature map(b):__ 모든 층이 rich semantic하지 않음. 
-3. __Pyramidal feature hierarchy(c):__ 모든 층이 rich semantic하지 않음. (또, low level에 대한 feature x, [SDD](https://ownogatari.xyz/posts/sdd/#2-main): pretrained된 거 뒤에다가 붙임) 
+3. __Pyramidal feature hierarchy(c):__ 모든 층이 rich semantic하지 않음. (또, low level에 대한 feature x, [SDD](https://ownogatari.xyz/posts/sdd/#2-main): pre:  backbone의 conv4부터 prediction을 함.) 
 4.  __Feature Pyramid Network__(d): 모든 층이 rich semantic함. (low level feature + high level feature)
 
 # 2. main
