@@ -35,7 +35,7 @@ $$ - (y\log(p)+ (1-y)\log(1-p)), \ where \  y\in \lbrace 0,1 \rbrace$$
 
 $$\mathrm{CE}(p, y) = 
 \begin{cases} 
-\log(p) & \text{if } y = 1 \\
+\log(p) & \text{if } y = 1 \\ \\
 \log(1 - p) & \text{otherwise.}
 \end{cases}$$
 
@@ -44,7 +44,7 @@ $$\mathrm{CE}(p, y) =
 
 $$p_{\mathrm{t}} = 
 \begin{cases} 
-p & \text{if } y = 1 \\
+p & \text{if } y = 1 \\ \\
 1-p & \text{otherwise}.
 \end{cases}$$
 
