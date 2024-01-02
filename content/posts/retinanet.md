@@ -3,6 +3,7 @@ title: "RetinaNet"
 date: 2024-01-02T15:06:43+09:00
 draft: false
 categories: "Object Detection"
+mathjax: true
 ---
 
  
@@ -82,11 +83,12 @@ offset은 corner의 정확한 위치를 조정한다.
 
 __offset에 대한 loss__
 
-$${\cal L}_{o f\!f}=\frac{1}{N}\sum_{k=1}^{N}\mathrm{SmoothL1Loss}\left({\boldsymbol{o}}_{k},{\hat{\boldsymbol{o}}}_{k}\right)$$
+$${L}_{off}=\frac{1}{N}\sum_{k=1}^{N}\mathrm{SmoothL1Loss}\left({\boldsymbol{o}}_{k},{\hat{\boldsymbol{o}}}_{k}\right)$$
 
 __최종 loss__
 
-$${L}={L}_{d e t}+\alpha{L}_{p u l l}+\beta{L}_{p u s h}+\gamma{L}_{o ff}$$
+$${L}={L}_{det}+\alpha{L}_{pull}+\beta{L}_{push}+\gamma{L}_{off}$$
+
 # 3. experiments
 
 ![image](https://github.com/ownvoy/ownogatari/assets/96481582/3a6f439b-5985-4e7c-a172-ad0cf8453913)
