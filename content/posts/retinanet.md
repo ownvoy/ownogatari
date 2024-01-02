@@ -32,27 +32,14 @@ Focal Loss: inliner(easy examples)를 down weight해주는 loss
 $$ - (y\log(p)+ (1-y)\log(1-p)), \ where \  y\in \lbrace 0,1 \rbrace$$
 
 이 식은 아래의 식과 똑같다.
+![image](https://github.com/ownvoy/ownogatari/assets/96481582/1f2d4f0d-c828-4939-b59d-1be6597dccd3)
 
-$$\mathrm{CE}(p, y) = 
-\begin{cases} 
-\log(p) & \text{if } y = 1 \\ \\
-\log(1 - p) & \text{otherwise.}
-\end{cases}$$
 
 \\(p_t\\)를 아래와 정의 했을 때,
 
+![image](https://github.com/ownvoy/ownogatari/assets/96481582/115af2ab-e721-441e-b3ba-5d33519ecb08)
 
-$$p_{\mathrm{t}} = 
-\begin{cases} 
-p & \text{if } y = 1 \\ \\
-1-p & \text{otherwise}.
-\end{cases}$$
 
-$$\mathrm{CE}(p, y) = 
-\begin{cases} 
-- \log(p), & \text{if } y = 1 \\
-- \log(1 - p), & \text{otherwise}
-\end{cases}$$
 
  최종적으로 Cross entropy는 다음과 같다.
 $$CE(p,y)= -\log(p_t)$$
@@ -64,8 +51,8 @@ Corss Entropy의 문제점은 easy example(\\(p_{t}> 0.5\\))에 대해서 그 lo
 Focal Loss는 easy examples들을 down weight하는 것이다. 
 
 > Note
-기존의 해결방법: anchors들을 sampling(RPN, OHEM, SSD)
-Focal Loss: 모든 anchor들 사용
+- 기존의 해결방법: anchors들을 sampling(RPN, OHEM, SSD) 
+- Focal Loss: 모든 anchor들 사용
 
 # 2. main
 
