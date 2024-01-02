@@ -54,10 +54,9 @@ Corner Pooling 후 heatmap과 embedding, offset을 예측한다.
 
 __heatmap에 대한 focal loss__
 
-$$L_{det}=\frac{-1}{N}\sum_{c=1}^{C}\sum_{i=1}^{H}\sum_{j=1}^{W}\left\{\begin{array}{c}{{(1-p_{cij})^{\alpha}\log\left(p_{cij}\right)\qquad\mathrm{if} \ y_{c i j}=1}}\\ {{(1-y_{cij})^{\beta}\left(p_{c i j}\right)^{\alpha}\log\left(1-p_{c i j}\right)\,\mathrm{otherwise}}}\end{array}\right.\quad(1)$$
+![image](https://github.com/ownvoy/ownogatari/assets/96481582/6f57c590-b260-4937-afa6-d245a7c8a305)
 
 
-$$L_{d e t}=\frac{-1}{N}\sum_{c=1}^{C}\sum_{i=1}^{H}\sum_{j=1}^{W}\begin{array}{c}{{(1-p_{c i j})^{\alpha}\log\left(p_{c i j}\right)\qquad\mathrm{if~}y_{c i j}=1}}\\ {{(1-y_{c i j})^{\beta}\left(p_{c i j}\right)^{\alpha}\log\left(1-p_{c i j}\right)\,\mathrm{otherwise}}}\end{array}$$
 
 - \\(p_{cij}\\): \\(c\\)에 대한 prediction
 - \\(y_{cij}\\): \\(c\\)에 대한 ground truth
