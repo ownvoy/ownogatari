@@ -151,6 +151,20 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2>Retinanet
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>1. overview 1.1 objective anchor box를 없애보자. 1.2 background 1.2.1 anchor box의 문제점 너무 많은 수의 anchor box (ex. DSS에는 40k 이상, RetinaNet에는 100k 이상) \(\Rightarrow\) positive sample과 negative sample의 imbalance가 training 속도 느리게 함. hyperparameter \(\uparrow\) (ex. ratio, box size, feature map size) 2. main 2.1 architecture backbone(Hourglass Networ) &#43; prediction Module(Corner pooling, Heatmaps, Embeddings, offsets)으로 이루어져 있다.
+2.1.1 Corner pooling 각각의 코너를 top-left corner와 bottom-right corner라 한다.
+주황색 코너를 봐보면, 사람에 대한 local 정보가 없다....</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-01-02 15:06:43 +0900 +0900'>January 2, 2024</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;295 words</footer>
+  <a class="entry-link" aria-label="post link to Retinanet" href="https://ownogatari.xyz/posts/retinanet/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2>FPN
     </h2>
   </header>

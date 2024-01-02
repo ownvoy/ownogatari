@@ -6,7 +6,18 @@
     <description>Recent content on 미래사회와 창의혁신인재</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 26 Dec 2023 06:25:59 +0900</lastBuildDate><atom:link href="https://ownogatari.xyz/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 02 Jan 2024 15:06:43 +0900</lastBuildDate><atom:link href="https://ownogatari.xyz/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Retinanet</title>
+      <link>https://ownogatari.xyz/posts/retinanet/</link>
+      <pubDate>Tue, 02 Jan 2024 15:06:43 +0900</pubDate>
+      
+      <guid>https://ownogatari.xyz/posts/retinanet/</guid>
+      <description>1. overview 1.1 objective anchor box를 없애보자. 1.2 background 1.2.1 anchor box의 문제점 너무 많은 수의 anchor box (ex. DSS에는 40k 이상, RetinaNet에는 100k 이상) \(\Rightarrow\) positive sample과 negative sample의 imbalance가 training 속도 느리게 함. hyperparameter \(\uparrow\) (ex. ratio, box size, feature map size) 2. main 2.1 architecture backbone(Hourglass Networ) + prediction Module(Corner pooling, Heatmaps, Embeddings, offsets)으로 이루어져 있다.
+2.1.1 Corner pooling 각각의 코너를 top-left corner와 bottom-right corner라 한다.
+주황색 코너를 봐보면, 사람에 대한 local 정보가 없다.</description>
+    </item>
+    
     <item>
       <title>FPN</title>
       <link>https://ownogatari.xyz/posts/fpn/</link>
