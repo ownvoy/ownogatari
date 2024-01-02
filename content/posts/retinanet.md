@@ -48,6 +48,12 @@ p & \text{if } y = 1 \\ \\
 1-p & \text{otherwise}.
 \end{cases}$$
 
+$$\mathrm{CE}(p, y) = 
+\begin{cases} 
+- \log(p), & \text{if } y = 1 \\
+- \log(1 - p), & \text{otherwise}
+\end{cases}$$
+
  최종적으로 Cross entropy는 다음과 같다.
 $$CE(p,y)= -\log(p_t)$$
 
