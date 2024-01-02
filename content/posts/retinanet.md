@@ -32,10 +32,22 @@ Focal Loss: inliner(easy examples)를 down weight해주는 loss
 $$ - (y\log(p)+ (1-y)\log(1-p)), \ where \  y\in \lbrace 0,1 \rbrace$$
 
 이 식은 아래의 식과 똑같다.
-$$\mathrm{CE}(p,y)={\left\{\begin{array}{l l}{- \log(p)}&{{\mathrm{if} \ }y=1}\\ {-\log(1-p)}&{{\mathrm{otherwise.}}}\end{array}\right.}$$
+
+$$\mathrm{CE}(p, y) = 
+\begin{cases} 
+\log(p) & \text{if } y = 1 \\
+\log(1 - p) & \text{otherwise.}
+\end{cases}$$
 
 \\(p_t\\)를 아래와 정의 했을 때,
-$$p_{\mathrm{t}}={\left\{\begin{array}{l l}{p}&{\quad{\mathrm{if}}\ y=1}\\ {1-p}&{{\mathrm{otherwise}}.}\end{array}\right.}$$
+
+
+$$p_{\mathrm{t}} = 
+\begin{cases} 
+p & \text{if } y = 1 \\
+1-p & \text{otherwise}.
+\end{cases}$$
+
  최종적으로 Cross entropy는 다음과 같다.
 $$CE(p,y)= -\log(p_t)$$
 
