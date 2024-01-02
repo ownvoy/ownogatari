@@ -54,7 +54,7 @@ Corner Pooling 후 heatmap과 embedding, offset을 예측한다.
 
 __heatmap에 대한 focal loss__
 
-$$L_{d e t}=\frac{-1}{N}\sum_{c=1}^{C}\sum_{i=1}^{H}\sum_{j=1}^{W}\left\{\!\!\!\begin{array}{c}{{(1-p_{c i j})^{\alpha}\log\left(p_{c i j}\right)\qquad\mathrm{if~}y_{c i j}=1}}\\ {{(1-y_{c i j})^{\beta}\left(p_{c i j}\right)^{\alpha}\log\left(1-p_{c i j}\right)\,\mathrm{otherwise}}}\end{array}\right.\quad(1)$$
+$$L_{d e t}=\frac{-1}{N}\sum_{c=1}^{C}\sum_{i=1}^{H}\sum_{j=1}^{W}\begin{array}{c}{{(1-p_{c i j})^{\alpha}\log\left(p_{c i j}\right)\qquad\mathrm{if~}y_{c i j}=1}}\\ {{(1-y_{c i j})^{\beta}\left(p_{c i j}\right)^{\alpha}\log\left(1-p_{c i j}\right)\,\mathrm{otherwise}}}\end{array}$$
 
 - \\(p_{cij}\\): \\(c\\)에 대한 prediction
 - \\(y_{cij}\\): \\(c\\)에 대한 ground truth
@@ -83,11 +83,11 @@ offset은 corner의 정확한 위치를 조정한다.
 
 __offset에 대한 loss__
 
-$${L}_{off}=\frac{1}{N}\sum_{k=1}^{N}\mathrm{SmoothL1Loss}\left({\boldsymbol{o}}_{k},{\hat{\boldsymbol{o}}}_{k}\right)$$
+$$L_{off}=\frac{1}{N}\sum_{k=1}^{N}\mathrm{SmoothL1Loss}\left(o_{k},\hat{o}_{k}\right)$$
 
 __최종 loss__
 
-$${L}={L}_{det}+\alpha{L}_{pull}+\beta{L}_{push}+\gamma{L}_{off}$$
+$$L=L_{det}+\alpha L_{pull}+\beta L_{push}+\gamma L_{off}$$
 
 # 3. experiments
 
