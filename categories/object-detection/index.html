@@ -136,6 +136,21 @@
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
+    <h2>RetinaNet
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>1. overview 1.1 objective 배경과 사물의 imbalance를 loss를 새롭게 만듦으로써 해결해보자.
+1.2 background 1.2.1 Class Imbalance object는 몇 개 안 되는데, 배경은 \(10^4\sim10^5\)개 정도 있다. 배경을 많이 학습하는 것은 모델 성능 향상에 큰 도움이 안 된다.
+1.2.2 Robust Loss Robust Loss: outlier(hard examples)를 down weight 해주는 loss Focal Loss: inliner(easy examples)를 down weight해주는 loss
+1.2.3 Cross Entropy Loss Binary Cross Entropy Loss $$ - (y\log(p)&#43; (1-y)\log(1-p)), \ where \ y\in \lbrace 0,1 \rbrace$$...</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-01-03 05:27:37 +0900 +0900'>January 3, 2024</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;233 words</footer>
+  <a class="entry-link" aria-label="post link to RetinaNet" href="https://ownogatari.xyz/posts/retinanet/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
     <h2>CornerNet
     </h2>
   </header>
