@@ -107,8 +107,8 @@
   "keywords": [
     
   ],
-  "articleBody": "1. overview 1.1 objective 배경과 사물의 imbalance를 loss를 새롭게 만듦으로써 해결해보자.\n1.2 background 1.2.1 Class Imbalance object는 몇 개 안 되는데, 배경은 \\(10^4\\sim10^5\\)개 정도 있다. 배경을 많이 학습하는 것은 모델 성능 향상에 큰 도움이 안 된다.\n1.2.2 Robust Loss Robust Loss: outlier(hard examples)를 down weight 해주는 loss Focal Loss: inliner(easy examples)를 down weight해주는 loss\n1.2.3 Cross Entropy Loss Binary Cross Entropy Loss $$ - (y\\log(p)+ (1-y)\\log(1-p)), \\ where \\ y\\in \\lbrace 0,1 \\rbrace$$\n이 식은 아래의 식과 똑같다. $$\\mathrm{CE}(p,y)={\\left{\\begin{array}{l l}{- \\log(p)}\u0026{{\\mathrm{if} \\ }y=1}\\ {-\\log(1-p)}\u0026{{\\mathrm{otherwise.}}}\\end{array}\\right.}$$\n\\(p_t\\)를 아래와 정의 했을 때, $$p_{\\mathrm{t}}={\\left{\\begin{array}{l l}{p}\u0026{\\quad{\\mathrm{if}}\\ y=1}\\ {1-p}\u0026{{\\mathrm{otherwise}}.}\\end{array}\\right.}$$ 최종적으로 Cross entropy는 다음과 같다. $$CE(p,y)= -\\log(p_t)$$\nCorss Entropy의 문제점은 easy example(\\(p_{t}\u003e 0.5\\))에 대해서 그 loss값이 크다는 것이다.(아래 그림에서 파란색 plot) 이 많은 easy example이 모이면, 총 loss가 상당히 커지고, 모델의 성능을 저해한다.\nFocal Loss는 easy examples들을 down weight하는 것이다.\nNote 기존의 해결방법: anchors들을 sampling(RPN, OHEM, SSD) Focal Loss: 모든 anchor들 사용\n2. main 2.1 Focal Loss $$\\mathrm{FL}(p_{\\mathrm{t}})=-(1-p_{\\mathrm{t}})^{\\gamma}\\log(p_{\\mathrm{t}}).$$\n\\(p_t\\)가 작은 경우(hard positive example): \\((1-p_t)\\)가 거의 \\(1\\)이기에 loss는 영향을 받지 않는다. \\(p_t\\)가 큰 경우(easy negative example): (1-\\(p_t\\))가 거의 0이기에 loss가 down weight된다. \\(\\gamma\\)가 \\(2\\)일 때에 성능이 가장 좋았다고 한다.\n2.2 RetinaNet ResNet(FPN) + class와 box를 예측하는 subnets\n2.2.1 FPN 기존의 FPN과 다른 점은 계산상의 이유로 \\(P_2\\) level을 사용하지 않았다는 것과 추가적인 convolution을 통해, \\(P_6\\)과 \\(P_7\\)까지 사용한 것이다.\n2.2.2 Class \u0026 box subnet FCN의 구조를 통해 prediction을 수행함. \\(K\\)는 class의 개수이며, \\(A\\)는 anchor 개수이다.\n3. experiments speed와 정확도 측면에서 좋은 성능을 보인다.\n",
-  "wordCount" : "233",
+  "articleBody": "1. overview 1.1 objective 배경과 사물의 imbalance를 loss를 새롭게 만듦으로써 해결해보자.\n1.2 background 1.2.1 Class Imbalance object는 몇 개 안 되는데, 배경은 \\(10^4\\sim10^5\\)개 정도 있다. 배경을 많이 학습하는 것은 모델 성능 향상에 큰 도움이 안 된다.\n1.2.2 Robust Loss Robust Loss: outlier(hard examples)를 down weight 해주는 loss Focal Loss: inliner(easy examples)를 down weight해주는 loss\n1.2.3 Cross Entropy Loss Binary Cross Entropy Loss $$ - (y\\log(p)+ (1-y)\\log(1-p)), \\ where \\ y\\in \\lbrace 0,1 \\rbrace$$\n이 식은 아래의 식과 똑같다.\n$$\\mathrm{CE}(p, y) = \\begin{cases} \\log(p) \u0026 \\text{if } y = 1 \\ \\log(1 - p) \u0026 \\text{otherwise.} \\end{cases}$$\n\\(p_t\\)를 아래와 정의 했을 때,\n$$p_{\\mathrm{t}} = \\begin{cases} p \u0026 \\text{if } y = 1 \\ 1-p \u0026 \\text{otherwise}. \\end{cases}$$\n최종적으로 Cross entropy는 다음과 같다. $$CE(p,y)= -\\log(p_t)$$\nCorss Entropy의 문제점은 easy example(\\(p_{t}\u003e 0.5\\))에 대해서 그 loss값이 크다는 것이다.(아래 그림에서 파란색 plot) 이 많은 easy example이 모이면, 총 loss가 상당히 커지고, 모델의 성능을 저해한다.\nFocal Loss는 easy examples들을 down weight하는 것이다.\nNote 기존의 해결방법: anchors들을 sampling(RPN, OHEM, SSD) Focal Loss: 모든 anchor들 사용\n2. main 2.1 Focal Loss $$\\mathrm{FL}(p_{\\mathrm{t}})=-(1-p_{\\mathrm{t}})^{\\gamma}\\log(p_{\\mathrm{t}}).$$\n\\(p_t\\)가 작은 경우(hard positive example): \\((1-p_t)\\)가 거의 \\(1\\)이기에 loss는 영향을 받지 않는다. \\(p_t\\)가 큰 경우(easy negative example): (1-\\(p_t\\))가 거의 0이기에 loss가 down weight된다. \\(\\gamma\\)가 \\(2\\)일 때에 성능이 가장 좋았다고 한다.\n2.2 RetinaNet ResNet(FPN) + class와 box를 예측하는 subnets\n2.2.1 FPN 기존의 FPN과 다른 점은 계산상의 이유로 \\(P_2\\) level을 사용하지 않았다는 것과 추가적인 convolution을 통해, \\(P_6\\)과 \\(P_7\\)까지 사용한 것이다.\n2.2.2 Class \u0026 box subnet FCN의 구조를 통해 prediction을 수행함. \\(K\\)는 class의 개수이며, \\(A\\)는 anchor 개수이다.\n3. experiments speed와 정확도 측면에서 좋은 성능을 보인다.\n",
+  "wordCount" : "256",
   "inLanguage": "en",
   "datePublished": "2024-01-03T05:27:37+09:00",
   "dateModified": "2024-01-03T05:27:37+09:00",
@@ -189,7 +189,7 @@
     <h1 class="post-title">
       RetinaNet
     </h1>
-    <div class="post-meta"><span title='2024-01-03 05:27:37 +0900 +0900'>January 3, 2024</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;233 words
+    <div class="post-meta"><span title='2024-01-03 05:27:37 +0900 +0900'>January 3, 2024</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;256 words
 
 </div>
   </header> 
@@ -205,11 +205,19 @@ Focal Loss: inliner(easy examples)를 down weight해주는 loss</p>
 <h3 id="123-cross-entropy-loss">1.2.3 Cross Entropy Loss<a hidden class="anchor" aria-hidden="true" href="#123-cross-entropy-loss">#</a></h3>
 <h4 id="binary-cross-entropy-loss">Binary Cross Entropy Loss<a hidden class="anchor" aria-hidden="true" href="#binary-cross-entropy-loss">#</a></h4>
 <p>$$ - (y\log(p)+ (1-y)\log(1-p)), \ where \  y\in \lbrace 0,1 \rbrace$$</p>
-<p>이 식은 아래의 식과 똑같다.
-$$\mathrm{CE}(p,y)={\left{\begin{array}{l l}{- \log(p)}&amp;{{\mathrm{if} \ }y=1}\ {-\log(1-p)}&amp;{{\mathrm{otherwise.}}}\end{array}\right.}$$</p>
-<p>\(p_t\)를 아래와 정의 했을 때,
-$$p_{\mathrm{t}}={\left{\begin{array}{l l}{p}&amp;{\quad{\mathrm{if}}\ y=1}\ {1-p}&amp;{{\mathrm{otherwise}}.}\end{array}\right.}$$
-최종적으로 Cross entropy는 다음과 같다.
+<p>이 식은 아래의 식과 똑같다.</p>
+<p>$$\mathrm{CE}(p, y) =
+\begin{cases}
+\log(p) &amp; \text{if } y = 1 \
+\log(1 - p) &amp; \text{otherwise.}
+\end{cases}$$</p>
+<p>\(p_t\)를 아래와 정의 했을 때,</p>
+<p>$$p_{\mathrm{t}} =
+\begin{cases}
+p &amp; \text{if } y = 1 \
+1-p &amp; \text{otherwise}.
+\end{cases}$$</p>
+<p>최종적으로 Cross entropy는 다음과 같다.
 $$CE(p,y)= -\log(p_t)$$</p>
 <p>Corss Entropy의 문제점은 easy example(\(p_{t}&gt; 0.5\))에 대해서 그 loss값이 크다는 것이다.(아래 그림에서 파란색 plot) 이 많은 easy example이 모이면, 총 loss가 상당히 커지고, 모델의 성능을 저해한다.</p>
 <p><img loading="lazy" src="https://github.com/ownvoy/ownogatari/assets/96481582/6212b6c1-5841-4bf8-aa5d-fb6c98969d8e" alt="image"  />
