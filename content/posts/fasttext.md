@@ -28,7 +28,7 @@ skipgram: 하나의 단어가 주어지면, 주변의 단어를 맞추는 것.
 
 데이터가 주어졌을 때, 아래 식을 최대화하는 것이 목적.
 
-$$\sum_{t=1}^{T}\sum_{c\in\mathcal{C}_{t}}\log p(w_{c} \ | \ w_{t})$$
+$$\sum_{t=1}^{T}\sum_{c\in{C}_{t}}\log p(w_{c} \ | \ w_{t})$$
 
 확률 \\(p\\)는 softmax로 표현 될 수 있다.
 
@@ -36,7 +36,7 @@ $$p(w_{c}\mid w_{t})=\frac{e^{s(w_{t},w_{c})}}{\sum_{j=1}^{W}e^{s(w_{t},j)}}$$
 
 \\(s(w_t,w_c)\\)는 \\(w_t\\)와 \\(w_c\\)의 유사도를 구하는 함수이다.
 
-$$s(w_{t},w_{c})=\mathbf{u}_{w_{t}}^{\mathsf{T}}\mathbf{v}_{w_{c}}$$
+$$s(w_{t},w_{c})={u}_{w_{t}}^{T}\v_{w_{c}}$$
 
 
 # 2. main
@@ -51,7 +51,7 @@ general model + subword model
 
 여러 개의 \\(w_c\\)를 예측하기 위해서는 \\(c\\)마다 binary class 예측을 해야한다. 따라서, loss를 binary loss로 바꿔준다.
 
-$$\log\left(1+e^{-s(w_{t},w_{c})}\right)+\sum_{n\in\mathcal{N}_{t,c}}\log\left(1+e^{s(w_{t},n)}\right)$$
+$$\log\left(1+e^{-s(w_{t},w_{c})}\right)+\sum_{n\in N_{t,c}}\log\left(1+e^{s(w_{t},n)}\right)$$
 
 - 첫번째 term: \\(w_t\\)와 \\(w_c\\)의 유사도를 비슷하게 만들도록 학습
 - 두번째 term: \\(w_t\\)와 \\(n\\)의 유사도를 다르게 만들도록 학습
@@ -70,7 +70,7 @@ $$\log\left(1+e^{-s(w_{t},w_{c})}\right)+\sum_{n\in\mathcal{N}_{t,c}}\log\left(1
 
 
 
-$$s(w,c)=\sum_{g\in\mathcal{G}_{w}}\mathbf{z}_{g}^{T}\mathbf{v}_{c}$$
+$$s(w,c)=\sum_{g\in {G}_{w}}{z}_{g}^{T}{v}_{c}$$
 
 이렇게 되면 장점은 나중에 못본 단어`<when>`가 있다고 할 때, `<where>`에서의 `<wh`,`whe` 를 재사용할 수 있게 된다. \\(\Rightarrow\\) out of vocabulary 문제 해결 가능.
 
