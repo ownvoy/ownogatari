@@ -28,7 +28,7 @@ skipgram: 하나의 단어가 주어지면, 주변의 단어를 맞추는 것.
 
 데이터가 주어졌을 때, 아래 식을 최대화하는 것이 목적.
 
-$$\sum_{t=1}^{T}\sum_{c\in\mathcal{C}_{t}}\log p(w_{c} \mid w_{t})$$
+$$\sum_{t=1}^{T}\sum_{c\in\mathcal{C}_{t}}\log p(w_{c} \ | \ w_{t})$$
 
 확률 \\(p\\)는 softmax로 표현 될 수 있다.
 
@@ -36,7 +36,7 @@ $$p(w_{c}\mid w_{t})=\frac{e^{s(w_{t},w_{c})}}{\sum_{j=1}^{W}e^{s(w_{t},j)}}$$
 
 \\(s(w_t,w_c)\\)는 \\(w_t\\)와 \\(w_c\\)의 유사도를 구하는 함수이다.
 
-$$s(w_{t},w_{c})={\mathbf{u}}_{w_{t}}^{\mathsf{T}}\mathbf{v}_{w_{c}}$$
+$$s(w_{t},w_{c})=\mathbf{u}_{w_{t}}^{\mathsf{T}}\mathbf{v}_{w_{c}}$$
 
 
 # 2. main
