@@ -28,7 +28,7 @@ skipgram: 하나의 단어가 주어지면, 주변의 단어를 맞추는 것.
 
 데이터가 주어졌을 때, 아래 식을 최대화하는 것이 목적.
 
-$$\sum_{t=1}^{T}\sum_{c\in{C}_{t}}\log p(w_{c} \ | \ w_{t})$$
+$$\sum_{t=1}^{T}\sum_{c\in C_{t}}\log p(w_{c} \ | \ w_{t})$$
 
 확률 \\(p\\)는 softmax로 표현 될 수 있다.
 
@@ -36,7 +36,7 @@ $$p(w_{c}\mid w_{t})=\frac{e^{s(w_{t},w_{c})}}{\sum_{j=1}^{W}e^{s(w_{t},j)}}$$
 
 \\(s(w_t,w_c)\\)는 \\(w_t\\)와 \\(w_c\\)의 유사도를 구하는 함수이다.
 
-$$s(w_{t},w_{c})={u}_{w_{t}}^{T}\v_{w_{c}}$$
+$$s(w_{t},w_{c})=u_{w_{t}}^{T} v_{w_{c}}$$
 
 
 # 2. main
@@ -70,7 +70,7 @@ $$\log\left(1+e^{-s(w_{t},w_{c})}\right)+\sum_{n\in N_{t,c}}\log\left(1+e^{s(w_{
 
 
 
-$$s(w,c)=\sum_{g\in {G}_{w}}{z}_{g}^{T}{v}_{c}$$
+$$s(w,c)=\sum_{g\in G_{w}}z_{g}^{T}v_{c}$$
 
 이렇게 되면 장점은 나중에 못본 단어`<when>`가 있다고 할 때, `<where>`에서의 `<wh`,`whe` 를 재사용할 수 있게 된다. \\(\Rightarrow\\) out of vocabulary 문제 해결 가능.
 
