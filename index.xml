@@ -6,7 +6,16 @@
     <description>Recent content on 미래사회와 창의혁신인재</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 03 Jan 2024 05:27:37 +0900</lastBuildDate><atom:link href="https://ownogatari.xyz/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 12 Jan 2024 15:48:20 +0900</lastBuildDate><atom:link href="https://ownogatari.xyz/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Fasttext</title>
+      <link>https://ownogatari.xyz/posts/fasttext/</link>
+      <pubDate>Fri, 12 Jan 2024 15:48:20 +0900</pubDate>
+      
+      <guid>https://ownogatari.xyz/posts/fasttext/</guid>
+      <description>1. overview 1.1 objective 단어를 형태소의 측면에서 표현해보자. 1.2 background 1.2.1 형태소적 접근 기존의 단어 표현은 하나의 단어당 하나의 벡터로 이루어졌다. 하나의 단어를 여러 형태소의 벡터로 표현해보자. 먹음에 대해서 먹기, 먹이, 먹는, 먹다, 먹었음, 먹었다 등 여러 형태가 나타날 수 있다. 그러나, 훈련 데이터에는 모든 형태가 등장하지 않는다. 그렇게 되면, 등장하지 않는 단어에 대해서representation이 떨어질 수 있다. 만약 형태소로 접근한다면, -기, -이, -는의 형태는 다른 단어들에서 볼 수 있다. 즉, 먹었음이 훈련데이터에 없다해도, 먹-, -었-, -음의 합으로 표현할 수 있다.</description>
+    </item>
+    
     <item>
       <title>RetinaNet</title>
       <link>https://ownogatari.xyz/posts/retinanet/</link>
