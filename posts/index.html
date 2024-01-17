@@ -151,6 +151,22 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2>TextCNN
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>1. overview 1.1 objective pretrained된 word2vec을 여러가지 task에 적용해볼까? 2. main 2.1 architecture word2vec &#43; cnn
+2.1.1 word2vec 아래와 같이 사전학습된 word2vec을 사용할 것이다. 이 word embedding은 학습을 하면서 고정될 수도 있고, 바뀔 수도 있는데 각각을 CNN-static, CNN-non-static이라고함.
+또 CNN-static과 CNN-non-static 두개 다 사용할 수 있는데, 이 경우 multi channel임으로, CNN-multichannel이라고함. \(\Rightarrow\) overfitting 방지(resnet 느낌)
+2.1.2 CNN CNN은 filter를 학습한다. 근데 filter의 크기가 \(h\times k\)로 다소 rough한 형태.
+또, convolutional layer 1개랑 pooling 1번, FCN 1번의 간단한 형태....</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-01-17 20:52:14 +0900 +0900'>January 17, 2024</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;167 words</footer>
+  <a class="entry-link" aria-label="post link to TextCNN" href="https://ownogatari.xyz/posts/textcnn/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2>FastText
     </h2>
   </header>

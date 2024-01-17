@@ -6,7 +6,20 @@
     <description>Recent content in Posts on 미래사회와 창의혁신인재</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 12 Jan 2024 15:48:20 +0900</lastBuildDate><atom:link href="https://ownogatari.xyz/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 17 Jan 2024 20:52:14 +0900</lastBuildDate><atom:link href="https://ownogatari.xyz/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>TextCNN</title>
+      <link>https://ownogatari.xyz/posts/textcnn/</link>
+      <pubDate>Wed, 17 Jan 2024 20:52:14 +0900</pubDate>
+      
+      <guid>https://ownogatari.xyz/posts/textcnn/</guid>
+      <description>1. overview 1.1 objective pretrained된 word2vec을 여러가지 task에 적용해볼까? 2. main 2.1 architecture word2vec + cnn
+2.1.1 word2vec 아래와 같이 사전학습된 word2vec을 사용할 것이다. 이 word embedding은 학습을 하면서 고정될 수도 있고, 바뀔 수도 있는데 각각을 CNN-static, CNN-non-static이라고함.
+또 CNN-static과 CNN-non-static 두개 다 사용할 수 있는데, 이 경우 multi channel임으로, CNN-multichannel이라고함. \(\Rightarrow\) overfitting 방지(resnet 느낌)
+2.1.2 CNN CNN은 filter를 학습한다. 근데 filter의 크기가 \(h\times k\)로 다소 rough한 형태.
+또, convolutional layer 1개랑 pooling 1번, FCN 1번의 간단한 형태.</description>
+    </item>
+    
     <item>
       <title>FastText</title>
       <link>https://ownogatari.xyz/posts/fasttext/</link>

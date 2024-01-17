@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>TextCNN | 미래사회와 창의혁신인재</title>
+<meta name="keywords" content="">
+<meta name="description" content="1. overview 1.1 objective pretrained된 word2vec을 여러가지 task에 적용해볼까? 2. main 2.1 architecture word2vec &#43; cnn
+2.1.1 word2vec 아래와 같이 사전학습된 word2vec을 사용할 것이다. 이 word embedding은 학습을 하면서 고정될 수도 있고, 바뀔 수도 있는데 각각을 CNN-static, CNN-non-static이라고함.
+또 CNN-static과 CNN-non-static 두개 다 사용할 수 있는데, 이 경우 multi channel임으로, CNN-multichannel이라고함. \(\Rightarrow\) overfitting 방지(resnet 느낌)
+2.1.2 CNN CNN은 filter를 학습한다. 근데 filter의 크기가 \(h\times k\)로 다소 rough한 형태.
+또, convolutional layer 1개랑 pooling 1번, FCN 1번의 간단한 형태.">
+<meta name="author" content="">
+<link rel="canonical" href="https://ownogatari.xyz/posts/textcnn/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.5cfc680b1eeaeef9efbced92d46c2a9e876b72ee14fba85846afc4cff9e6e6f8.css" integrity="sha256-XPxoCx7q7vnvvO2S1Gwqnodrcu4U&#43;6hYRq/Ez/nm5vg=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://ownogatari.xyz/images/favicon/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://ownogatari.xyz/images/favicon/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://ownogatari.xyz/images/favicon/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://ownogatari.xyz/images/favicon/apple-touch-icon.png">
+<link rel="mask-icon" href="https://ownogatari.xyz/images/favicon/apple-touch-icon.png">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="TextCNN" />
+<meta property="og:description" content="1. overview 1.1 objective pretrained된 word2vec을 여러가지 task에 적용해볼까? 2. main 2.1 architecture word2vec &#43; cnn
+2.1.1 word2vec 아래와 같이 사전학습된 word2vec을 사용할 것이다. 이 word embedding은 학습을 하면서 고정될 수도 있고, 바뀔 수도 있는데 각각을 CNN-static, CNN-non-static이라고함.
+또 CNN-static과 CNN-non-static 두개 다 사용할 수 있는데, 이 경우 multi channel임으로, CNN-multichannel이라고함. \(\Rightarrow\) overfitting 방지(resnet 느낌)
+2.1.2 CNN CNN은 filter를 학습한다. 근데 filter의 크기가 \(h\times k\)로 다소 rough한 형태.
+또, convolutional layer 1개랑 pooling 1번, FCN 1번의 간단한 형태." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ownogatari.xyz/posts/textcnn/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-01-17T20:52:14+09:00" />
+<meta property="article:modified_time" content="2024-01-17T20:52:14+09:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="TextCNN"/>
+<meta name="twitter:description" content="1. overview 1.1 objective pretrained된 word2vec을 여러가지 task에 적용해볼까? 2. main 2.1 architecture word2vec &#43; cnn
+2.1.1 word2vec 아래와 같이 사전학습된 word2vec을 사용할 것이다. 이 word embedding은 학습을 하면서 고정될 수도 있고, 바뀔 수도 있는데 각각을 CNN-static, CNN-non-static이라고함.
+또 CNN-static과 CNN-non-static 두개 다 사용할 수 있는데, 이 경우 multi channel임으로, CNN-multichannel이라고함. \(\Rightarrow\) overfitting 방지(resnet 느낌)
+2.1.2 CNN CNN은 filter를 학습한다. 근데 filter의 크기가 \(h\times k\)로 다소 rough한 형태.
+또, convolutional layer 1개랑 pooling 1번, FCN 1번의 간단한 형태."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://ownogatari.xyz/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "TextCNN",
+      "item": "https://ownogatari.xyz/posts/textcnn/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "TextCNN",
+  "name": "TextCNN",
+  "description": "1. overview 1.1 objective pretrained된 word2vec을 여러가지 task에 적용해볼까? 2. main 2.1 architecture word2vec + cnn\n2.1.1 word2vec 아래와 같이 사전학습된 word2vec을 사용할 것이다. 이 word embedding은 학습을 하면서 고정될 수도 있고, 바뀔 수도 있는데 각각을 CNN-static, CNN-non-static이라고함.\n또 CNN-static과 CNN-non-static 두개 다 사용할 수 있는데, 이 경우 multi channel임으로, CNN-multichannel이라고함. \\(\\Rightarrow\\) overfitting 방지(resnet 느낌)\n2.1.2 CNN CNN은 filter를 학습한다. 근데 filter의 크기가 \\(h\\times k\\)로 다소 rough한 형태.\n또, convolutional layer 1개랑 pooling 1번, FCN 1번의 간단한 형태.",
+  "keywords": [
+    
+  ],
+  "articleBody": "1. overview 1.1 objective pretrained된 word2vec을 여러가지 task에 적용해볼까? 2. main 2.1 architecture word2vec + cnn\n2.1.1 word2vec 아래와 같이 사전학습된 word2vec을 사용할 것이다. 이 word embedding은 학습을 하면서 고정될 수도 있고, 바뀔 수도 있는데 각각을 CNN-static, CNN-non-static이라고함.\n또 CNN-static과 CNN-non-static 두개 다 사용할 수 있는데, 이 경우 multi channel임으로, CNN-multichannel이라고함. \\(\\Rightarrow\\) overfitting 방지(resnet 느낌)\n2.1.2 CNN CNN은 filter를 학습한다. 근데 filter의 크기가 \\(h\\times k\\)로 다소 rough한 형태.\n또, convolutional layer 1개랑 pooling 1번, FCN 1번의 간단한 형태. 아마 task가 간단해서 모델이 간단해도 잘 돌아가나봄. 이 모델에서, pooling을 해주는 이유는 filter의 사이즈가 다르기 때문임. (그림에서는 \\((2\\times k), (3\\times k)\\))\n3. experiments using pretrained model is good!\nword embedding이 feature들을 잘 represent함. transformer에 cnn backbone붙이는 것처럼, word embedding이 두루두루 활용되는가 보다.\n워드 임베딩을 고정시킨 것(static)과 훈련시킨 것(Non-static)의 차이를 보여주는 table임.\n흥미로운 것은 good같은 경우 닮은 것이 원래 great였는데 SST-2로 train 후 nice로 바뀜. 이는 SST-2 test가 very positive, positive을 구별하기 때문으로 보임.\n또, n't, !, , 같은 경우 random으로 init된게, 학습 후 representation이 meaningful한 것을 볼 수 있음.\n",
+  "wordCount" : "167",
+  "inLanguage": "en",
+  "datePublished": "2024-01-17T20:52:14+09:00",
+  "dateModified": "2024-01-17T20:52:14+09:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://ownogatari.xyz/posts/textcnn/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "미래사회와 창의혁신인재",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://ownogatari.xyz/images/favicon/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://ownogatari.xyz/" accesskey="h" title="미래사회와 창의혁신인재 (Alt + H)">미래사회와 창의혁신인재</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://ownogatari.xyz/categories/" title="categories">
+                    <span>categories</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ownogatari.xyz/tags/" title="tags">
+                    <span>tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://ownogatari.xyz/">Home</a>&nbsp;»&nbsp;<a href="https://ownogatari.xyz/posts/">Posts</a></div>
+    <h1 class="post-title">
+      TextCNN
+    </h1>
+    <div class="post-meta"><span title='2024-01-17 20:52:14 +0900 +0900'>January 17, 2024</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;167 words
+
+</div>
+  </header> 
+  <div class="post-content"><h1 id="1-overview">1. overview<a hidden class="anchor" aria-hidden="true" href="#1-overview">#</a></h1>
+<h2 id="11-objective">1.1 objective<a hidden class="anchor" aria-hidden="true" href="#11-objective">#</a></h2>
+<ul>
+<li>pretrained된 word2vec을 여러가지 task에 적용해볼까?</li>
+</ul>
+<h1 id="2-main">2. main<a hidden class="anchor" aria-hidden="true" href="#2-main">#</a></h1>
+<h2 id="21-architecture">2.1 architecture<a hidden class="anchor" aria-hidden="true" href="#21-architecture">#</a></h2>
+<p>word2vec + cnn</p>
+<h3 id="211-word2vec">2.1.1 word2vec<a hidden class="anchor" aria-hidden="true" href="#211-word2vec">#</a></h3>
+<p>아래와 같이 사전학습된 word2vec을 사용할 것이다.
+<img loading="lazy" src="https://github.com/ownvoy/ownogatari/assets/96481582/5a6fc355-b0aa-4900-a772-ce29db8cd73a" alt="image"  />
+</p>
+<p>이 word embedding은 학습을 하면서 고정될 수도 있고, 바뀔 수도 있는데 각각을 CNN-static, CNN-non-static이라고함.</p>
+<p>또 CNN-static과 CNN-non-static 두개 다 사용할 수 있는데, 이 경우 multi channel임으로, CNN-multichannel이라고함.
+\(\Rightarrow\) overfitting 방지(resnet 느낌)</p>
+<h3 id="212-cnn">2.1.2 CNN<a hidden class="anchor" aria-hidden="true" href="#212-cnn">#</a></h3>
+<p>CNN은 filter를 학습한다. 근데 filter의 크기가 \(h\times k\)로 다소 rough한 형태.</p>
+<p>또, convolutional layer 1개랑 pooling 1번, FCN 1번의 간단한 형태. 아마 task가 간단해서 모델이 간단해도 잘 돌아가나봄.
+<img loading="lazy" src="https://github.com/ownvoy/ownogatari/assets/96481582/0f767db8-75ea-4102-afd0-6a4b87630136" alt="image"  />
+</p>
+<p>이 모델에서, pooling을 해주는 이유는 filter의 사이즈가 다르기 때문임. (그림에서는 \((2\times k), (3\times k)\))</p>
+<h1 id="3-experiments">3. experiments<a hidden class="anchor" aria-hidden="true" href="#3-experiments">#</a></h1>
+<p><img loading="lazy" src="https://github.com/ownvoy/ownogatari/assets/96481582/179e12e0-b9aa-4103-b4b1-9a768dafa739" alt="image"  />
+
+using pretrained model is good!</p>
+<p><strong>word embedding이 feature들을 잘 represent함. transformer에 cnn backbone붙이는 것처럼, word embedding이 두루두루 활용되는가 보다.</strong></p>
+<p><img loading="lazy" src="https://github.com/ownvoy/ownogatari/assets/96481582/bd5b6fbc-11a1-4375-b594-879ce89a8ca4" alt="image"  />
+</p>
+<p>워드 임베딩을 고정시킨 것(static)과 훈련시킨 것(Non-static)의 차이를 보여주는 table임.</p>
+<p>흥미로운 것은 <code>good</code>같은 경우 닮은 것이 원래 <code>great</code>였는데 SST-2로 train 후 <code>nice</code>로 바뀜. 이는 SST-2  test가 very positive, positive을 구별하기 때문으로 보임.</p>
+<p>또, <code>n't</code>, <code>!</code>, <code>,</code> 같은 경우 random으로 init된게, 학습 후 representation이 meaningful한 것을 볼 수 있음.</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+<nav class="paginav">
+  <a class="next" href="https://ownogatari.xyz/posts/fasttext/">
+    <span class="title">Next »</span>
+    <br>
+    <span>FastText</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    <link rel="stylesheet" href="./zotero.css">
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<footer class="footer">
+    
+</footer>
+</div>
+
+</body>
+
+
+</html></body>
+
+</html>
