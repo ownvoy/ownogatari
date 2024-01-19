@@ -2,19 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://ownogatari.xyz/posts/detr/</loc>
+    <lastmod>2024-01-19T13:28:40+09:00</lastmod>
+  </url><url>
+    <loc>https://ownogatari.xyz/posts/</loc>
+    <lastmod>2024-01-19T13:28:40+09:00</lastmod>
+  </url><url>
+    <loc>https://ownogatari.xyz/</loc>
+    <lastmod>2024-01-19T13:28:40+09:00</lastmod>
+  </url><url>
     <loc>https://ownogatari.xyz/categories/</loc>
     <lastmod>2024-01-17T20:52:14+09:00</lastmod>
   </url><url>
     <loc>https://ownogatari.xyz/categories/nlp/</loc>
     <lastmod>2024-01-17T20:52:14+09:00</lastmod>
   </url><url>
-    <loc>https://ownogatari.xyz/posts/</loc>
-    <lastmod>2024-01-17T20:52:14+09:00</lastmod>
-  </url><url>
     <loc>https://ownogatari.xyz/posts/textcnn/</loc>
-    <lastmod>2024-01-17T20:52:14+09:00</lastmod>
-  </url><url>
-    <loc>https://ownogatari.xyz/</loc>
     <lastmod>2024-01-17T20:52:14+09:00</lastmod>
   </url><url>
     <loc>https://ownogatari.xyz/posts/fasttext/</loc>

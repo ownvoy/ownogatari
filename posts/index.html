@@ -151,6 +151,21 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2>DETR
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>1. overview 1.1 objective detection에서 transformer를 사용해보자. detection에서 end to end 학습을 해보자. NMS, anchor setting의 부차적인 과정들이 학습의 결과에 많은 영향을 미친다. Transformer를 통해 위 두 개의 과정을 없앨 수 있게 된다.
+2. main 2.1 Transformer DETR은 기본적으로 Transforemer 구조를 따른다. DeTR에서 Encoder와 Decoder가 무슨 역할을 하는지 보도록 한다.
+2.1.1 Encoder cnn을 통과한 feature-map이 쪼개져서 input으로 들어온다. (ViT 스타일)
+그 후, attention 계산을 통해 그림 전체에 대한 정보를 본다....</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-01-19 13:28:40 +0900 +0900'>January 19, 2024</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;264 words</footer>
+  <a class="entry-link" aria-label="post link to DETR" href="https://ownogatari.xyz/posts/detr/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2>TextCNN
     </h2>
   </header>
@@ -276,28 +291,12 @@ weight sharing convolutiona filter를 활용한 계산은 원래 translational e
   <footer class="entry-footer"><span title='2023-11-12 00:00:00 +0000 UTC'>November 12, 2023</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;361 words</footer>
   <a class="entry-link" aria-label="post link to R-CNN" href="https://ownogatari.xyz/posts/r-cnn/"></a>
 </article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>Ddpg
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>0. BackGround observation: \(x_t\)
-state: \(s_t\)
-state: \(a_t\)
-reward: \(r_t\)
-policy: \(\pi, \ \ S \to P(A)\)
-transition dynamics : \(p(s_{t&#43;1} \mid s_t,a_t)\)
-discounted future reward : \(R_T = \sum_{i=t}^{T}\gamma^{(i-t)}r(s_i,a_i)\)
-objective function: \(E_{r_i,s_i \sim E, a_i \sim \pi}[R_1]\)
-\(Q^{\pi}(s_t,a_t) = E_{r_i\geq t, s_i &gt;t \sim E , a_i &gt; t \sim \pi}[R_t \mid s_t, a_t]\)
-\(Q^{\pi}(s_t,a_t) = E_{r_t,s_{t&#43;1} \sim E} [r(s_t,a_t)&#43; \gamma E_{a_{t&#43;1} \sim \pi} [Q^{\pi}(s_{t&#43;1}, a_{t&#43;1})]]\)
-\(Q^{\mu}(s_t,a_t) = E_{r_t,s_{t&#43;1} \sim E} [r(s_t,a_t)&#43; \gamma Q^{\mu}(s_{t&#43;1}, \mu(s_{t&#43;1}))]\)...</p>
-  </div>
-  <footer class="entry-footer"><span title='2023-09-23 00:53:01 +0900 +0900'>September 23, 2023</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;129 words</footer>
-  <a class="entry-link" aria-label="post link to Ddpg" href="https://ownogatari.xyz/posts/ddpg/"></a>
-</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="next" href="https://ownogatari.xyz/posts/page/2/">Next&nbsp;&nbsp;»
+    </a>
+  </nav>
+</footer>
     </main>
     <link rel="stylesheet" href="./zotero.css">
 <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
