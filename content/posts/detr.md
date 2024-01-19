@@ -53,7 +53,7 @@ decoder의 쿼리 수 \\(N\\)은 무조건 사진의 object 수보다 크게 설
 
 \\(y\\)랑 \\(\hat{y}\\) 를 가능한 1-1 매칭을 해보고, loss가 가장 적은 정책을 \\(\hat{\sigma}\\)라고 한다. 이는 Hungarian algorithm를 통해 사용.
 
-$$\hat{\sigma}={\underset{\sigma\in S_{N}}{\argmin}}\sum_{i}^{N}L_{match}(y_{i},\hat{y}_{\sigma(i)})$$
+$$\hat{\sigma}={\underset{\sigma\in S_{N}}{\arg\min}}\sum_{i}^{N}L_{match}(y_{i},\hat{y}_{\sigma(i)})$$
 
 가장 최적의 \\(\hat{\sigma}\\)를 통해 답과의 loss를 구한다.
 
@@ -63,7 +63,7 @@ class가 맞으면, Loss가 작아지는 식의 Cross Entropy Loss + box의 차�
 
 bounding box loss
 
-$$\lambda_{iou}L_{iou}(b_{i},\hat{b}_{\sigma(i)})+\lambda_{L1}||b_{i}-\hat{b}_{\sigma(i)}||_{1}$$
+$$\lambda_{iou}L_{iou}(b_{i},\hat{b}_{\sigma(i)})+\lambda_{L1}\mid\mid b_{i}-\hat{b}_{\sigma(i)}\mid\mid_{1}$$
 
 그냥 L1 loss만으로는 scale에 대해 영향을 많이 받으므로 generalized iou 도입.
 

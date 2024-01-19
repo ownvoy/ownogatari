@@ -5,6 +5,7 @@ draft: false
 katex: true
 mathjax: true
 categories: "Object Detection"
+tags: ["CV"]
 ---
 
 # 1. overview

@@ -3,6 +3,7 @@ title: "CornerNet"
 date: 2024-01-02T15:06:43+09:00
 draft: false
 categories: "Object Detection"
+tags: "CV"
 mathjax: true
 ---
 
