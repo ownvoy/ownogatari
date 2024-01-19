@@ -4,7 +4,7 @@ date: 2024-01-03T05:27:37+09:00
 draft: false
 mathjax: true
 categories: "Object Detection"
-tags: "CV"
+tags: ["CV"]
 ---
 
  

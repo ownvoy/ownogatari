@@ -3,7 +3,7 @@ title: "FPN"
 date: 2023-12-26T06:25:59+09:00
 draft: false
 categories: "Object Detection"
-tags: "CV"
+tags: ["CV"]
 ---
 
 

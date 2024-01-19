@@ -7,7 +7,7 @@ katex: true
 mathjax: true
 UseHugoToc: true
 categories: "Object Detection"
-tags: "CV"
+tags: ["CV"]
 
 ---
 
