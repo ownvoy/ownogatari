@@ -6,7 +6,19 @@
     <description>Recent content in Object Detection on 미래사회와 창의혁신인재</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 03 Jan 2024 05:27:37 +0900</lastBuildDate><atom:link href="https://ownogatari.xyz/categories/object-detection/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 19 Jan 2024 13:28:40 +0900</lastBuildDate><atom:link href="https://ownogatari.xyz/categories/object-detection/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>DETR</title>
+      <link>https://ownogatari.xyz/posts/detr/</link>
+      <pubDate>Fri, 19 Jan 2024 13:28:40 +0900</pubDate>
+      
+      <guid>https://ownogatari.xyz/posts/detr/</guid>
+      <description>1. overview 1.1 objective detection에서 transformer를 사용해보자. detection에서 end to end 학습을 해보자. NMS, anchor setting의 부차적인 과정들이 학습의 결과에 많은 영향을 미친다. Transformer를 통해 위 두 개의 과정을 없앨 수 있게 된다.
+2. main 2.1 Transformer DETR은 기본적으로 Transforemer 구조를 따른다. DeTR에서 Encoder와 Decoder가 무슨 역할을 하는지 보도록 한다.
+2.1.1 Encoder cnn을 통과한 feature-map이 쪼개져서 input으로 들어온다. (ViT 스타일)
+그 후, attention 계산을 통해 그림 전체에 대한 정보를 본다.</description>
+    </item>
+    
     <item>
       <title>RetinaNet</title>
       <link>https://ownogatari.xyz/posts/retinanet/</link>
