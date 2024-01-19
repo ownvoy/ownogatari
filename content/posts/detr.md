@@ -30,12 +30,13 @@ DETR은 기본적으로 Transforemer 구조를 따른다. DeTR에서 Encoder와 
 
 ### 2.1.2 Decoder
 
-- decoder의 query는 output으로 box와 class를 내놓는다.(decoder의 query가 일반 Transformer에서 EOS1, EOS2, ...,EOSN과 같은 느낌을 받음. output 하나만 챙기면 되니까 parallel하게 할 수 있음. DETR은 auto-regressive하지 않음. 또, object query는 각각의 고유한 것을 예측해야하기 때문에 learnable positional embedding임.)
-
-- encoder의 사진 전체에 대한 정보를 참고하여, output을 뽑는다. output의 attention은 사물의 가장자리를 보는 것을 알 수 있다.
+- decoder의 query는 output으로 box와 class를 내놓는다.(decoder의 query가 일반 Transformer에서 EOS1, EOS2, ...,EOSN과 같은 느낌을 받음. 
+- output이 sequence 형태가 아니니까 inference할 때도, parallel하게 할 수 있음. DETR은 auto-regressive하지 않음. 
+- object query는 각각의 고유한 것을 예측해야하기 때문에 learnable positional embedding임.
 ![image](https://github.com/ownvoy/ownogatari/assets/96481582/7514a9b5-bd64-4991-b90f-b98ae5b31bca)
-
+- encoder의 사진 전체에 대한 정보를 참고하여, output을 뽑는다. output의 attention은 사물의 가장자리를 보는 것을 알 수 있다.
 - __img에서 prediction이 나옴으로, anchor setting에서 자유롭다. anchor 자체가 없다.__
+
 ## 2.2 Set prediction
 
 decoder의 쿼리가 들어가면 set으로 (box,class)가 나온다.
@@ -51,17 +52,17 @@ decoder의 쿼리 수 \\(N\\)은 무조건 사진의 object 수보다 크게 설
 
 \\(y\\)랑 \\(\hat{y}\\) 를 가능한 1-1 매칭을 해보고, loss가 가장 적은 정책을 \\(\hat{\sigma}\\)라고 한다. 이는 Hungarian algorithm를 통해 사용.
 
-$$\hat{\sigma}=\mathop{\underset{\sigma\in{S}_{N}}{\text{argmin}}}\sum_{i}^{N}{L}_{\text{match}}(y_{i},\hat{y}_{\sigma(i)}$$
+$$\hat{\sigma}={\underset{\sigma\in{S}_{N}}{\argmin}}\sum_{i}^{N}{L}_{match}(y_{i},\hat{y}_{\sigma(i)})$$
 
 가장 최적의 \\(\hat{\sigma}\\)를 통해 답과의 loss를 구한다.
 
-$${L}_{\text{Hungarian}}(y,\hat{y})=\sum_{i=1}^{N}\left[-\log\hat{p}_{\hat{\sigma}(i)}(c_{i})+\text{1}_{\{c_{i}\neq\emptyset\}}\mathcal{L}_{\text{box}}(b_{i},\hat{b}_{\hat{\sigma}}(i))\right]$$
+$${L}_{{Hungarian}}(y,\hat{y})=\sum_{i=1}^{N}\left[-\log\hat{p}_{\hat{\sigma}(i)}(c_{i})+{1}_{\{c_{i}\neq\emptyset\}}{L}_{box}(b_{i},\hat{b}_{\hat{\sigma}}(i))\right]$$
 
 class가 맞으면, Loss가 작아지는 식의 Cross Entropy Loss + box의 차이가 작으면, loss가 작아지는 식이다.
 
 bounding box loss
 
-$$\lambda_{\text{iou}}{L}_{\text{iou}}(b_{i},\hat{b}_{\sigma(i)})+\lambda_{\text{L1}}||b_{i}-\hat{b}_{\sigma(i)}||_{1}$$
+$$\lambda_{{iou}}{L}_{{iou}}(b_{i},\hat{b}_{\sigma(i)})+\lambda_{{L1}}||b_{i}-\hat{b}_{\sigma(i)}||_{1}$$
 
 그냥 L1 loss만으로는 scale에 대해 영향을 많이 받으므로 generalized iou 도입.
 
