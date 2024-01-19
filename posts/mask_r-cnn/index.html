@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
 <title>Mask R-CNN | 미래사회와 창의혁신인재</title>
-<meta name="keywords" content="">
+<meta name="keywords" content="CV">
 <meta name="description" content="1. overview 1.1 objective Faster R-CNN 돌리는김에 segmentation 해보자. 1.2 background detection sementic segmentation instance segementation 대상 각각이 어떤 물체인지 각각이 어떤 클래스이고, instance를 구별x 각각이 어떤 클래스이고, instance를 구별 범위 bounding box마다 전체의 pixel마다 bounding box의 pixel마다 대표 모델 Faster R-CNN FCN Mask R-CNN , FCIS 예시 Fater R-CNN: sementic segmentation 못함. (RoIPooling이 한 뭉태기로 하니까, pixel에 대한 각각의 정보 소멸) FCN: instance segmentation 못함. (전체 픽셀별로 하니까) 2. main mask R-CNN은 RoI마다 mask(K class에 대해)를 내놓기에, instance segmentation 가능함.">
 <meta name="author" content="">
 <link rel="canonical" href="https://ownogatari.xyz/posts/mask_r-cnn/">
@@ -96,7 +96,7 @@
   "name": "Mask R-CNN",
   "description": "1. overview 1.1 objective Faster R-CNN 돌리는김에 segmentation 해보자. 1.2 background detection sementic segmentation instance segementation 대상 각각이 어떤 물체인지 각각이 어떤 클래스이고, instance를 구별x 각각이 어떤 클래스이고, instance를 구별 범위 bounding box마다 전체의 pixel마다 bounding box의 pixel마다 대표 모델 Faster R-CNN FCN Mask R-CNN , FCIS 예시 Fater R-CNN: sementic segmentation 못함. (RoIPooling이 한 뭉태기로 하니까, pixel에 대한 각각의 정보 소멸) FCN: instance segmentation 못함. (전체 픽셀별로 하니까) 2. main mask R-CNN은 RoI마다 mask(K class에 대해)를 내놓기에, instance segmentation 가능함.",
   "keywords": [
-    
+    "CV"
   ],
   "articleBody": "1. overview 1.1 objective Faster R-CNN 돌리는김에 segmentation 해보자. 1.2 background detection sementic segmentation instance segementation 대상 각각이 어떤 물체인지 각각이 어떤 클래스이고, instance를 구별x 각각이 어떤 클래스이고, instance를 구별 범위 bounding box마다 전체의 pixel마다 bounding box의 pixel마다 대표 모델 Faster R-CNN FCN Mask R-CNN , FCIS 예시 Fater R-CNN: sementic segmentation 못함. (RoIPooling이 한 뭉태기로 하니까, pixel에 대한 각각의 정보 소멸) FCN: instance segmentation 못함. (전체 픽셀별로 하니까) 2. main mask R-CNN은 RoI마다 mask(K class에 대해)를 내놓기에, instance segmentation 가능함.\n2.1 architecture 기존의 Faster R-CNN에서 2가지가 바뀜.\nmask branch가 추가됨. RoI pooling 대신 RoI Align을 사용. 2.1.1 mask branch \\(14 \\times 14\\) 에는 \\(0,1\\)의 값이 들어 있음. 이 부분이 해당 클래스냐 아니냐 Mask R-CNN은 mask, class, box prediction이 parallel하게 이루어짐. 다른 모델은 보통 mask에 대해 prediction을 내놓음 \\(\\Rightarrow\\) segementation과 detection이 합쳐진 구조. classification이 calss를 내놓으면, 해당 class를 mask에서 갖고 오는 방식 $$L=L_{c l s}+L_{b o x}+L_{m a s k}$$ 2.1.2 RoI pooling Faster R-CNN의 RoI pooling은 2번의 quantization이 일어나기에 픽셀에 대해 정보의 손실이 일어남. Faster R-CNN의 목적 자체가 pixel별로 무슨 class를 보는 것에 초점이 x RoI Align pixel의 정보를 살리기 위해, quantizaion이 없어야 함. 3. experimental results Instance segmentation에 있어서, 기존의 SOTA보다 좋음. object detection 또한 기존의 SOTA보다 좋음. Mask R-CNN은 object가 overlap 됐을 때도 성능이 좋음 FCIS는 하나의 제일 높은 class를 정하는 방식이기에, object가 overlap 됐을 때 성능이 떨어짐. (loss: softmax loss) Mask R-CNN은 RoI에 대해, 여러 class를 가질 수 있음. 각각의 class에 대해 mask를 만들어서, 그 중 가장 높은 score를 가진 class를 선택함. (loss: sigmoid loss) ",
   "wordCount" : "249",
@@ -288,6 +288,7 @@ $$L=L_{c l s}+L_{b o x}+L_{m a s k}$$</li>
 
   <footer class="post-footer">
     <ul class="post-tags">
+      <li><a href="https://ownogatari.xyz/tags/cv/">CV</a></li>
     </ul>
 <nav class="paginav">
   <a class="prev" href="https://ownogatari.xyz/posts/fpn/">

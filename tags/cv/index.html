@@ -145,8 +145,107 @@
 2.1.1 Encoder cnn을 통과한 feature-map이 쪼개져서 input으로 들어온다. (ViT 스타일)
 그 후, attention 계산을 통해 그림 전체에 대한 정보를 본다....</p>
   </div>
-  <footer class="entry-footer"><span title='2024-01-19 13:28:40 +0900 +0900'>January 19, 2024</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;266 words</footer>
+  <footer class="entry-footer"><span title='2024-01-19 13:28:40 +0900 +0900'>January 19, 2024</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;267 words</footer>
   <a class="entry-link" aria-label="post link to DETR" href="https://ownogatari.xyz/posts/detr/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>RetinaNet
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>1. overview 1.1 objective 배경과 사물의 imbalance를 loss를 새롭게 만듦으로써 해결해보자.
+1.2 background 1.2.1 Class Imbalance object는 몇 개 안 되는데, 배경은 \(10^4\sim10^5\)개 정도 있다. 배경을 많이 학습하는 것은 모델 성능 향상에 큰 도움이 안 된다.
+1.2.2 Robust Loss Robust Loss: outlier(hard examples)를 down weight 해주는 loss Focal Loss: inliner(easy examples)를 down weight해주는 loss
+1.2.3 Cross Entropy Loss Binary Cross Entropy Loss $$ - (y\log(p)&#43; (1-y)\log(1-p)), \ where \ y\in \lbrace 0,1 \rbrace$$...</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-01-03 05:27:37 +0900 +0900'>January 3, 2024</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;223 words</footer>
+  <a class="entry-link" aria-label="post link to RetinaNet" href="https://ownogatari.xyz/posts/retinanet/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>CornerNet
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>1. overview 1.1 objective anchor box를 없애보자. 1.2 background 1.2.1 anchor box의 문제점 너무 많은 수의 anchor box (ex. DSS에는 40k 이상, RetinaNet에는 100k 이상) \(\Rightarrow\) positive sample과 negative sample의 imbalance가 training 속도 느리게 함. hyperparameter \(\uparrow\) (ex. ratio, box size, feature map size) 2. main 2.1 architecture backbone(Hourglass Networ) &#43; prediction Module(Corner pooling, Heatmaps, Embeddings, offsets)으로 이루어져 있다.
+2.1.1 Corner pooling 각각의 코너를 top-left corner와 bottom-right corner라 한다.
+주황색 코너를 봐보면, 사람에 대한 local 정보가 없다....</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-01-02 15:06:43 +0900 +0900'>January 2, 2024</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;271 words</footer>
+  <a class="entry-link" aria-label="post link to CornerNet" href="https://ownogatari.xyz/posts/cornernet/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>FPN
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>1. overview 1.1 objective resolution과 semantic의 trade-off를 줄여보자.
+\(\Leftrightarrow\) 모든 resolution(scale)에서 강한 semantic 정보를 얻어보자.
+1.2 background 1.2.1 resolution semantic trade-off \(\text{resolution} \downarrow \ \ \Rightarrow \ \ \text{semantic} \uparrow (😀) , \ \ \text{detail} \downarrow (🙁)\) \(\text{resolution} \uparrow \ \ \Rightarrow \ \ \text{semantic} \downarrow (🙁) \ , \text{detail} \uparrow (😀)\)
+아래 table의 각 col들은 같은 의미임.
+higher resolution lower resolution weak semantic strong semantic low level feature high level feature detail abstract lower layer higher layer 1....</p>
+  </div>
+  <footer class="entry-footer"><span title='2023-12-26 06:25:59 +0900 +0900'>December 26, 2023</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;450 words</footer>
+  <a class="entry-link" aria-label="post link to FPN" href="https://ownogatari.xyz/posts/fpn/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>Mask R-CNN
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>1. overview 1.1 objective Faster R-CNN 돌리는김에 segmentation 해보자. 1.2 background detection sementic segmentation instance segementation 대상 각각이 어떤 물체인지 각각이 어떤 클래스이고, instance를 구별x 각각이 어떤 클래스이고, instance를 구별 범위 bounding box마다 전체의 pixel마다 bounding box의 pixel마다 대표 모델 Faster R-CNN FCN Mask R-CNN , FCIS 예시 Fater R-CNN: sementic segmentation 못함. (RoIPooling이 한 뭉태기로 하니까, pixel에 대한 각각의 정보 소멸) FCN: instance segmentation 못함. (전체 픽셀별로 하니까) 2. main mask R-CNN은 RoI마다 mask(K class에 대해)를 내놓기에, instance segmentation 가능함....</p>
+  </div>
+  <footer class="entry-footer"><span title='2023-12-23 13:42:52 +0900 +0900'>December 23, 2023</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;249 words</footer>
+  <a class="entry-link" aria-label="post link to Mask R-CNN" href="https://ownogatari.xyz/posts/mask_r-cnn/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>SSD
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>1. overview 1.1 objective multiple scale에 대해 다뤄 보자. (큰 물체, 작은 물체) \(\Rightarrow\) 장점: low resolution에 대한 문제를 해결 \(\Rightarrow\) 방법: 여러 개의 conv layer 도입
+different shape에 대해 다뤄 보자. (박스 형태, 2:1, 1:1) \(\Rightarrow\) 장점: 다양한 형태의 객체 검출 \(\Rightarrow\) 방법: 박스 형태 다양하게
+1.2 background YOLO YOLO 같은 경우 feature map이 \(7\times7\)짜리 1개이다. box개수는 각 cell마다 2개 있어서 총 98개이다.
+2. main 2.1 architecture pretrained model &#43; convolutional layer 논문에서는 VGG를 pretrained model로 사용...</p>
+  </div>
+  <footer class="entry-footer"><span title='2023-12-19 00:00:00 +0000 UTC'>December 19, 2023</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;301 words</footer>
+  <a class="entry-link" aria-label="post link to SSD" href="https://ownogatari.xyz/posts/ssd/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>R-FCN
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>1. overview 1.1 objective translation invariance 문제를 해결해보자. 모델을 fully convolutional 하게 만들어보자. 1.2 Background translational invariance vs translational variance translational invariance의 정의 positional invariance(translation invariance): 위치가 변하여도 결과가 똑같아야함 = 위치가 영향을 주지 않음 image classification에서의 주요 과제
+cnn은 translational invaraince하다.
+weight sharing convolutiona filter를 활용한 계산은 원래 translational equivariance(translational variance)함. 층이 깊어질 수록 tralational invariance가 됨. 그 이유는 계속 같은 필터를 써서(weight sharing) max pooling max pooling 역시 translational invariance한 연산 cnn은 어떤 위치에 사물이 있어도 잘 classify한다....</p>
+  </div>
+  <footer class="entry-footer"><span title='2023-11-23 00:00:00 +0000 UTC'>November 23, 2023</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;465 words</footer>
+  <a class="entry-link" aria-label="post link to R-FCN" href="https://ownogatari.xyz/posts/r-fcn/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>R-CNN
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>1. overview 1.1 objective CNN을 object detection에 적용해보자.
+1.2 background 1.2.1 object detection object detection은 사물이 뭔지, 어디에 있는지 찾는 것. classification과 localization을 동시에 하는 것. 1.2.2 way to localize object 가장 greedy한 방법: sliding window 이미지 크기: \(H\times W\) 박스 크기: \(h \times w\) 가능한 \(x\) 위치: \(W-w&#43;1\) 가능한 \(y\) 위치: \(H-h &#43;1\) 가능한 박스 위치: \((W-w&#43;1)(H-h&#43;1)\) 가능한 총 경우의 수 $$\sum_{h=1}^{H}\sum_{w=1}^{W}(W-w&#43;1)(H-h&#43;1)$$ is equal to $$\frac{H(H&#43;1)}{2}\frac{W(W&#43;1)}{2}$$ 만약 이미지의 크기가 300*300이라고 하면 81,000,000의 경우의 수가 나옴....</p>
+  </div>
+  <footer class="entry-footer"><span title='2023-11-12 00:00:00 +0000 UTC'>November 12, 2023</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;361 words</footer>
+  <a class="entry-link" aria-label="post link to R-CNN" href="https://ownogatari.xyz/posts/r-cnn/"></a>
 </article>
     </main>
     <link rel="stylesheet" href="./zotero.css">
