@@ -5,6 +5,9 @@
     <loc>https://ownogatari.xyz/categories/</loc>
     <lastmod>2024-01-19T13:28:40+09:00</lastmod>
   </url><url>
+    <loc>https://ownogatari.xyz/tags/cv/</loc>
+    <lastmod>2024-01-19T13:28:40+09:00</lastmod>
+  </url><url>
     <loc>https://ownogatari.xyz/posts/detr/</loc>
     <lastmod>2024-01-19T13:28:40+09:00</lastmod>
   </url><url>
@@ -12,6 +15,9 @@
     <lastmod>2024-01-19T13:28:40+09:00</lastmod>
   </url><url>
     <loc>https://ownogatari.xyz/posts/</loc>
+    <lastmod>2024-01-19T13:28:40+09:00</lastmod>
+  </url><url>
+    <loc>https://ownogatari.xyz/tags/</loc>
     <lastmod>2024-01-19T13:28:40+09:00</lastmod>
   </url><url>
     <loc>https://ownogatari.xyz/</loc>
@@ -55,7 +61,5 @@
   </url><url>
     <loc>https://ownogatari.xyz/docs/test/</loc>
     <lastmod>2023-09-15T23:53:47+09:00</lastmod>
-  </url><url>
-    <loc>https://ownogatari.xyz/tags/</loc>
   </url>
 </urlset>
