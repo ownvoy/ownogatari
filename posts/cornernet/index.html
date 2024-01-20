@@ -1,128 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" dir="auto">
 
-<head><meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
-<title>CornerNet | 미래사회와 창의혁신인재</title>
-<meta name="keywords" content="CV">
-<meta name="description" content="1. overview 1.1 objective anchor box를 없애보자. 1.2 background 1.2.1 anchor box의 문제점 너무 많은 수의 anchor box (ex. DSS에는 40k 이상, RetinaNet에는 100k 이상) \(\Rightarrow\) positive sample과 negative sample의 imbalance가 training 속도 느리게 함. hyperparameter \(\uparrow\) (ex. ratio, box size, feature map size) 2. main 2.1 architecture backbone(Hourglass Networ) &#43; prediction Module(Corner pooling, Heatmaps, Embeddings, offsets)으로 이루어져 있다.
-2.1.1 Corner pooling 각각의 코너를 top-left corner와 bottom-right corner라 한다.
-주황색 코너를 봐보면, 사람에 대한 local 정보가 없다.">
-<meta name="author" content="">
-<link rel="canonical" href="https://ownogatari.xyz/posts/cornernet/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.5cfc680b1eeaeef9efbced92d46c2a9e876b72ee14fba85846afc4cff9e6e6f8.css" integrity="sha256-XPxoCx7q7vnvvO2S1Gwqnodrcu4U&#43;6hYRq/Ez/nm5vg=" rel="preload stylesheet" as="style">
-<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
-    onload="hljs.initHighlightingOnLoad();"></script>
-<link rel="icon" href="https://ownogatari.xyz/images/favicon/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://ownogatari.xyz/images/favicon/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://ownogatari.xyz/images/favicon/favicon-32x32.png">
-<link rel="apple-touch-icon" href="https://ownogatari.xyz/images/favicon/apple-touch-icon.png">
-<link rel="mask-icon" href="https://ownogatari.xyz/images/favicon/apple-touch-icon.png">
-<meta name="theme-color" content="#2e2e33">
-<meta name="msapplication-TileColor" content="#2e2e33">
-<noscript>
-    <style>
-        #theme-toggle,
-        .top-link {
-            display: none;
-        }
-
-    </style>
-    <style>
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --theme: rgb(29, 30, 32);
-                --entry: rgb(46, 46, 51);
-                --primary: rgb(218, 218, 219);
-                --secondary: rgb(155, 156, 157);
-                --tertiary: rgb(65, 66, 68);
-                --content: rgb(196, 196, 197);
-                --hljs-bg: rgb(46, 46, 51);
-                --code-bg: rgb(55, 56, 62);
-                --border: rgb(51, 51, 51);
-            }
-
-            .list {
-                background: var(--theme);
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-track {
-                background: 0 0;
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-thumb {
-                border-color: var(--theme);
-            }
-        }
-
-    </style>
-</noscript><meta property="og:title" content="CornerNet" />
-<meta property="og:description" content="1. overview 1.1 objective anchor box를 없애보자. 1.2 background 1.2.1 anchor box의 문제점 너무 많은 수의 anchor box (ex. DSS에는 40k 이상, RetinaNet에는 100k 이상) \(\Rightarrow\) positive sample과 negative sample의 imbalance가 training 속도 느리게 함. hyperparameter \(\uparrow\) (ex. ratio, box size, feature map size) 2. main 2.1 architecture backbone(Hourglass Networ) &#43; prediction Module(Corner pooling, Heatmaps, Embeddings, offsets)으로 이루어져 있다.
-2.1.1 Corner pooling 각각의 코너를 top-left corner와 bottom-right corner라 한다.
-주황색 코너를 봐보면, 사람에 대한 local 정보가 없다." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://ownogatari.xyz/posts/cornernet/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2024-01-02T15:06:43+09:00" />
-<meta property="article:modified_time" content="2024-01-02T15:06:43+09:00" />
-
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="CornerNet"/>
-<meta name="twitter:description" content="1. overview 1.1 objective anchor box를 없애보자. 1.2 background 1.2.1 anchor box의 문제점 너무 많은 수의 anchor box (ex. DSS에는 40k 이상, RetinaNet에는 100k 이상) \(\Rightarrow\) positive sample과 negative sample의 imbalance가 training 속도 느리게 함. hyperparameter \(\uparrow\) (ex. ratio, box size, feature map size) 2. main 2.1 architecture backbone(Hourglass Networ) &#43; prediction Module(Corner pooling, Heatmaps, Embeddings, offsets)으로 이루어져 있다.
-2.1.1 Corner pooling 각각의 코너를 top-left corner와 bottom-right corner라 한다.
-주황색 코너를 봐보면, 사람에 대한 local 정보가 없다."/>
-
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position":  1 ,
-      "name": "Posts",
-      "item": "https://ownogatari.xyz/posts/"
-    }, 
-    {
-      "@type": "ListItem",
-      "position":  2 ,
-      "name": "CornerNet",
-      "item": "https://ownogatari.xyz/posts/cornernet/"
-    }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "CornerNet",
-  "name": "CornerNet",
-  "description": "1. overview 1.1 objective anchor box를 없애보자. 1.2 background 1.2.1 anchor box의 문제점 너무 많은 수의 anchor box (ex. DSS에는 40k 이상, RetinaNet에는 100k 이상) \\(\\Rightarrow\\) positive sample과 negative sample의 imbalance가 training 속도 느리게 함. hyperparameter \\(\\uparrow\\) (ex. ratio, box size, feature map size) 2. main 2.1 architecture backbone(Hourglass Networ) + prediction Module(Corner pooling, Heatmaps, Embeddings, offsets)으로 이루어져 있다.\n2.1.1 Corner pooling 각각의 코너를 top-left corner와 bottom-right corner라 한다.\n주황색 코너를 봐보면, 사람에 대한 local 정보가 없다.",
-  "keywords": [
-    "CV"
-  ],
-  "articleBody": "1. overview 1.1 objective anchor box를 없애보자. 1.2 background 1.2.1 anchor box의 문제점 너무 많은 수의 anchor box (ex. DSS에는 40k 이상, RetinaNet에는 100k 이상) \\(\\Rightarrow\\) positive sample과 negative sample의 imbalance가 training 속도 느리게 함. hyperparameter \\(\\uparrow\\) (ex. ratio, box size, feature map size) 2. main 2.1 architecture backbone(Hourglass Networ) + prediction Module(Corner pooling, Heatmaps, Embeddings, offsets)으로 이루어져 있다.\n2.1.1 Corner pooling 각각의 코너를 top-left corner와 bottom-right corner라 한다.\n주황색 코너를 봐보면, 사람에 대한 local 정보가 없다. 사람에 대한 정보를 얻기 위해서는 오른쪽과 아래 pixele들을 봐야한다. (Top-left 기준)\n수평과 수직 방향으로 max값들을 취한다. Bottom-Right도 마찬가지로 왼쪽과 위쪽을 봐주면 된다.\nCorner Pooling을 한 후, backbone의 feqturemap과 다시 residual connect를 해준다. 2.1.2 Corners and Heatmaps Corner Pooling 후 heatmap과 embedding, offset을 예측한다.\ntop-left corner와 bottom-right corner에 대한 heatmap이 있다. 각각의 size는 \\(C \\times W \\times H\\)(category for \\(C\\))이다. heatmap에 대한 focal loss\n\\(p_{cij}\\): \\(c\\)에 대한 prediction \\(y_{cij}\\): \\(c\\)에 대한 ground truth negative sample: 덜 중요한 sample이니 가중치 많이 줄임. negative이면서 corner와 가까운 sample: 정답과 가까이 있으니까, 가중치 적당히 줄임. positive sample: 중요한 sample이니 가중치 조금만 줄임. 2.1.3 Grouping Corners and Embeddings 여러 개의 object가 있을 때에는 각각의 쌍을 맞춰줘야 한다. \\(\\Rightarrow\\)각 포인트의 임베딩 벡터로 유사도 구한 후, distance 측정.\n$$L_{p u l l}=\\frac{1}{N}\\sum_{k=1}^{N}\\left[\\left(e_{t_{k}}-e_{k}\\right)^{2}+\\left(e_{b_{k}}-e_{k}\\right)^{2}\\right]$$ 같은 group은 pull(비슷하게)하도록 학습한다.\n$$L_{p u s h}=\\frac1{N(N-1)}\\sum_{k=1}^{N}\\sum_{\\stackrel{j=1}{j\\neq k}}^{N}\\operatorname*{max}\\left(0,\\Delta-\\vert e_{k}-e_{j}\\vert\\right)$$ 다른 group은 psuh(멀어지게)하도록 학습한다.\n2.1.4 Offset offset은 corner의 정확한 위치를 조정한다.\noffset에 대한 loss\n$$L_{off}=\\frac{1}{N}\\sum_{k=1}^{N}\\mathrm{SmoothL1Loss}\\left(o_{k},\\hat{o}_{k}\\right)$$\n최종 loss\n$$L=L_{det}+\\alpha L_{pull}+\\beta L_{push}+\\gamma L_{off}$$\n3. experiments RetinaNet의 경우 one-stage detector보다는 다 좋고, two-stage detector와는 비등비등하다.\ncorner pooling시 object의 보다 정확한 box를 구하는 것을 확인 할 수 있다. 특히 큰 물체와 관련하여서, 점수가 좋다.\n그러나, corner를 잘못 잡거나 embedding이 올바르지 않을 때에는 error를 보여준다.\n",
-  "wordCount" : "271",
-  "inLanguage": "en",
-  "datePublished": "2024-01-02T15:06:43+09:00",
-  "dateModified": "2024-01-02T15:06:43+09:00",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://ownogatari.xyz/posts/cornernet/"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "미래사회와 창의혁신인재",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://ownogatari.xyz/images/favicon/favicon.ico"
-    }
-  }
-}
-</script>
+<head>
 </head>
 
 <body class="" id="top">
@@ -289,18 +168,75 @@ corner pooling시 object의 보다 정확한 box를 구하는 것을 확인 할 
   </footer>
 </article>
     </main>
-    <link rel="stylesheet" href="./zotero.css">
-<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-
-<footer class="footer">
     
+<footer class="footer">
+    <span>&copy; 2024 <a href="https://ownogatari.xyz/">미래사회와 창의혁신인재</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
 </footer>
-</div>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
 
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
 </body>
-
-
-</html></body>
 
 </html>
