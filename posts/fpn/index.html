@@ -1,7 +1,138 @@
 <!DOCTYPE html>
 <html lang="en" dir="auto">
 
-<head>
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>FPN | 미래사회와 창의혁신인재</title>
+<meta name="keywords" content="CV">
+<meta name="description" content="1. overview 1.1 objective resolution과 semantic의 trade-off를 줄여보자.
+\(\Leftrightarrow\) 모든 resolution(scale)에서 강한 semantic 정보를 얻어보자.
+1.2 background 1.2.1 resolution semantic trade-off \(\text{resolution} \downarrow \ \ \Rightarrow \ \ \text{semantic} \uparrow (😀) , \ \ \text{detail} \downarrow (🙁)\) \(\text{resolution} \uparrow \ \ \Rightarrow \ \ \text{semantic} \downarrow (🙁) \ , \text{detail} \uparrow (😀)\)
+아래 table의 각 col들은 같은 의미임.
+higher resolution lower resolution weak semantic strong semantic low level feature high level feature detail abstract lower layer higher layer 1.">
+<meta name="author" content="Won Jun Oh">
+<link rel="canonical" href="https://ownogatari.xyz/posts/fpn/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.5cfc680b1eeaeef9efbced92d46c2a9e876b72ee14fba85846afc4cff9e6e6f8.css" integrity="sha256-XPxoCx7q7vnvvO2S1Gwqnodrcu4U&#43;6hYRq/Ez/nm5vg=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://ownogatari.xyz/images/favicon/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://ownogatari.xyz/images/favicon/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://ownogatari.xyz/images/favicon/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://ownogatari.xyz/images/favicon/apple-touch-icon.png">
+<link rel="mask-icon" href="https://ownogatari.xyz/images/favicon/apple-touch-icon.png">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="FPN" />
+<meta property="og:description" content="1. overview 1.1 objective resolution과 semantic의 trade-off를 줄여보자.
+\(\Leftrightarrow\) 모든 resolution(scale)에서 강한 semantic 정보를 얻어보자.
+1.2 background 1.2.1 resolution semantic trade-off \(\text{resolution} \downarrow \ \ \Rightarrow \ \ \text{semantic} \uparrow (😀) , \ \ \text{detail} \downarrow (🙁)\) \(\text{resolution} \uparrow \ \ \Rightarrow \ \ \text{semantic} \downarrow (🙁) \ , \text{detail} \uparrow (😀)\)
+아래 table의 각 col들은 같은 의미임.
+higher resolution lower resolution weak semantic strong semantic low level feature high level feature detail abstract lower layer higher layer 1." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ownogatari.xyz/posts/fpn/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-12-26T06:25:59+09:00" />
+<meta property="article:modified_time" content="2023-12-26T06:25:59+09:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="FPN"/>
+<meta name="twitter:description" content="1. overview 1.1 objective resolution과 semantic의 trade-off를 줄여보자.
+\(\Leftrightarrow\) 모든 resolution(scale)에서 강한 semantic 정보를 얻어보자.
+1.2 background 1.2.1 resolution semantic trade-off \(\text{resolution} \downarrow \ \ \Rightarrow \ \ \text{semantic} \uparrow (😀) , \ \ \text{detail} \downarrow (🙁)\) \(\text{resolution} \uparrow \ \ \Rightarrow \ \ \text{semantic} \downarrow (🙁) \ , \text{detail} \uparrow (😀)\)
+아래 table의 각 col들은 같은 의미임.
+higher resolution lower resolution weak semantic strong semantic low level feature high level feature detail abstract lower layer higher layer 1."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://ownogatari.xyz/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "FPN",
+      "item": "https://ownogatari.xyz/posts/fpn/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "FPN",
+  "name": "FPN",
+  "description": "1. overview 1.1 objective resolution과 semantic의 trade-off를 줄여보자.\n\\(\\Leftrightarrow\\) 모든 resolution(scale)에서 강한 semantic 정보를 얻어보자.\n1.2 background 1.2.1 resolution semantic trade-off \\(\\text{resolution} \\downarrow \\ \\ \\Rightarrow \\ \\ \\text{semantic} \\uparrow (😀) , \\ \\ \\text{detail} \\downarrow (🙁)\\) \\(\\text{resolution} \\uparrow \\ \\ \\Rightarrow \\ \\ \\text{semantic} \\downarrow (🙁) \\ , \\text{detail} \\uparrow (😀)\\)\n아래 table의 각 col들은 같은 의미임.\nhigher resolution lower resolution weak semantic strong semantic low level feature high level feature detail abstract lower layer higher layer 1.",
+  "keywords": [
+    "CV"
+  ],
+  "articleBody": "1. overview 1.1 objective resolution과 semantic의 trade-off를 줄여보자.\n\\(\\Leftrightarrow\\) 모든 resolution(scale)에서 강한 semantic 정보를 얻어보자.\n1.2 background 1.2.1 resolution semantic trade-off \\(\\text{resolution} \\downarrow \\ \\ \\Rightarrow \\ \\ \\text{semantic} \\uparrow (😀) , \\ \\ \\text{detail} \\downarrow (🙁)\\) \\(\\text{resolution} \\uparrow \\ \\ \\Rightarrow \\ \\ \\text{semantic} \\downarrow (🙁) \\ , \\text{detail} \\uparrow (😀)\\)\n아래 table의 각 col들은 같은 의미임.\nhigher resolution lower resolution weak semantic strong semantic low level feature high level feature detail abstract lower layer higher layer 1.2.2 related works Feautrized image pyramid(a): 각각의 scale들마다 feature를 뽑아서 속도가 느림. Single feature map(b): 모든 층이 rich semantic하지 않음. Pyramidal feature hierarchy(c): 모든 층이 rich semantic하지 않음. (또, low level에 대한 feature x, SDD: pre: backbone의 conv4부터 prediction을 함.) Feature Pyramid Network(d): 모든 층이 rich semantic함. (low level feature + high level feature) 2. main Q) 어떻게 하면 모든 층이 rich semantic 할 수 있을까?\nA) lower 층의 feature map이 rich semantic 하면 됨.\n방법) lower 층 feature map += higher 층 feature map\n2.1 architecture Bottom-up pathway + Top-down pathway and lateral connections.\nBottom-up pathway: 올라가면서 여러가지 층 만들어주는 것. Top-down pathway and lateral connections: higher 층의 feature map을 더해주는 것. 2.1.1 Bottom-up pathway conv를 통과하고 나온 output: \\({C_{2}, C_{3}, C_{4}, C_{5}}\\) 각각의 input에 대한 stride \\({4,8,16,32}\\)\n2.1.2 Top-down pathway and lateral connections Top-down pathway: upsampling해서 사이즈를 키움. (방법: nearest neighbor upsampling) later connection: \\(1 \\times 1\\) conv 돌려서, channel 맞춘다음, Top-down에서 내려오는거랑 더해줌.\n\\(\\Rightarrow\\)각 층의 feature map은 lower layer의 localized 정보와 higher layer의 semantic을 둘 다 가질 수 있음.\n각 층의 final feature map(\\(\\lbrace P_{2}, P_{3}, P_{4}, P_{5}\\rbrace \\))은 \\(3 \\times 3\\)의 convolution을 거친 후 완성.\n2.2 application 지금까지 과정은 하나의 backbone을 만든 것. \\(\\Rightarrow\\) FPN을 RPN과 head를 연결 해주는 과정이 필요.\n2.2.1 FPN for RPN 기존의 RPN: 하나의 feature map에 대해 convolution를 돌리기. (사진)\n수정된 RPN: 여러 개의 feature map에 대해 convolution를 각각 돌리기.\n기존의 RPN: 하나의 feature map에 대해 여러 scale의 anchor size.\n수정된 RPN: 하나의 feature map에 대해 하나의 scale의 anchor size.\n\\(\\lbrace P_2, P_3, P_4, P_5, P_6\\rbrace\\)에 대해 \\(\\lbrace32^2, 64^2, 128^2, 256^2, 512^2\\rbrace\\) anchor size 설정 2.2.2 FPN for RoI pooling 기존의 RoI pooling : 하나의 feature map에 대해 적용했었음 수정된 RoI pooling: 여러 개의 feature map들 중 어느 feature map을 쓸 것인지 정해야함. $$k=[k_{0}+l o g_{2}(\\sqrt{w h}/224)]$$\nRoI의 weight와 height에 따라 \\(k\\) level의 feature map을 정함. \\(w, h\\)가 작다는 것은 감지할 사물이 작다는 것이므로, resolution이 높은 feature map을 쓰는 것이 좋음. 3. experiments 성능이 압도적으로 좋은지는 잘 모르겠음.\niterative regression, hard negative mining, context modeling, stronger data augmentation 같은 기법들 안 쓰고 순수하게 이겼다고는 언급함.\nRPN 부분에 대한 실험\nRoI pooling에 대한 실험(only finest level과 비교하면 진짜 별 차이가 없음.)\nlarge object에 대한 성능이 미미한 것은, 여러가지 scale을 보느라 정보가 섞여서 그런 것 같음.\n",
+  "wordCount" : "450",
+  "inLanguage": "en",
+  "datePublished": "2023-12-26T06:25:59+09:00",
+  "dateModified": "2023-12-26T06:25:59+09:00",
+  "author":[{
+    "@type": "Person",
+    "name": "Won Jun Oh"
+  }],
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://ownogatari.xyz/posts/fpn/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "미래사회와 창의혁신인재",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://ownogatari.xyz/images/favicon/favicon.ico"
+    }
+  }
+}
+</script>
 </head>
 
 <body class="" id="top">
