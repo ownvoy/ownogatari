@@ -58,13 +58,13 @@ $$\hat{\sigma}={\underset{\sigma\in S_{N}}{\arg\min}}\sum_{i}^{N}L_{match}(y_{i}
 
 가장 최적의 \\(\hat{\sigma}\\)를 통해 답과의 loss를 구한다.
 
-$$L_{Hungarian}(y,\hat{y})=\sum_{i=1}^{N}\left[-\log\hat{p}_{\hat{\sigma}(i)}(c_{i})+1_{c_{i}\neq\emptyset}L_{box}(b_{i},\hat{b}_{\hat{\sigma}}(i))\right]$$
+$$L_{Hungarian}(y,\hat{y})=\sum_{i=1}^N\left[-\log\hat{p}_{\hat{\sigma}(i)}(c_i)+1_{c_i\neq\emptyset}L_{box}(b_{i},\hat{b}_{\hat{\sigma}}(i))\right]$$
 
 class가 맞으면, Loss가 작아지는 식의 Cross Entropy Loss + box의 차이가 작으면, loss가 작아지는 식이다.
 
 bounding box loss
 
-$$\lambda_{iou}L_{iou}(b_{i},\hat{b}_{\sigma(i)})+\lambda_{L1}\mid\mid b_{i}-\hat{b}_{\sigma(i)}\mid\mid_{1}$$
+$$\lambda_{iou}L_{iou}(b_i,\hat{b}_{\sigma(i)})+\lambda_{L1}\mid\mid b_{i}-\hat{b}_{\sigma(i)}\mid\mid_1$$
 
 그냥 L1 loss만으로는 scale에 대해 영향을 많이 받으므로 generalized iou 도입.
 
