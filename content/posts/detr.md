@@ -3,6 +3,7 @@ title: "DETR"
 date: 2024-01-19T13:28:40+09:00
 draft: false
 math: katex
+katex: true
 categories: "Object Detection"
 tags: ["CV"]
 ---
