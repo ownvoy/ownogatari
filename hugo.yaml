@@ -5,6 +5,7 @@ theme: PaperMod
 
 
 params:
+  author: Oh Won Jun
   ShowReadingTime: true
   ShowShareButtons: false
   ShowPostNavLinks: true
