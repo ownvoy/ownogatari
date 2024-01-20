@@ -6,7 +6,6 @@ theme: PaperMod
 
 params:
   author: ["Won Jun Oh"]
-  katex: true
   ShowReadingTime: true
   ShowShareButtons: false
   ShowPostNavLinks: true
