@@ -107,8 +107,8 @@
   "keywords": [
     "CV"
   ],
-  "articleBody": "1. overview 1.1 objective detection에서 transformer를 사용해보자. detection에서 end to end 학습을 해보자. NMS, anchor setting의 부차적인 과정들이 학습의 결과에 많은 영향을 미친다. Transformer를 통해 위 두 개의 과정을 없앨 수 있게 된다.\n2. main 2.1 Transformer DETR은 기본적으로 Transforemer 구조를 따른다. DeTR에서 Encoder와 Decoder가 무슨 역할을 하는지 보도록 한다.\n2.1.1 Encoder cnn을 통과한 feature-map이 쪼개져서 input으로 들어온다. (ViT 스타일)\n그 후, attention 계산을 통해 그림 전체에 대한 정보를 본다.\nEncoder에서 self attention이다. 물체들을 구별하는 것을 볼 수 있다. 2.1.2 Decoder decoder의 query는 output으로 box와 class를 내놓는다.(decoder의 query가 일반 Transformer에서 EOS1, EOS2, …,EOSN과 같은 느낌을 받음. output이 sequence 형태가 아니니까 inference할 때도, parallel하게 할 수 있음. DETR은 auto-regressive하지 않음. object query는 각각의 고유한 것을 예측해야하기 때문에 learnable positional embedding임. encoder의 사진 전체에 대한 정보를 참고하여, output을 뽑는다. output의 attention은 사물의 가장자리를 보는 것을 알 수 있다. img에서 prediction이 나옴으로, anchor setting에서 자유롭다. anchor 자체가 없다. 2.2 Set prediction decoder의 쿼리가 들어가면 set으로 (box,class)가 나온다.\ndecoder의 쿼리 수 \\(N\\)은 무조건 사진의 object 수보다 크게 설정한다. object가 없을 경우 \\(\\emptyset\\)(no object)으로 매칭 2.2.1 Set prediction의 이점 일대일 매칭이어서 NMS를 피할 수 있다. 2.2.2 Set prediction loss \\(y\\)랑 \\(\\hat{y}\\) 를 가능한 1-1 매칭을 해보고, loss가 가장 적은 정책을 \\(\\hat{\\sigma}\\)라고 한다. 이는 Hungarian algorithm를 통해 사용.\n\\[\\hat{\\sigma}={\\underset{\\sigma\\in S_{N}}{\\arg\\min}}\\sum_{i}^{N}L_{match}(y_{i},\\hat{y}_{\\sigma(i)})\\]\n가장 최적의 \\(\\hat{\\sigma}\\)를 통해 답과의 loss를 구한다.\n\\[L_{Hungarian}(y,\\hat{y})=\\sum_{i=1}^N\\left[-\\log\\hat{p}{\\hat{\\sigma}(i)}(c_i)+1{c_i\\neq\\emptyset}L_{box}(b_{i},\\hat{b}_{\\hat{\\sigma}}(i))\\right]\\]\nclass가 맞으면, Loss가 작아지는 식의 Cross Entropy Loss + box의 차이가 작으면, loss가 작아지는 식이다.\nbounding box loss\n\\[\\lambda_{iou}L_{iou}(b_i,\\hat{b}{\\sigma(i)})+\\lambda{L1}\\mid\\mid b_{i}-\\hat{b}_{\\sigma(i)}\\mid\\mid_1\\]\n그냥 L1 loss만으로는 scale에 대해 영향을 많이 받으므로 generalized iou 도입.\n3. experiments DETR는 비슷 한수의 param과 FLOPS를 가진 Faster RCNN보다 성능이 좋은 것을 볼 수 있다. 다만, 작은 물체의 경우 Faster RCNN의 결과가 좋다.\n",
-  "wordCount" : "267",
+  "articleBody": "1. overview 1.1 objective detection에서 transformer를 사용해보자. detection에서 end to end 학습을 해보자. NMS, anchor setting의 부차적인 과정들이 학습의 결과에 많은 영향을 미친다. Transformer를 통해 위 두 개의 과정을 없앨 수 있게 된다.\n2. main 2.1 Transformer DETR은 기본적으로 Transforemer 구조를 따른다. DeTR에서 Encoder와 Decoder가 무슨 역할을 하는지 보도록 한다.\n2.1.1 Encoder cnn을 통과한 feature-map이 쪼개져서 input으로 들어온다. (ViT 스타일)\n그 후, attention 계산을 통해 그림 전체에 대한 정보를 본다.\nEncoder에서 self attention이다. 물체들을 구별하는 것을 볼 수 있다. 2.1.2 Decoder decoder의 query는 output으로 box와 class를 내놓는다.(decoder의 query가 일반 Transformer에서 EOS1, EOS2, …,EOSN과 같은 느낌을 받음. output이 sequence 형태가 아니니까 inference할 때도, parallel하게 할 수 있음. DETR은 auto-regressive하지 않음. object query는 각각의 고유한 것을 예측해야하기 때문에 learnable positional embedding임. encoder의 사진 전체에 대한 정보를 참고하여, output을 뽑는다. output의 attention은 사물의 가장자리를 보는 것을 알 수 있다. img에서 prediction이 나옴으로, anchor setting에서 자유롭다. anchor 자체가 없다. 2.2 Set prediction decoder의 쿼리가 들어가면 set으로 (box,class)가 나온다.\ndecoder의 쿼리 수 \\(N\\)은 무조건 사진의 object 수보다 크게 설정한다. object가 없을 경우 \\(\\emptyset\\)(no object)으로 매칭 2.2.1 Set prediction의 이점 일대일 매칭이어서 NMS를 피할 수 있다. 2.2.2 Set prediction loss \\(y\\)랑 \\(\\hat{y}\\) 를 가능한 1-1 매칭을 해보고, loss가 가장 적은 정책을 \\(\\hat{\\sigma}\\)라고 한다. 이는 Hungarian algorithm를 통해 사용.\n\\[\\hat{\\sigma}={\\underset{\\sigma\\in S_{N}}{\\arg\\min}}\\sum_{i}^{N}L_{match}(y_{i},\\hat{y}_{\\sigma(i)})\\]\n가장 최적의 \\(\\hat{\\sigma}\\)를 통해 답과의 loss를 구한다.\n\\[L_{Hungarian}(y,\\hat{y})=\\sum_{i=1}^N\\left[-\\log\\hat{p}{\\hat{\\sigma}(i)}(c_i)+1{c_i\\neq\\emptyset}L_{box}(b_{i},\\hat{b}_{\\hat{\\sigma}}(i))\\right]\\]\n\\[L_{Hungarian}(y,\\hat{y})=\\sum_{i=1}^N\\left[-\\log\\hat{p}{\\hat{\\sigma}(i)}(c_i)+1{c_i\\neq\\emptyset}L_{box}(b_{i},\\hat{b}_{\\hat{\\sigma}}(i))\\right]\\]\nclass가 맞으면, Loss가 작아지는 식의 Cross Entropy Loss + box의 차이가 작으면, loss가 작아지는 식이다.\nbounding box loss\n\\[\\lambda_{iou}L_{iou}(b_i,\\hat{b}{\\sigma(i)})+ \\lambda{L1}\\mid\\mid b_{i}-\\hat{b}_{\\sigma(i)}\\mid\\mid_1\\]\n그냥 L1 loss만으로는 scale에 대해 영향을 많이 받으므로 generalized iou 도입.\n3. experiments DETR는 비슷 한수의 param과 FLOPS를 가진 Faster RCNN보다 성능이 좋은 것을 볼 수 있다. 다만, 작은 물체의 경우 Faster RCNN의 결과가 좋다.\n",
+  "wordCount" : "269",
   "inLanguage": "en",
   "datePublished": "2024-01-19T13:28:40+09:00",
   "dateModified": "2024-01-19T13:28:40+09:00",
@@ -193,7 +193,7 @@
     <h1 class="post-title">
       DETR
     </h1>
-    <div class="post-meta"><span title='2024-01-19 13:28:40 +0900 +0900'>January 19, 2024</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;267 words&nbsp;·&nbsp;Won Jun Oh
+    <div class="post-meta"><span title='2024-01-19 13:28:40 +0900 +0900'>January 19, 2024</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;269 words&nbsp;·&nbsp;Won Jun Oh
 
 </div>
   </header> 
@@ -247,9 +247,10 @@ DETR은 기본적으로 Transforemer 구조를 따른다. DeTR에서 Encoder와 
 <p>\[\hat{\sigma}={\underset{\sigma\in S_{N}}{\arg\min}}\sum_{i}^{N}L_{match}(y_{i},\hat{y}_{\sigma(i)})\]</p>
 <p>가장 최적의 \(\hat{\sigma}\)를 통해 답과의 loss를 구한다.</p>
 <p>\[L_{Hungarian}(y,\hat{y})=\sum_{i=1}^N\left[-\log\hat{p}<em>{\hat{\sigma}(i)}(c_i)+1</em>{c_i\neq\emptyset}L_{box}(b_{i},\hat{b}_{\hat{\sigma}}(i))\right]\]</p>
+<p>\[L_{Hungarian}(y,\hat{y})=\sum_{i=1}^N\left[-\log\hat{p}<em>{\hat{\sigma}(i)}(c_i)+1</em>{c_i\neq\emptyset}L_{box}(b_{i},\hat{b}_{\hat{\sigma}}(i))\right]\]</p>
 <p>class가 맞으면, Loss가 작아지는 식의 Cross Entropy Loss + box의 차이가 작으면, loss가 작아지는 식이다.</p>
 <p>bounding box loss</p>
-<p>\[\lambda_{iou}L_{iou}(b_i,\hat{b}<em>{\sigma(i)})+\lambda</em>{L1}\mid\mid b_{i}-\hat{b}_{\sigma(i)}\mid\mid_1\]</p>
+<p>\[\lambda_{iou}L_{iou}(b_i,\hat{b}<em>{\sigma(i)})+ \lambda</em>{L1}\mid\mid b_{i}-\hat{b}_{\sigma(i)}\mid\mid_1\]</p>
 <p>그냥 L1 loss만으로는 scale에 대해 영향을 많이 받으므로 generalized iou 도입.</p>
 <h1 id="3-experiments">3. experiments<a hidden class="anchor" aria-hidden="true" href="#3-experiments">#</a></h1>
 <p><img loading="lazy" src="https://github.com/ownvoy/ownogatari/assets/96481582/9cff582c-fa59-486d-b616-00b448bbf9ff" alt="image"  />
