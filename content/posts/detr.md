@@ -54,17 +54,17 @@ decoder의 쿼리 수 \\(N\\)은 무조건 사진의 object 수보다 크게 설
 
 \\(y\\)랑 \\(\hat{y}\\) 를 가능한 1-1 매칭을 해보고, loss가 가장 적은 정책을 \\(\hat{\sigma}\\)라고 한다. 이는 Hungarian algorithm를 통해 사용.
 
-$$\hat{\sigma}={\underset{\sigma\in S_{N}}{\arg\min}}\sum_{i}^{N}L_{match}(y_{i},\hat{y}_{\sigma(i)})$$
+\\[\hat{\sigma}={\underset{\sigma\in S_{N}}{\arg\min}}\sum_{i}^{N}L_{match}(y_{i},\hat{y}_{\sigma(i)})\\]
 
 가장 최적의 \\(\hat{\sigma}\\)를 통해 답과의 loss를 구한다.
 
-$$L_{Hungarian}(y,\hat{y})=\sum_{i=1}^N\left[-\log\hat{p}_{\hat{\sigma}(i)}(c_i)+1_{c_i\neq\emptyset}L_{box}(b_{i},\hat{b}_{\hat{\sigma}}(i))\right]$$
+\\[L_{Hungarian}(y,\hat{y})=\sum_{i=1}^N\left[-\log\hat{p}_{\hat{\sigma}(i)}(c_i)+1_{c_i\neq\emptyset}L_{box}(b_{i},\hat{b}_{\hat{\sigma}}(i))\right]\\]
 
 class가 맞으면, Loss가 작아지는 식의 Cross Entropy Loss + box의 차이가 작으면, loss가 작아지는 식이다.
 
 bounding box loss
 
-$$\lambda_{iou}L_{iou}(b_i,\hat{b}_{\sigma(i)})+\lambda_{L1}\mid\mid b_{i}-\hat{b}_{\sigma(i)}\mid\mid_1$$
+\\[\lambda_{iou}L_{iou}(b_i,\hat{b}_{\sigma(i)})+\lambda_{L1}\mid\mid b_{i}-\hat{b}_{\sigma(i)}\mid\mid_1\\]
 
 그냥 L1 loss만으로는 scale에 대해 영향을 많이 받으므로 generalized iou 도입.
 
