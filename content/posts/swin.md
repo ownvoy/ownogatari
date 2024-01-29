@@ -3,6 +3,7 @@ title: "Swin Transformer"
 date: 2024-01-29T23:20:05+09:00
 draft: false
 katex: true
+tags: ["CV"]
 ---
  
 # 1. overview
@@ -18,9 +19,10 @@ katex: true
 기존 ViT의 문제점으로 2가지가 있다.
 1. Fixed scale
 	- 기본적으로 16크기의 Patch를 쓴다.
+	- 16*16을 한 뭉터기로 보는 것은 inductive bias를 갖기에 너무 크다.
 	- CV같은 다양한 scale로 보는 것이 중요하다.(ex: FPN)
 2. complexity
-	- Image Segmentation 이나, Depth Estimation 같은 경우, 높은 해상도를 필요로 한다.
+	- Image Segmentation 이나, Depth Estimation 같은 경우, pixel 별로 prediction이 일어나기에, 높은 해상도를 필요로 한다.
 	- ViT의 attention 경우 \\(O(N^2)\\)의 시간복잡도를 가진다.
 
 Swin Transformer의 경우 Patch Merging을 통해 (1)의 문제를 Window Attention을 통해 (2)의 문제를 해결한다.
