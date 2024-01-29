@@ -6,7 +6,17 @@
     <description>Recent content in CV on 미래사회와 창의혁신인재</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 19 Jan 2024 13:28:40 +0900</lastBuildDate><atom:link href="https://ownogatari.xyz/tags/cv/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 29 Jan 2024 23:20:05 +0900</lastBuildDate><atom:link href="https://ownogatari.xyz/tags/cv/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Swin Transformer</title>
+      <link>https://ownogatari.xyz/posts/swin/</link>
+      <pubDate>Mon, 29 Jan 2024 23:20:05 +0900</pubDate>
+      
+      <guid>https://ownogatari.xyz/posts/swin/</guid>
+      <description>1. overview 1.1 objective Transformer에 inductive bias를 주입하자. Transformer의 계산 효율성을 높여보자. 1.2 background 1.2.1 ViT 기존 ViT의 문제점으로 2가지가 있다.
+Fixed scale 기본적으로 16크기의 Patch를 쓴다. 16*16을 한 뭉터기로 보는 것은 inductive bias를 갖기에 너무 크다. CV같은 다양한 scale로 보는 것이 중요하다.(ex: FPN) complexity Image Segmentation 이나, Depth Estimation 같은 경우, pixel 별로 prediction이 일어나기에, 높은 해상도를 필요로 한다. ViT의 attention 경우 \(O(N^2)\)의 시간복잡도를 가진다. Swin Transformer의 경우 Patch Merging을 통해 (1)의 문제를 Window Attention을 통해 (2)의 문제를 해결한다.</description>
+    </item>
+    
     <item>
       <title>DETR</title>
       <link>https://ownogatari.xyz/posts/detr/</link>

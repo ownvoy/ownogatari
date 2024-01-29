@@ -2,10 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://ownogatari.xyz/tags/cv/</loc>
+    <lastmod>2024-01-29T23:20:05+09:00</lastmod>
+  </url><url>
     <loc>https://ownogatari.xyz/posts/</loc>
     <lastmod>2024-01-29T23:20:05+09:00</lastmod>
   </url><url>
     <loc>https://ownogatari.xyz/posts/swin/</loc>
+    <lastmod>2024-01-29T23:20:05+09:00</lastmod>
+  </url><url>
+    <loc>https://ownogatari.xyz/tags/</loc>
     <lastmod>2024-01-29T23:20:05+09:00</lastmod>
   </url><url>
     <loc>https://ownogatari.xyz/</loc>
@@ -14,16 +20,10 @@
     <loc>https://ownogatari.xyz/categories/</loc>
     <lastmod>2024-01-19T13:28:40+09:00</lastmod>
   </url><url>
-    <loc>https://ownogatari.xyz/tags/cv/</loc>
-    <lastmod>2024-01-19T13:28:40+09:00</lastmod>
-  </url><url>
     <loc>https://ownogatari.xyz/posts/detr/</loc>
     <lastmod>2024-01-19T13:28:40+09:00</lastmod>
   </url><url>
     <loc>https://ownogatari.xyz/categories/object-detection/</loc>
-    <lastmod>2024-01-19T13:28:40+09:00</lastmod>
-  </url><url>
-    <loc>https://ownogatari.xyz/tags/</loc>
     <lastmod>2024-01-19T13:28:40+09:00</lastmod>
   </url><url>
     <loc>https://ownogatari.xyz/categories/nlp/</loc>
