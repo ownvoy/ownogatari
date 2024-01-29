@@ -33,6 +33,8 @@ params:
       url: "https://www.instagram.com/ownogatari/"
     - name: github
       url: "https://github.com/ownvoy"
+    - name: linkedin
+      url: "https://www.linkedin.com/in/%EC%9B%90%EC%A4%80-%EC%98%A4-083b2624b/"
   
   profileMode:
     enabled: true # needs to be explicitly set
