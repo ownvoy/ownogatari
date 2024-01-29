@@ -151,6 +151,20 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2>Swin Transformer
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>1. overview 1.1 objective Transformer에 inductive bias를 주입하자. Transformer의 계산 효율성을 높여보자. 1.2 background 1.2.1 ViT 기존 ViT의 문제점으로 2가지가 있다.
+Fixed scale 기본적으로 16크기의 Patch를 쓴다. CV같은 다양한 scale로 보는 것이 중요하다.(ex: FPN) complexity Image Segmentation 이나, Depth Estimation 같은 경우, 높은 해상도를 필요로 한다. ViT의 attention 경우 \(O(N^2)\)의 시간복잡도를 가진다. Swin Transformer의 경우 Patch Merging을 통해 (1)의 문제를 Window Attention을 통해 (2)의 문제를 해결한다.
+2. main 2.1 architecture 2....</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-01-29 23:20:05 +0900 +0900'>January 29, 2024</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;341 words&nbsp;·&nbsp;Won Jun Oh</footer>
+  <a class="entry-link" aria-label="post link to Swin Transformer" href="https://ownogatari.xyz/posts/swin/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2>DETR
     </h2>
   </header>
@@ -277,19 +291,6 @@ weight sharing convolutiona filter를 활용한 계산은 원래 translational e
   </div>
   <footer class="entry-footer"><span title='2023-11-23 00:00:00 +0000 UTC'>November 23, 2023</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;465 words&nbsp;·&nbsp;Won Jun Oh</footer>
   <a class="entry-link" aria-label="post link to R-FCN" href="https://ownogatari.xyz/posts/r-fcn/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>R-CNN
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>1. overview 1.1 objective CNN을 object detection에 적용해보자.
-1.2 background 1.2.1 object detection object detection은 사물이 뭔지, 어디에 있는지 찾는 것. classification과 localization을 동시에 하는 것. 1.2.2 way to localize object 가장 greedy한 방법: sliding window 이미지 크기: \(H\times W\) 박스 크기: \(h \times w\) 가능한 \(x\) 위치: \(W-w&#43;1\) 가능한 \(y\) 위치: \(H-h &#43;1\) 가능한 박스 위치: \((W-w&#43;1)(H-h&#43;1)\) 가능한 총 경우의 수 $$\sum_{h=1}^{H}\sum_{w=1}^{W}(W-w&#43;1)(H-h&#43;1)$$ is equal to $$\frac{H(H&#43;1)}{2}\frac{W(W&#43;1)}{2}$$ 만약 이미지의 크기가 300*300이라고 하면 81,000,000의 경우의 수가 나옴....</p>
-  </div>
-  <footer class="entry-footer"><span title='2023-11-12 00:00:00 +0000 UTC'>November 12, 2023</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;361 words&nbsp;·&nbsp;Won Jun Oh</footer>
-  <a class="entry-link" aria-label="post link to R-CNN" href="https://ownogatari.xyz/posts/r-cnn/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
