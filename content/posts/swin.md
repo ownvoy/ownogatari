@@ -17,8 +17,8 @@ katex: true
 ### 1.2.1 ViT
 기존 ViT의 문제점으로 2가지가 있다.
 1. Fixed scale
-- 기본적으로 16크기의 Patch를 쓴다.
-- CV같은 다양한 scale로 보는 것이 중요하다.(ex: FPN)
+	- 기본적으로 16크기의 Patch를 쓴다.
+	- CV같은 다양한 scale로 보는 것이 중요하다.(ex: FPN)
 2. complexity
 	- Image Segmentation 이나, Depth Estimation 같은 경우, 높은 해상도를 필요로 한다.
 	- ViT의 attention 경우 \\(O(N^2)\\)의 시간복잡도를 가진다.
