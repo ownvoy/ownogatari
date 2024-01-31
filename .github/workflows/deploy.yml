@@ -32,11 +32,14 @@ jobs:
         if: github.ref == 'refs/heads/main'
         run: |
           cp -R public/* ${GITHUB_WORKSPACE}/built-site/
-          cd ${GITHUB_WORKSPACE}/built-site    
-          git checkout gh-pages
+          cd ${GITHUB_WORKSPACE}/built-site
+          if [ "$(git rev-parse --abbrev-ref HEAD)" != "gh-pages" ]; then
+            git checkout gh-pages
+          fi
+          git pull origin main
           git add .
           git config user.name 'ownvoy'
           git config user.email 'wonjun703@naver.com'
-          git commit -m 'Updated site' 
-          git rebase main
+          git commit -m 'Updated site'
           git push origin gh-pages
+
