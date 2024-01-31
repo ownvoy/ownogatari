@@ -28,21 +28,13 @@ jobs:
       - name: Build
         run: ${RUNNER_TEMP}/hugo
 
-
       - name: Deploy
         if: github.ref == 'refs/heads/main'
         run: |
           cp -R public/* ${GITHUB_WORKSPACE}/built-site/
           cd ${GITHUB_WORKSPACE}/built-site
-          if [ "$(git rev-parse --abbrev-ref HEAD)" != "gh-pages" ]; then
-            git checkout gh-pages
-          fi
-          git fetch origin main
-          git merge origin/main  # Merge the changes from main into gh-pages
           git add .
           git config user.name 'ownvoy'
           git config user.email 'wonjun703@naver.com'
           git commit -m 'Updated site'
-          git push origin gh-pages
-
-
+          git push        
