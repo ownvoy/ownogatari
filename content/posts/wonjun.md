@@ -1,7 +1,7 @@
 ---
 title: "CV"
 date: 2024-02-01T00:53:01+09:00
-draft: false
+draft: true
 ---
 
 # 1. 인적 사항
