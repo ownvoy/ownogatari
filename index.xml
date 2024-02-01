@@ -6,7 +6,16 @@
     <description>Recent content on 미래사회와 창의혁신인재</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 29 Jan 2024 23:20:05 +0900</lastBuildDate><atom:link href="https://ownogatari.xyz/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 01 Feb 2024 00:53:01 +0900</lastBuildDate><atom:link href="https://ownogatari.xyz/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CV</title>
+      <link>https://ownogatari.xyz/posts/wonjun/</link>
+      <pubDate>Thu, 01 Feb 2024 00:53:01 +0900</pubDate>
+      
+      <guid>https://ownogatari.xyz/posts/wonjun/</guid>
+      <description>1. 인적 사항 이름: 오원준 학번: 2021313553 학교: 성균관대학교 학년: 3학년 (4학기 종료) 전공: 국어국문학과, 소프트웨어학과 2. 수학 관련 역량 과목 과목분류 수강년도 학점 미분적분학 1 교양 2022학년도 1학기 A 통계학원론 전공 2022학년도 1학기 A+ 이산수학 교양 2022학년도 1학기 A 수리통계학 전공 2022학년도 2학기 A 선형대수학 교양 2022학년도 2학기 A+ 3. 논문 관련 역량 2023년 여름부터 매주 논문 발표 스터디를 진행했으며, 스터디에서 부팀장을 맡고 있습니다. 1) CV+NLP 전반에 대한 내용, 2) Object Detection, 3) Efficient Transformer의 순서로 여러 논문을 다루어왔습니다.</description>
+    </item>
+    
     <item>
       <title>Swin Transformer</title>
       <link>https://ownogatari.xyz/posts/swin/</link>

@@ -2,19 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://ownogatari.xyz/tags/cv/</loc>
-    <lastmod>2024-01-29T23:20:05+09:00</lastmod>
+    <loc>https://ownogatari.xyz/posts/wonjun/</loc>
+    <lastmod>2024-02-01T00:53:01+09:00</lastmod>
   </url><url>
     <loc>https://ownogatari.xyz/posts/</loc>
+    <lastmod>2024-02-01T00:53:01+09:00</lastmod>
+  </url><url>
+    <loc>https://ownogatari.xyz/</loc>
+    <lastmod>2024-02-01T00:53:01+09:00</lastmod>
+  </url><url>
+    <loc>https://ownogatari.xyz/tags/cv/</loc>
     <lastmod>2024-01-29T23:20:05+09:00</lastmod>
   </url><url>
     <loc>https://ownogatari.xyz/posts/swin/</loc>
     <lastmod>2024-01-29T23:20:05+09:00</lastmod>
   </url><url>
     <loc>https://ownogatari.xyz/tags/</loc>
-    <lastmod>2024-01-29T23:20:05+09:00</lastmod>
-  </url><url>
-    <loc>https://ownogatari.xyz/</loc>
     <lastmod>2024-01-29T23:20:05+09:00</lastmod>
   </url><url>
     <loc>https://ownogatari.xyz/categories/</loc>
