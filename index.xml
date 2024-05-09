@@ -6,7 +6,17 @@
     <description>Recent content on 미래사회와 창의혁신인재</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 29 Jan 2024 23:20:05 +0900</lastBuildDate><atom:link href="https://ownogatari.xyz/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 09 May 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://ownogatari.xyz/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Wonjun Oh</title>
+      <link>https://ownogatari.xyz/posts/wonjunoh/</link>
+      <pubDate>Thu, 09 May 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://ownogatari.xyz/posts/wonjunoh/</guid>
+      <description>Introduction I am a junior student in SKKU. I am interested in Deeplearning and AI.
+Skills language python c &amp;amp; cpp frameworks pytorch Education degerees: Bachelor majors: dkl and swe Achievements and Certifications TOEIC : 860 Contact email: ownvoy@g.skku.edu github: https://github.com/ownvoy </description>
+    </item>
+    
     <item>
       <title>Swin Transformer</title>
       <link>https://ownogatari.xyz/posts/swin/</link>
