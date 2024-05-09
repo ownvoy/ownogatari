@@ -1,34 +1,46 @@
+# workflow name
 name: Publish to GH Pages
 on:
   push:
+  # Trigger the workflow on push to the 'main' branch
     branches:
       - main
+  # Trigger the workflow on pull requests to any branch.
   pull_request:
 
 jobs:
   deploy:
+  # virtual machine that I use
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source
+      #  actions/checkout action to check out the source code of the repository.
         uses: actions/checkout@v4
         with:
+        # Git submodules should be checked out as well.
           submodules: true
 
       - name: Checkout destination
         uses: actions/checkout@v4
+        # runs if the event is a push to the 'main' branch.
         if: github.ref == 'refs/heads/main'
         with:
+         # Specifies the branch 
           ref: gh-pages
+           # Directory path under $GITHUB_WORKSPACE 
           path: built-site
 
       - name: Setup Hugo
+       # Run these commands in the default shell.
         run: |
           curl -L -o /tmp/hugo.tar.gz 'https://github.com/gohugoio/hugo/releases/download/v0.110.0/hugo_extended_0.110.0_linux-amd64.tar.gz'
           tar -C ${RUNNER_TEMP} -zxvf /tmp/hugo.tar.gz hugo          
       - name: Build
+       # Run the Hugo build command.
         run: ${RUNNER_TEMP}/hugo
 
       - name: Deploy
+       # runs if the event is a push to the 'main' branch.
         if: github.ref == 'refs/heads/main'
         run: |
           cp -R public/* ${GITHUB_WORKSPACE}/built-site/
