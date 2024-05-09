@@ -17,6 +17,7 @@ I am a junior student in SKKU. I am interested in Deeplearning and AI.
 
 # Education
 - degerees: Bachelor
+- schools: skku
 - majors: dkl and swe
 
 
